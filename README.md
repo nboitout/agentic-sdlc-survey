@@ -1,10 +1,10 @@
 # Agentic SDLC Maturity Survey
 
-Static web survey for the 40-question **AI Coding / Agentic SDLC Maturity Questionnaire**.
+Static web survey for the revised **AI Coding / Agentic SDLC Maturity Questionnaire** (20 questions).
 
 ## What this app does
 
-- Renders all questionnaire sections and questions with stable wording.
+- Renders all revised questionnaire sections and questions with stable wording.
 - Captures a required **survey date** so monthly snapshots can be tracked.
 - Supports single-choice and multiple-choice questions.
 - Sends responses as JSON to a **Google Apps Script Web App URL**.
