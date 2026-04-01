@@ -1,11 +1,10 @@
 # Agentic SDLC Maturity Survey
 
-Static web survey for the revised **AI Coding / Agentic SDLC Maturity Questionnaire** (20 questions) with English/French/Romanian/Portuguese language toggle.
+Static web survey for the revised **AI Coding / Agentic SDLC Maturity Questionnaire** (20 questions).
 
 ## What this app does
 
 - Renders all revised questionnaire sections and questions with stable wording.
-- Supports runtime language toggle: English, French, Romanian, Portuguese (business + tech tone), displayed at the top-right of the page.
 - Captures a required **survey date** so monthly snapshots can be tracked.
 - Supports single-choice and multiple-choice questions.
 - Sends responses as JSON to a **Google Apps Script Web App URL**.
