@@ -1,10 +1,11 @@
 # Agentic SDLC Maturity Survey
 
-Static web survey for the revised **AI Coding / Agentic SDLC Maturity Questionnaire** (20 questions).
+Static web survey for the revised **AI Coding / Agentic SDLC Maturity Questionnaire** (20 questions) with English/French/Romanian/Portuguese language toggle.
 
 ## What this app does
 
 - Renders all revised questionnaire sections and questions with stable wording.
+- Supports runtime language toggle: English, French, Romanian, Portuguese (business + tech tone), displayed at the top-right of the page.
 - Captures a required **survey date** so monthly snapshots can be tracked.
 - Supports single-choice and multiple-choice questions.
 - Sends responses as JSON to a **Google Apps Script Web App URL**.
@@ -37,3 +38,9 @@ Then visit `http://localhost:8000`.
 4. Paste the deployment URL into the form field **Google Apps Script Web App URL**.
 
 > Note: if browser CORS blocks the request, configure your Apps Script response headers accordingly.
+
+
+## Review sanity check
+
+- Language toggle is visible at the top-right of the page header (above the title).
+- If GitHub Pages shows an old version, do a hard refresh to bypass browser cache.
