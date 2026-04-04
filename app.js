@@ -636,9 +636,11 @@ function App() {
         </div>
         <h2>{t.title}</h2>
         <p>{t.subtitle}</p>
-        <div className="header-actions">
-          <button type="button" className="secondary-action" onClick={startNewResponse}>{t.startNew}</button>
-        </div>
+        {!needsDraftDecision && (
+          <div className="header-actions">
+            <button type="button" className="secondary-action" onClick={startNewResponse}>{t.startNew}</button>
+          </div>
+        )}
       </section>
 
       {needsDraftDecision && (
