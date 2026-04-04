@@ -24,6 +24,7 @@ Static React survey with role-based branching and multilingual UI (English, Fren
 - Local persistence via `localStorage`
 - Backend-friendly payload:
   - `role`
+  - `contractModel`
   - `coreAnswers`
   - `branch`
   - `branchAnswers`

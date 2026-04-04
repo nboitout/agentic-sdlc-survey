@@ -202,6 +202,20 @@ const surveyConfig = {
       { value: 'qa_testing_quality', label: L('QA / Testing / Quality', 'QA / Tests / Qualité', 'QA / Testare / Calitate', 'QA / Testes / Qualidade'), description: L('Examples: QA engineer, tester, validation engineer, test automation', 'Exemples : QA engineer, testeur, ingénieur validation, automatisation des tests', 'Exemple: QA engineer, tester, inginer validare, automatizare teste', 'Exemplos: QA engineer, tester, engenheiro de validação, automação de testes') },
       { value: 'project_product_business_analysis_operations', label: L('Project / Product / Business Analysis / Operations', 'Projet / Produit / Analyse métier / Opérations', 'Proiect / Produs / Analiză de business / Operațiuni', 'Projeto / Produto / Análise de Negócio / Operações'), description: L('Examples: project manager, product owner, business analyst, data analyst, BI / reporting, operations / support, security / governance', 'Exemples : chef de projet, product owner, business analyst, data analyst, BI / reporting, opérations / support, sécurité / gouvernance', 'Exemple: project manager, product owner, business analyst, data analyst, BI / reporting, operațiuni / suport, securitate / guvernanță', 'Exemplos: gerente de projeto, product owner, business analyst, data analyst, BI / reporting, operações / suporte, segurança / governança') },
     ] },
+    { id: 'q2_contract_model', type: 'single_choice', required: true, label: L('What best describes your current engagement model with your client?', 'Quel modèle d’intervention décrit le mieux votre mission actuelle chez le client ?', 'Care descrie cel mai bine modelul de colaborare actual cu clientul tău?', 'Qual das opções descreve melhor o seu modelo atual de trabalho com o cliente?'),
+      helperText: L(
+        'If unsure, select the option that best reflects how your work is organized or billed.',
+        'Si vous hésitez, choisissez l’option qui reflète le mieux l’organisation ou la facturation de votre travail.',
+        'Dacă nu ești sigur, alege opțiunea care reflectă cel mai bine organizarea sau facturarea muncii tale.',
+        'Se você não tiver certeza, escolha a opção que melhor reflete como seu trabalho é organizado ou faturado.'
+      ),
+      options: [
+      { value: 'staff_augmentation', label: L('Staff augmentation (you work as part of the client’s team)', 'Régie / assistance technique (intégré dans l’équipe client)', 'Staff augmentation (lucrezi în echipa clientului)', 'Staff augmentation (você trabalha na equipe do cliente)') },
+      { value: 'team_delivery', label: L('Team delivery (your company provides a team to deliver a scope)', 'Équipe dédiée (delivery en équipe)', 'Livrare în echipă', 'Entrega em equipe') },
+      { value: 'fixed_price', label: L('Fixed-price project', 'Forfait (projet avec périmètre et engagement de résultat)', 'Proiect cu preț fix', 'Projeto de preço fixo') },
+      { value: 'managed_services', label: L('Managed services (run / maintain systems)', 'Services managés (run / maintenance)', 'Servicii gestionate', 'Serviços gerenciados') },
+      { value: 'not_sure', label: L('Not sure', 'Je ne sais pas', 'Nu sunt sigur', 'Não sei') },
+    ] },
     { id: 'q2_ai_usage', type: 'single_choice', required: true, label: L('How do you currently use AI in your work?', 'Comment utilisez-vous actuellement l’IA dans votre travail ?'), options: [
       { value: 'no_use', label: L('I do not use AI', 'Je n’utilise pas l’IA') },
       { value: 'occasional', label: L('I use it occasionally', 'Occasionnellement') },
@@ -486,6 +500,7 @@ function App() {
 
     const payload = {
       role: answers.q1_role || null,
+      contractModel: answers.q2_contract_model || null,
       coreAnswers,
       branch: branchKey,
       branchAnswers,
