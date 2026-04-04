@@ -8,7 +8,7 @@ const DEFAULT_META = () => ({ surveyDate: new Date().toISOString().slice(0, 10),
 const uiText = {
   en: {
     title: 'Agentic SDLC Diagnostic',
-    subtitle: '11 core + 12 role-specific required questions plus 1 optional final comment. Professional, structured, and analytics-ready.',
+    subtitle: '12 core + 12 role-specific required questions plus 1 optional final comment. Professional, structured, and analytics-ready.',
     language: 'Language',
     metadata: 'Survey Metadata',
     surveyDate: 'Survey date',
@@ -52,7 +52,7 @@ const uiText = {
   },
   fr: {
     title: 'Diagnostic SDLC Agentique',
-    subtitle: '11 questions cœur + 12 questions spécifiques au rôle (obligatoires) + 1 commentaire final optionnel.',
+    subtitle: '12 questions cœur + 12 questions spécifiques au rôle (obligatoires) + 1 commentaire final optionnel.',
     language: 'Langue',
     metadata: 'Métadonnées du questionnaire',
     surveyDate: 'Date du questionnaire',
@@ -96,7 +96,7 @@ const uiText = {
   },
   ro: {
     title: 'Diagnostic SDLC Agentic',
-    subtitle: '11 întrebări de bază + 12 întrebări specifice rolului + 1 comentariu final opțional.',
+    subtitle: '12 întrebări de bază + 12 întrebări specifice rolului + 1 comentariu final opțional.',
     language: 'Limbă',
     metadata: 'Metadate chestionar',
     surveyDate: 'Data chestionarului',
@@ -140,7 +140,7 @@ const uiText = {
   },
   pt: {
     title: 'Diagnóstico SDLC Agêntico',
-    subtitle: '11 perguntas centrais + 12 perguntas específicas por papel + 1 comentário final opcional.',
+    subtitle: '12 perguntas centrais + 12 perguntas específicas por papel + 1 comentário final opcional.',
     language: 'Idioma',
     metadata: 'Metadados do questionário',
     surveyDate: 'Data do questionário',
@@ -304,12 +304,17 @@ const surveyConfig = {
       { value: 'production_operations', label: L('Production / Operations', 'Production / Opérations', 'Producție / Operațiuni', 'Produção / Operações') },
       { value: 'documentation_knowledge_sharing', label: L('Documentation / Knowledge Sharing', 'Documentation / Partage de connaissances', 'Documentație / Partajare de cunoștințe', 'Documentação / Compartilhamento de conhecimento') },
     ] },
-    { id: 'q11_ai_skills', type: 'single_choice', required: true, label: L('How have you developed your skills with AI tools so far?', 'Comment avez-vous développé vos compétences sur les outils d’IA jusqu’à présent ?'), options: [
-      { value: 'no_effort', label: L('I have not invested time in learning AI tools', 'Aucun effort') },
-      { value: 'ad_hoc_learning', label: L('I learned informally through trial and error or occasional use', 'Apprentissage informel') },
-      { value: 'self_learning', label: L('I actively learned through tutorials, videos, or documentation', 'Auto-formation') },
-      { value: 'structured_learning', label: L('I followed structured training such as courses or internal programs', 'Formation structurée') },
-      { value: 'advanced_usage', label: L('I actively experiment, optimize workflows, or build advanced usage such as agents or automation', 'Usage avancé / expérimentation') },
+    { id: 'q11_learning_path', type: 'single_choice', required: true, label: L('How have you built your skills with AI tools so far?', 'Comment avez-vous développé vos compétences sur les outils d’IA jusqu’à présent ?', 'Cum ți-ai dezvoltat până acum competențele legate de instrumentele IA?', 'Como você desenvolveu até agora suas habilidades com ferramentas de IA?'), options: [
+      { value: 'no_learning_effort', label: L('I have not invested time in learning AI tools', 'Je n’ai pas investi de temps pour apprendre à utiliser les outils d’IA', 'Nu am investit timp pentru a învăța să folosesc instrumente IA', 'Não investi tempo em aprender a usar ferramentas de IA') },
+      { value: 'informal_learning', label: L('I learned mainly informally, through trial and error', 'J’ai appris principalement de manière informelle, par essais et erreurs', 'Am învățat în principal informal, prin încercări și erori', 'Aprendi principalmente de forma informal, por tentativa e erro') },
+      { value: 'self_directed_learning', label: L('I learned through tutorials, videos, or documentation', 'J’ai appris via des tutoriels, des vidéos ou de la documentation', 'Am învățat prin tutoriale, videoclipuri sau documentație', 'Aprendi por meio de tutoriais, vídeos ou documentação') },
+      { value: 'structured_training', label: L('I followed structured training such as courses or internal programs', 'J’ai suivi une formation structurée, comme des cours ou des programmes internes', 'Am urmat formare structurată, cum ar fi cursuri sau programe interne', 'Participei de treinamentos estruturados, como cursos ou programas internos') },
+    ] },
+    { id: 'q12_experimentation_level', type: 'single_choice', required: true, label: L('How far do you currently go in experimenting with AI in your work?', 'Jusqu’où allez-vous actuellement dans l’expérimentation de l’IA dans votre travail ?', 'Cât de departe mergi în prezent cu experimentarea IA în activitatea ta?', 'Até que ponto você experimenta IA atualmente no seu trabalho?'), options: [
+      { value: 'standard_usage', label: L('I mostly use standard features', 'J’utilise principalement les fonctionnalités standard', 'Folosesc în principal funcțiile standard', 'Uso principalmente recursos padrão') },
+      { value: 'occasional_experimentation', label: L('I occasionally try new ways of working with AI', 'J’essaie occasionnellement de nouvelles façons de travailler avec l’IA', 'Încerc ocazional noi moduri de lucru cu IA', 'Experimento ocasionalmente novas formas de trabalhar com IA') },
+      { value: 'regular_workflow_refinement', label: L('I regularly test and refine my prompts or workflows', 'Je teste et j’affine régulièrement mes prompts ou mes workflows', 'Testez și îmbunătățesc regulat prompturile sau fluxurile de lucru', 'Testo e refino regularmente meus prompts ou fluxos de trabalho') },
+      { value: 'advanced_automation', label: L('I build or use advanced setups such as automation, agents, or reusable workflows', 'Je construis ou j’utilise des usages avancés comme des automatisations, des agents ou des workflows réutilisables', 'Construiesc sau folosesc configurații avansate precum automatizări, agenți sau fluxuri reutilizabile', 'Desenvolvo ou utilizo configurações avançadas, como automações, agentes ou fluxos reutilizáveis') },
     ] },
   ],
   branches: {
@@ -395,7 +400,8 @@ const roQuestionLabels = {
   q8_async: 'Poate IA să continue să lucreze la anumite sarcini fără implicarea ta constantă?',
   q9_measurement: 'Cum măsori în prezent impactul IA în activitatea ta?',
   q10_sdlc_usage: 'În ce părți ale ciclului de livrare software folosești în prezent IA?',
-  q11_ai_skills: 'Cum ți-ai dezvoltat competențele în utilizarea IA?',
+  q11_learning_path: 'Cum ți-ai dezvoltat până acum competențele legate de instrumentele IA?',
+  q12_experimentation_level: 'Cât de departe mergi în prezent cu experimentarea IA în activitatea ta?',
 };
 const ptQuestionLabels = {
   q1_role: 'Qual das opções descreve melhor o seu papel?',
@@ -408,7 +414,8 @@ const ptQuestionLabels = {
   q8_async: 'A IA consegue continuar trabalhando em algumas tarefas sem o seu envolvimento constante?',
   q9_measurement: 'Como você mede atualmente o impacto da IA no seu trabalho?',
   q10_sdlc_usage: 'Em quais partes do ciclo de entrega de software você utiliza IA atualmente?',
-  q11_ai_skills: 'Como você desenvolveu suas habilidades em IA até agora?',
+  q11_learning_path: 'Como você desenvolveu até agora suas habilidades com ferramentas de IA?',
+  q12_experimentation_level: 'Até que ponto você experimenta IA atualmente no seu trabalho?',
 };
 const roOptionLabels = {
   developer: 'Dezvoltator', qa_testing_quality: 'QA / Testare / Calitate', project_product_business_analysis_operations: 'Proiect / Produs / Analiză Business / Operațiuni',
@@ -418,7 +425,7 @@ const roOptionLabels = {
   suggests_only: 'IA oferă doar sugestii', generates_outputs: 'IA generează conținut, cod sau alte rezultate', executes_tasks_with_supervision: 'IA execută sarcini cu supraveghere umană', runs_workflows_end_to_end: 'IA rulează fluxuri de lucru cap-coadă', executes_with_supervision: 'Execută cu supraveghere', runs_workflows: 'Rulează fluxuri complete',
   continuous_involvement_required: 'Nu, trebuie să rămân implicat pe tot parcursul', partial_handoff: 'Parțial, pot delega unele sarcini și să revin mai târziu', independent_tasks: 'Da, unele sarcini pot rula independent', no: 'Nu', limited_async: 'Limitat', yes_independent: 'Da', no_measurement: 'Nu este măsurat', informal_tracking: 'Este urmărit informal', defined_metrics: 'Este măsurat prin indicatori definiți',
   requirements_business_analysis: 'Cerințe / Analiză de business', planning_coordination: 'Planificare / Coordonare', coding_implementation: 'Dezvoltare / Implementare', code_review: 'Revizuire de cod', testing_validation: 'Testare / Validare', debugging_troubleshooting: 'Depanare / Rezolvare probleme', cicd_automation: 'CI/CD / Automatizare', deployment_release: 'Deployment / Lansare', production_operations: 'Producție / Operațiuni', documentation_knowledge_sharing: 'Documentație / Partajare de cunoștințe', requirements_specs: 'Cerințe', planning_project_management: 'Planificare', coding: 'Dezvoltare', testing: 'Testare', debugging: 'Depanare', deployment: 'Implementare', documentation: 'Documentație',
-  no_effort: 'Fără efort', ad_hoc_learning: 'Învățare informală', self_learning: 'Auto-învățare', structured_learning: 'Formare structurată', advanced_usage: 'Utilizare avansată'
+  no_learning_effort: 'Nu am investit timp pentru a învăța să folosesc instrumente IA', informal_learning: 'Am învățat în principal informal, prin încercări și erori', self_directed_learning: 'Am învățat prin tutoriale, videoclipuri sau documentație', structured_training: 'Am urmat formare structurată, cum ar fi cursuri sau programe interne', standard_usage: 'Folosesc în principal funcțiile standard', occasional_experimentation: 'Încerc ocazional noi moduri de lucru cu IA', regular_workflow_refinement: 'Testez și îmbunătățesc regulat prompturile sau fluxurile de lucru', advanced_automation: 'Construiesc sau folosesc configurații avansate precum automatizări, agenți sau fluxuri reutilizabile', no_effort: 'Fără efort', ad_hoc_learning: 'Învățare informală', self_learning: 'Auto-învățare', structured_learning: 'Formare structurată', advanced_usage: 'Utilizare avansată'
 };
 const ptOptionLabels = {
   developer: 'Desenvolvedor', qa_testing_quality: 'QA / Testes / Qualidade', project_product_business_analysis_operations: 'Projeto / Produto / Análise de Negócios / Operações',
@@ -428,7 +435,7 @@ const ptOptionLabels = {
   suggests_only: 'A IA fornece apenas sugestões', generates_outputs: 'A IA gera conteúdo, código ou outros resultados', executes_tasks_with_supervision: 'A IA executa tarefas com supervisão humana', runs_workflows_end_to_end: 'A IA executa fluxos de trabalho de ponta a ponta', executes_with_supervision: 'Executa com supervisão', runs_workflows: 'Executa fluxos completos',
   continuous_involvement_required: 'Não, preciso permanecer envolvido o tempo todo', partial_handoff: 'Parcialmente, posso delegar algumas tarefas e voltar depois', independent_tasks: 'Sim, algumas tarefas podem ser executadas de forma independente', no: 'Não', limited_async: 'Limitado', yes_independent: 'Sim', no_measurement: 'Não é medido', informal_tracking: 'É acompanhado de forma informal', defined_metrics: 'É medido com métricas definidas',
   requirements_business_analysis: 'Requisitos / Análise de Negócio', planning_coordination: 'Planejamento / Coordenação', coding_implementation: 'Desenvolvimento / Implementação', code_review: 'Revisão de código', testing_validation: 'Testes / Validação', debugging_troubleshooting: 'Depuração / Resolução de problemas', cicd_automation: 'CI/CD / Automação', deployment_release: 'Implantação / Release', production_operations: 'Produção / Operações', documentation_knowledge_sharing: 'Documentação / Compartilhamento de conhecimento', requirements_specs: 'Requisitos', planning_project_management: 'Planejamento', coding: 'Desenvolvimento', testing: 'Testes', debugging: 'Depuração', deployment: 'Implantação', documentation: 'Documentação',
-  no_effort: 'Nenhum esforço', ad_hoc_learning: 'Aprendizado informal', self_learning: 'Autoaprendizado', structured_learning: 'Treinamento estruturado', advanced_usage: 'Uso avançado'
+  no_learning_effort: 'Não investi tempo em aprender a usar ferramentas de IA', informal_learning: 'Aprendi principalmente de forma informal, por tentativa e erro', self_directed_learning: 'Aprendi por meio de tutoriais, vídeos ou documentação', structured_training: 'Participei de treinamentos estruturados, como cursos ou programas internos', standard_usage: 'Uso principalmente recursos padrão', occasional_experimentation: 'Experimento ocasionalmente novas formas de trabalhar com IA', regular_workflow_refinement: 'Testo e refino regularmente meus prompts ou fluxos de trabalho', advanced_automation: 'Desenvolvo ou utilizo configurações avançadas, como automações, agentes ou fluxos reutilizáveis', no_effort: 'Nenhum esforço', ad_hoc_learning: 'Aprendizado informal', self_learning: 'Autoaprendizado', structured_learning: 'Treinamento estruturado', advanced_usage: 'Uso avançado'
 };
 
 function enrichLabels() {
