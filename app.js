@@ -241,11 +241,11 @@ const surveyConfig = {
       { value: 'managed_services', label: L('Managed services (run / maintain systems)', 'Services managés (run / maintenance)', 'Servicii gestionate', 'Serviços gerenciados') },
       { value: 'not_sure', label: L('Not sure', 'Je ne sais pas', 'Nu sunt sigur', 'Não sei') },
     ] },
-    { id: 'q2_ai_usage', type: 'single_choice', required: true, label: L('How do you currently use AI in your work?', 'Comment utilisez-vous actuellement l’IA dans votre travail ?'), options: [
+    { id: 'q2_ai_usage', type: 'single_choice', required: true, label: L('How often do you use AI in your work?', 'À quelle fréquence utilisez-vous l’IA dans votre travail ?', 'Cât de des folosești IA în activitatea ta?', 'Com que frequência você usa IA no seu trabalho?'), options: [
       { value: 'no_use', label: L('I do not use AI', 'Je n’utilise pas l’IA') },
-      { value: 'occasional', label: L('I use it occasionally', 'Occasionnellement') },
-      { value: 'regular', label: L('I use it regularly', 'Régulièrement') },
-      { value: 'most_tasks', label: L('I use it in most of my tasks', 'Dans la plupart de mes tâches') },
+      { value: 'few_times_per_week', label: L('I use it a few times per week', 'Je l’utilise quelques fois par semaine', 'O folosesc de câteva ori pe săptămână', 'Utilizo algumas vezes por semana') },
+      { value: 'every_day', label: L('I use it every day', 'Je l’utilise tous les jours', 'O folosesc în fiecare zi', 'Utilizo todos os dias') },
+      { value: 'many_times_per_day', label: L('I use it many times a day', 'Je l’utilise plusieurs fois par jour', 'O folosesc de mai multe ori pe zi', 'Utilizo várias vezes por dia') },
     ] },
     { id: 'q3_general_tools', type: 'multi_select', required: true, label: L('Which general AI tools do you use today?', 'Quels outils d’IA généralistes utilisez-vous aujourd’hui ?'), options: [
       { value: 'chatgpt', label: L('ChatGPT', 'ChatGPT') },
@@ -383,7 +383,7 @@ const surveyConfig = {
 
 const roQuestionLabels = {
   q1_role: 'Care dintre următoarele descrie cel mai bine rolul tău?',
-  q2_ai_usage: 'Cum folosești în prezent inteligența artificială în activitatea ta?',
+  q2_ai_usage: 'Cât de des folosești IA în activitatea ta?',
   q3_general_tools: 'Ce instrumente generale de inteligență artificială folosești în prezent?',
   q4_productivity: 'În ce măsură îți îmbunătățește IA productivitatea?',
   q5_quality: 'În ce măsură îți îmbunătățește IA calitatea muncii?',
@@ -396,7 +396,7 @@ const roQuestionLabels = {
 };
 const ptQuestionLabels = {
   q1_role: 'Qual das opções descreve melhor o seu papel?',
-  q2_ai_usage: 'Como você utiliza atualmente a IA no seu trabalho?',
+  q2_ai_usage: 'Com que frequência você usa IA no seu trabalho?',
   q3_general_tools: 'Quais ferramentas de IA você utiliza hoje?',
   q4_productivity: 'Em que medida a IA melhora sua produtividade?',
   q5_quality: 'Em que medida a IA melhora a qualidade do seu trabalho?',
@@ -409,7 +409,7 @@ const ptQuestionLabels = {
 };
 const roOptionLabels = {
   developer: 'Dezvoltator', qa_testing_quality: 'QA / Testare / Calitate', project_product_business_analysis_operations: 'Proiect / Produs / Analiză Business / Operațiuni',
-  no_use: 'Nu folosesc IA', occasional: 'Ocazional', regular: 'În mod regulat', most_tasks: 'În majoritatea sarcinilor mele',
+  no_use: 'Nu folosesc IA', occasional: 'Ocazional', regular: 'În mod regulat', most_tasks: 'În majoritatea sarcinilor mele', few_times_per_week: 'O folosesc de câteva ori pe săptămână', every_day: 'O folosesc în fiecare zi', many_times_per_day: 'O folosesc de mai multe ori pe zi',
   other_general_ai_tools: 'Alte instrumente IA', no_impact: 'Fără impact', slight: 'Impact redus', moderate: 'Impact moderat', significant: 'Impact semnificativ',
   individual_only: 'Utilizare individuală', informal_sharing: 'Partajare informală', some_team_practices: 'Practici parțiale', fully_integrated: 'Complet integrată',
   suggests_only: 'Doar sugestii', generates_outputs: 'Generează conținut', executes_with_supervision: 'Execută cu supraveghere', runs_workflows: 'Rulează fluxuri complete',
@@ -419,7 +419,7 @@ const roOptionLabels = {
 };
 const ptOptionLabels = {
   developer: 'Desenvolvedor', qa_testing_quality: 'QA / Testes / Qualidade', project_product_business_analysis_operations: 'Projeto / Produto / Análise de Negócios / Operações',
-  no_use: 'Não utilizo IA', occasional: 'Ocasionalmente', regular: 'Regularmente', most_tasks: 'Na maioria das minhas tarefas',
+  no_use: 'Não utilizo IA', occasional: 'Ocasionalmente', regular: 'Regularmente', most_tasks: 'Na maioria das minhas tarefas', few_times_per_week: 'Utilizo algumas vezes por semana', every_day: 'Utilizo todos os dias', many_times_per_day: 'Utilizo várias vezes por dia',
   other_general_ai_tools: 'Outras ferramentas', no_impact: 'Nenhum impacto', slight: 'Leve melhoria', moderate: 'Melhoria moderada', significant: 'Melhoria significativa',
   individual_only: 'Uso individual', informal_sharing: 'Compartilhamento informal', some_team_practices: 'Algumas práticas', fully_integrated: 'Totalmente integrada',
   suggests_only: 'Apenas sugestões', generates_outputs: 'Gera conteúdo', executes_with_supervision: 'Executa com supervisão', runs_workflows: 'Executa fluxos completos',
