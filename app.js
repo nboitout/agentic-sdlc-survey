@@ -276,11 +276,11 @@ const surveyConfig = {
       { value: 'some_team_practices', label: L('Some team practices or guidelines are defined', 'Certaines pratiques ou consignes d’équipe sont définies', 'Există anumite practici sau reguli de echipă definite', 'Algumas práticas ou orientações da equipe estão definidas') },
       { value: 'workflow_integrated', label: L('AI is integrated into team workflows', 'L’IA est intégrée aux workflows de l’équipe', 'IA este integrată în fluxurile de lucru ale echipei', 'A IA está integrada aos fluxos de trabalho da equipe') },
     ] },
-    { id: 'q7_autonomy', type: 'single_choice', required: true, label: L('What is the highest level of AI autonomy you use today?', 'Quel est le niveau d’autonomie le plus élevé de l’IA que vous utilisez aujourd’hui ?'), options: [
-      { value: 'suggests_only', label: L('AI suggests only', 'Suggestions uniquement') },
-      { value: 'generates_outputs', label: L('AI generates outputs', 'Génère des contenus') },
-      { value: 'executes_with_supervision', label: L('AI executes tasks with supervision', 'Exécute avec supervision') },
-      { value: 'runs_workflows', label: L('AI runs workflows end-to-end', 'Exécute des workflows complets') },
+    { id: 'q7_autonomy', type: 'single_choice', required: true, label: L('What is the highest level of autonomy you currently use with AI in your work?', 'Quel est le niveau d’autonomie le plus élevé que vous utilisez actuellement avec l’IA dans votre travail ?', 'Care este cel mai ridicat nivel de autonomie pe care îl folosești în prezent cu IA în activitatea ta?', 'Qual é o nível mais alto de autonomia que você utiliza atualmente com IA no seu trabalho?'), options: [
+      { value: 'suggests_only', label: L('AI provides suggestions only', 'L’IA fournit uniquement des suggestions', 'IA oferă doar sugestii', 'A IA fornece apenas sugestões') },
+      { value: 'generates_outputs', label: L('AI generates content, code, or other outputs', 'L’IA génère du contenu, du code ou d’autres livrables', 'IA generează conținut, cod sau alte rezultate', 'A IA gera conteúdo, código ou outros resultados') },
+      { value: 'executes_tasks_with_supervision', label: L('AI executes tasks with human supervision', 'L’IA exécute des tâches avec supervision humaine', 'IA execută sarcini cu supraveghere umană', 'A IA executa tarefas com supervisão humana') },
+      { value: 'runs_workflows_end_to_end', label: L('AI runs workflows end-to-end', 'L’IA exécute des workflows de bout en bout', 'IA rulează fluxuri de lucru cap-coadă', 'A IA executa fluxos de trabalho de ponta a ponta') },
     ] },
     { id: 'q8_async', type: 'single_choice', required: true, label: L('Can AI-driven tasks run without your continuous involvement?', 'Des tâches pilotées par l’IA peuvent-elles s’exécuter sans votre intervention continue ?'), options: [
       { value: 'no', label: L('No, I must always stay involved', 'Non') },
@@ -391,7 +391,7 @@ const roQuestionLabels = {
   q4_productivity: 'În ce măsură îți îmbunătățește IA productivitatea?',
   q5_quality: 'În ce măsură îți îmbunătățește IA calitatea rezultatelor muncii tale?',
   q6_team_usage: 'Cum este utilizată în prezent IA în cadrul echipei tale?',
-  q7_autonomy: 'Care este nivelul maxim de autonomie al IA pe care îl folosești?',
+  q7_autonomy: 'Care este cel mai ridicat nivel de autonomie pe care îl folosești în prezent cu IA în activitatea ta?',
   q8_async: 'Pot sarcinile bazate pe IA să ruleze fără implicarea ta continuă?',
   q9_measurement: 'Măsori impactul utilizării IA?',
   q10_sdlc_usage: 'În ce etape ale SDLC folosești IA?',
@@ -404,7 +404,7 @@ const ptQuestionLabels = {
   q4_productivity: 'Em que medida a IA melhora sua produtividade?',
   q5_quality: 'Em que medida a IA melhora a qualidade do que você produz?',
   q6_team_usage: 'Como a IA é atualmente utilizada dentro da sua equipe?',
-  q7_autonomy: 'Qual é o nível máximo de autonomia da IA que você utiliza?',
+  q7_autonomy: 'Qual é o nível mais alto de autonomia que você utiliza atualmente com IA no seu trabalho?',
   q8_async: 'As tarefas com IA podem ser executadas sem sua participação contínua?',
   q9_measurement: 'Você mede o impacto do uso de IA?',
   q10_sdlc_usage: 'Em quais partes do SDLC você utiliza IA?',
@@ -415,7 +415,7 @@ const roOptionLabels = {
   no_use: 'Nu folosesc IA', occasional: 'Ocazional', regular: 'În mod regulat', most_tasks: 'În majoritatea sarcinilor mele', few_times_per_week: 'O folosesc de câteva ori pe săptămână', every_day: 'O folosesc în fiecare zi', many_times_per_day: 'O folosesc de mai multe ori pe zi',
   le_chat_mistral: 'Le Chat (Mistral)', client_internal_ai_tools: 'Instrumente interne de IA furnizate de client', other_general_ai_tools: 'Alte instrumente de IA cu uz general', no_general_ai_tools: 'Nu folosesc instrumente de IA cu uz general', no_impact: 'Fără impact', slight: 'Impact redus', moderate: 'Impact moderat', significant: 'Impact semnificativ', moderate_improvement: 'Îmbunătățire moderată', significant_improvement: 'Îmbunătățire semnificativă', rely_on_ai_for_workload: 'Mi-ar fi greu să îmi gestionez volumul de muncă fără IA', higher_quality_with_ai: 'IA mă ajută să obțin un nivel de calitate pe care mi-ar fi greu să îl ating altfel',
   individual_only: 'Utilizare individuală doar', informal_sharing: 'Membrii echipei își împărtășesc practicile în mod informal', some_team_practices: 'Există anumite practici sau reguli de echipă definite', workflow_integrated: 'IA este integrată în fluxurile de lucru ale echipei', fully_integrated: 'Complet integrată',
-  suggests_only: 'Doar sugestii', generates_outputs: 'Generează conținut', executes_with_supervision: 'Execută cu supraveghere', runs_workflows: 'Rulează fluxuri complete',
+  suggests_only: 'IA oferă doar sugestii', generates_outputs: 'IA generează conținut, cod sau alte rezultate', executes_tasks_with_supervision: 'IA execută sarcini cu supraveghere umană', runs_workflows_end_to_end: 'IA rulează fluxuri de lucru cap-coadă', executes_with_supervision: 'Execută cu supraveghere', runs_workflows: 'Rulează fluxuri complete',
   no: 'Nu', limited_async: 'Limitat', yes_independent: 'Da', no_measurement: 'Nu', informal_tracking: 'Informal', defined_metrics: 'Indicatori definiți',
   requirements_specs: 'Cerințe', planning_project_management: 'Planificare', coding: 'Dezvoltare', code_review: 'Revizuire cod', testing: 'Testare', debugging: 'Depanare', deployment: 'Implementare', production_operations: 'Operațiuni', documentation: 'Documentație',
   no_effort: 'Fără efort', ad_hoc_learning: 'Învățare informală', self_learning: 'Auto-învățare', structured_learning: 'Formare structurată', advanced_usage: 'Utilizare avansată'
@@ -425,7 +425,7 @@ const ptOptionLabels = {
   no_use: 'Não utilizo IA', occasional: 'Ocasionalmente', regular: 'Regularmente', most_tasks: 'Na maioria das minhas tarefas', few_times_per_week: 'Utilizo algumas vezes por semana', every_day: 'Utilizo todos os dias', many_times_per_day: 'Utilizo várias vezes por dia',
   le_chat_mistral: 'Le Chat (Mistral)', client_internal_ai_tools: 'Ferramentas internas de IA fornecidas pelo cliente', other_general_ai_tools: 'Outras ferramentas de IA de uso geral', no_general_ai_tools: 'Não utilizo ferramentas de IA de uso geral', no_impact: 'Nenhum impacto', slight: 'Leve melhoria', moderate: 'Melhoria moderada', significant: 'Melhoria significativa', moderate_improvement: 'Melhoria moderada', significant_improvement: 'Melhoria significativa', rely_on_ai_for_workload: 'Eu teria dificuldade para lidar com minha carga de trabalho sem IA', higher_quality_with_ai: 'A IA me ajuda a produzir um nível de qualidade que eu teria dificuldade de alcançar de outra forma',
   individual_only: 'Uso individual apenas', informal_sharing: 'Os membros da equipe compartilham práticas de forma informal', some_team_practices: 'Algumas práticas ou orientações da equipe estão definidas', workflow_integrated: 'A IA está integrada aos fluxos de trabalho da equipe', fully_integrated: 'Totalmente integrada',
-  suggests_only: 'Apenas sugestões', generates_outputs: 'Gera conteúdo', executes_with_supervision: 'Executa com supervisão', runs_workflows: 'Executa fluxos completos',
+  suggests_only: 'A IA fornece apenas sugestões', generates_outputs: 'A IA gera conteúdo, código ou outros resultados', executes_tasks_with_supervision: 'A IA executa tarefas com supervisão humana', runs_workflows_end_to_end: 'A IA executa fluxos de trabalho de ponta a ponta', executes_with_supervision: 'Executa com supervisão', runs_workflows: 'Executa fluxos completos',
   no: 'Não', limited_async: 'Limitado', yes_independent: 'Sim', no_measurement: 'Não', informal_tracking: 'Informal', defined_metrics: 'Métricas definidas',
   requirements_specs: 'Requisitos', planning_project_management: 'Planejamento', coding: 'Desenvolvimento', code_review: 'Revisão de código', testing: 'Testes', debugging: 'Depuração', deployment: 'Implantação', production_operations: 'Operações', documentation: 'Documentação',
   no_effort: 'Nenhum esforço', ad_hoc_learning: 'Aprendizado informal', self_learning: 'Autoaprendizado', structured_learning: 'Treinamento estruturado', advanced_usage: 'Uso avançado'
