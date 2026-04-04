@@ -43,7 +43,7 @@ input, textarea { width: 100%; border: 1px solid var(--border); border-radius: 1
 .option-card input { width: auto; margin-top: 2px; }
 .option-card span { white-space: normal; line-height: 1.35; }
 .option-label { display: block; }
-.option-description { display: block; font-size: 0.82rem; color: var(--muted); margin-top: 4px; font-weight: 500; }
+.option-description { display: block; font-size: 0.82rem; color: var(--muted); margin-top: 4px; font-weight: 500; white-space: pre-line; }
 .actions { display: flex; justify-content: space-between; gap: 10px; margin-top: 18px; }
 button { border: none; background: var(--accent); color: #fff; border-radius: 10px; padding: 10px 16px; font-weight: 700; cursor: pointer; }
 button[disabled] { opacity: .5; cursor: not-allowed; }
