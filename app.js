@@ -292,17 +292,17 @@ const surveyConfig = {
       { value: 'informal_tracking', label: L('It is tracked informally', 'Il est suivi de manière informelle', 'Este urmărit informal', 'É acompanhado de forma informal') },
       { value: 'defined_metrics', label: L('It is measured with defined metrics', 'Il est mesuré à l’aide d’indicateurs définis', 'Este măsurat prin indicatori definiți', 'É medido com métricas definidas') },
     ] },
-    { id: 'q10_sdlc_usage', type: 'multi_select', required: true, label: L('In which parts of the SDLC do you use AI today?', 'Dans quelles parties du cycle de développement (SDLC) utilisez-vous l’IA ?'), options: [
-      { value: 'requirements_specs', label: L('Requirements / Specs', 'Spécifications') },
-      { value: 'planning_project_management', label: L('Planning / Project Management', 'Planification') },
-      { value: 'coding', label: L('Coding', 'Développement') },
+    { id: 'q10_sdlc_usage', type: 'multi_select', required: true, label: L('In which parts of the software delivery lifecycle do you currently use AI?', 'Dans quelles parties du cycle de delivery logiciel utilisez-vous actuellement l’IA ?', 'În ce părți ale ciclului de livrare software folosești în prezent IA?', 'Em quais partes do ciclo de entrega de software você utiliza IA atualmente?'), options: [
+      { value: 'requirements_business_analysis', label: L('Requirements / Business Analysis', 'Exigences / Analyse métier', 'Cerințe / Analiză de business', 'Requisitos / Análise de Negócio') },
+      { value: 'planning_coordination', label: L('Planning / Coordination', 'Planification / Coordination', 'Planificare / Coordonare', 'Planejamento / Coordenação') },
+      { value: 'coding_implementation', label: L('Coding / Implementation', 'Développement / Implémentation', 'Dezvoltare / Implementare', 'Desenvolvimento / Implementação') },
       { value: 'code_review', label: L('Code Review', 'Revue de code') },
-      { value: 'testing', label: L('Testing', 'Tests') },
-      { value: 'debugging', label: L('Debugging', 'Débogage') },
-      { value: 'cicd', label: L('CI/CD', 'CI/CD') },
-      { value: 'deployment', label: L('Deployment', 'Déploiement') },
-      { value: 'production_operations', label: L('Production / Operations', 'Production / Exploitation') },
-      { value: 'documentation', label: L('Documentation', 'Documentation') },
+      { value: 'testing_validation', label: L('Testing / Validation', 'Tests / Validation', 'Testare / Validare', 'Testes / Validação') },
+      { value: 'debugging_troubleshooting', label: L('Debugging / Troubleshooting', 'Débogage / Résolution de problèmes', 'Depanare / Rezolvare probleme', 'Depuração / Resolução de problemas') },
+      { value: 'cicd_automation', label: L('CI/CD / Automation', 'CI/CD / Automatisation', 'CI/CD / Automatizare', 'CI/CD / Automação') },
+      { value: 'deployment_release', label: L('Deployment / Release', 'Déploiement / Mise en production', 'Deployment / Lansare', 'Implantação / Release') },
+      { value: 'production_operations', label: L('Production / Operations', 'Production / Opérations', 'Producție / Operațiuni', 'Produção / Operações') },
+      { value: 'documentation_knowledge_sharing', label: L('Documentation / Knowledge Sharing', 'Documentation / Partage de connaissances', 'Documentație / Partajare de cunoștințe', 'Documentação / Compartilhamento de conhecimento') },
     ] },
     { id: 'q11_ai_skills', type: 'single_choice', required: true, label: L('How have you developed your skills with AI tools so far?', 'Comment avez-vous développé vos compétences sur les outils d’IA jusqu’à présent ?'), options: [
       { value: 'no_effort', label: L('I have not invested time in learning AI tools', 'Aucun effort') },
@@ -394,7 +394,7 @@ const roQuestionLabels = {
   q7_autonomy: 'Care este cel mai ridicat nivel de autonomie pe care îl folosești în prezent cu IA în activitatea ta?',
   q8_async: 'Poate IA să continue să lucreze la anumite sarcini fără implicarea ta constantă?',
   q9_measurement: 'Cum măsori în prezent impactul IA în activitatea ta?',
-  q10_sdlc_usage: 'În ce etape ale SDLC folosești IA?',
+  q10_sdlc_usage: 'În ce părți ale ciclului de livrare software folosești în prezent IA?',
   q11_ai_skills: 'Cum ți-ai dezvoltat competențele în utilizarea IA?',
 };
 const ptQuestionLabels = {
@@ -407,7 +407,7 @@ const ptQuestionLabels = {
   q7_autonomy: 'Qual é o nível mais alto de autonomia que você utiliza atualmente com IA no seu trabalho?',
   q8_async: 'A IA consegue continuar trabalhando em algumas tarefas sem o seu envolvimento constante?',
   q9_measurement: 'Como você mede atualmente o impacto da IA no seu trabalho?',
-  q10_sdlc_usage: 'Em quais partes do SDLC você utiliza IA?',
+  q10_sdlc_usage: 'Em quais partes do ciclo de entrega de software você utiliza IA atualmente?',
   q11_ai_skills: 'Como você desenvolveu suas habilidades em IA até agora?',
 };
 const roOptionLabels = {
@@ -417,7 +417,7 @@ const roOptionLabels = {
   individual_only: 'Utilizare individuală doar', informal_sharing: 'Membrii echipei își împărtășesc practicile în mod informal', some_team_practices: 'Există anumite practici sau reguli de echipă definite', workflow_integrated: 'IA este integrată în fluxurile de lucru ale echipei', fully_integrated: 'Complet integrată',
   suggests_only: 'IA oferă doar sugestii', generates_outputs: 'IA generează conținut, cod sau alte rezultate', executes_tasks_with_supervision: 'IA execută sarcini cu supraveghere umană', runs_workflows_end_to_end: 'IA rulează fluxuri de lucru cap-coadă', executes_with_supervision: 'Execută cu supraveghere', runs_workflows: 'Rulează fluxuri complete',
   continuous_involvement_required: 'Nu, trebuie să rămân implicat pe tot parcursul', partial_handoff: 'Parțial, pot delega unele sarcini și să revin mai târziu', independent_tasks: 'Da, unele sarcini pot rula independent', no: 'Nu', limited_async: 'Limitat', yes_independent: 'Da', no_measurement: 'Nu este măsurat', informal_tracking: 'Este urmărit informal', defined_metrics: 'Este măsurat prin indicatori definiți',
-  requirements_specs: 'Cerințe', planning_project_management: 'Planificare', coding: 'Dezvoltare', code_review: 'Revizuire cod', testing: 'Testare', debugging: 'Depanare', deployment: 'Implementare', production_operations: 'Operațiuni', documentation: 'Documentație',
+  requirements_business_analysis: 'Cerințe / Analiză de business', planning_coordination: 'Planificare / Coordonare', coding_implementation: 'Dezvoltare / Implementare', code_review: 'Revizuire de cod', testing_validation: 'Testare / Validare', debugging_troubleshooting: 'Depanare / Rezolvare probleme', cicd_automation: 'CI/CD / Automatizare', deployment_release: 'Deployment / Lansare', production_operations: 'Producție / Operațiuni', documentation_knowledge_sharing: 'Documentație / Partajare de cunoștințe', requirements_specs: 'Cerințe', planning_project_management: 'Planificare', coding: 'Dezvoltare', testing: 'Testare', debugging: 'Depanare', deployment: 'Implementare', documentation: 'Documentație',
   no_effort: 'Fără efort', ad_hoc_learning: 'Învățare informală', self_learning: 'Auto-învățare', structured_learning: 'Formare structurată', advanced_usage: 'Utilizare avansată'
 };
 const ptOptionLabels = {
@@ -427,7 +427,7 @@ const ptOptionLabels = {
   individual_only: 'Uso individual apenas', informal_sharing: 'Os membros da equipe compartilham práticas de forma informal', some_team_practices: 'Algumas práticas ou orientações da equipe estão definidas', workflow_integrated: 'A IA está integrada aos fluxos de trabalho da equipe', fully_integrated: 'Totalmente integrada',
   suggests_only: 'A IA fornece apenas sugestões', generates_outputs: 'A IA gera conteúdo, código ou outros resultados', executes_tasks_with_supervision: 'A IA executa tarefas com supervisão humana', runs_workflows_end_to_end: 'A IA executa fluxos de trabalho de ponta a ponta', executes_with_supervision: 'Executa com supervisão', runs_workflows: 'Executa fluxos completos',
   continuous_involvement_required: 'Não, preciso permanecer envolvido o tempo todo', partial_handoff: 'Parcialmente, posso delegar algumas tarefas e voltar depois', independent_tasks: 'Sim, algumas tarefas podem ser executadas de forma independente', no: 'Não', limited_async: 'Limitado', yes_independent: 'Sim', no_measurement: 'Não é medido', informal_tracking: 'É acompanhado de forma informal', defined_metrics: 'É medido com métricas definidas',
-  requirements_specs: 'Requisitos', planning_project_management: 'Planejamento', coding: 'Desenvolvimento', code_review: 'Revisão de código', testing: 'Testes', debugging: 'Depuração', deployment: 'Implantação', production_operations: 'Operações', documentation: 'Documentação',
+  requirements_business_analysis: 'Requisitos / Análise de Negócio', planning_coordination: 'Planejamento / Coordenação', coding_implementation: 'Desenvolvimento / Implementação', code_review: 'Revisão de código', testing_validation: 'Testes / Validação', debugging_troubleshooting: 'Depuração / Resolução de problemas', cicd_automation: 'CI/CD / Automação', deployment_release: 'Implantação / Release', production_operations: 'Produção / Operações', documentation_knowledge_sharing: 'Documentação / Compartilhamento de conhecimento', requirements_specs: 'Requisitos', planning_project_management: 'Planejamento', coding: 'Desenvolvimento', testing: 'Testes', debugging: 'Depuração', deployment: 'Implantação', documentation: 'Documentação',
   no_effort: 'Nenhum esforço', ad_hoc_learning: 'Aprendizado informal', self_learning: 'Autoaprendizado', structured_learning: 'Treinamento estruturado', advanced_usage: 'Uso avançado'
 };
 
