@@ -174,10 +174,29 @@ const standardProvisioningOptions = [
 
 const surveyConfig = {
   coreQuestions: [
-    { id: 'q1_role', type: 'single_choice', required: true, label: L('What best describes your primary role in software delivery today?', 'Quel rôle décrit le mieux votre rôle principal dans la delivery logicielle aujourd’hui ?', 'Care dintre următoarele descrie cel mai bine rolul tău principal în delivery software astăzi?', 'Qual opção descreve melhor seu papel principal na delivery de software hoje?'), options: [
-      { value: 'developer', label: L('Developer', 'Développeur') },
-      { value: 'qa_testing_quality', label: L('QA / Testing / Quality', 'QA / Tests / Qualité') },
-      { value: 'project_product_business_analysis_operations', label: L('Project / Product / Business Analysis / Operations', 'Projet / Produit / Analyse Business / Opérations') },
+    { id: 'q1_role', type: 'single_choice', required: true, label: L('What best describes your primary role in software delivery today?', 'Quel rôle décrit le mieux votre fonction principale dans le delivery logiciel aujourd’hui ?', 'Care dintre următoarele descrie cel mai bine rolul tău principal în livrarea software?', 'Qual das opções descreve melhor o seu papel principal na entrega de software?'),
+      helperText: L(
+        'Select the option that represents where you spend most of your time.',
+        'Choisissez l’option correspondant à la majorité de votre temps.',
+        'Alege opțiunea care reflectă majoritatea timpului tău.',
+        'Escolha a opção que representa a maior parte do seu tempo.'
+      ),
+      tooltipTitle: L(
+        'Why are we asking this?',
+        'Pourquoi posons-nous cette question ?',
+        'De ce punem această întrebare?',
+        'Por que estamos fazendo esta pergunta?'
+      ),
+      tooltipBody: L(
+        'Your answer helps tailor the questionnaire to your role so that you only see the most relevant questions. It also helps us compare AI adoption patterns across different functions in the software delivery lifecycle.',
+        'Votre réponse permet d’adapter le questionnaire à votre rôle afin de ne vous montrer que les questions les plus pertinentes. Elle permet aussi de comparer les modes d’adoption de l’IA selon les différentes fonctions du cycle de delivery logiciel.',
+        'Răspunsul tău ne ajută să adaptăm chestionarul la rolul tău, astfel încât să vezi doar întrebările cele mai relevante. De asemenea, ne ajută să comparăm modul în care IA este adoptată în diferite funcții din ciclul de livrare software.',
+        'Sua resposta ajuda a adaptar o questionário ao seu papel, para que você veja apenas as perguntas mais relevantes. Ela também ajuda a comparar os padrões de adoção de IA entre diferentes funções no ciclo de entrega de software.'
+      ),
+      options: [
+      { value: 'developer', label: L('Developer', 'Développeur', 'Dezvoltator', 'Desenvolvedor'), description: L('Examples: software engineer, backend/frontend developer, data engineer', 'Exemples : développeur, ingénieur logiciel, data engineer', 'Exemple: developer, inginer software, data engineer', 'Exemplos: engenheiro de software, desenvolvedor, data engineer') },
+      { value: 'qa_testing_quality', label: L('QA / Testing / Quality', 'QA / Tests / Qualité', 'QA / Testare / Calitate', 'QA / Testes / Qualidade'), description: L('Examples: QA engineer, tester, validation engineer', 'Exemples : QA, testeur, ingénieur validation', 'Exemple: QA engineer, tester, inginer validare', 'Exemplos: QA engineer, tester, validação') },
+      { value: 'project_product_business_analysis_operations', label: L('Project / Product / Business Analysis / Operations', 'Projet / Produit / Analyse métier / Opérations', 'Proiect / Produs / Analiză de business / Operațiuni', 'Projeto / Produto / Análise de Negócio / Operações'), description: L('Examples: project manager, product owner, business analyst, data analyst, operations / support', 'Exemples : chef de projet, product owner, business analyst, data analyst, opérations / support', 'Exemple: project manager, product owner, business analyst, data analyst, operațiuni / suport', 'Exemplos: gerente de projeto, product owner, business analyst, data analyst, operações / suporte') },
     ] },
     { id: 'q2_ai_usage', type: 'single_choice', required: true, label: L('How do you currently use AI in your work?', 'Comment utilisez-vous actuellement l’IA dans votre travail ?'), options: [
       { value: 'no_use', label: L('I do not use AI', 'Je n’utilise pas l’IA') },
@@ -370,9 +389,13 @@ function enrichLabels() {
   const all = [...surveyConfig.coreQuestions, ...Object.values(surveyConfig.branches).flatMap((b) => b.questions), surveyConfig.finalOptionalComment];
   all.forEach((q) => {
     q.label = { en: q.label.en, fr: q.label.fr, ro: roQuestionLabels[q.id] || q.label.ro || q.label.en, pt: ptQuestionLabels[q.id] || q.label.pt || q.label.en };
+    if (q.helperText) q.helperText = { en: q.helperText.en, fr: q.helperText.fr, ro: q.helperText.ro || q.helperText.en, pt: q.helperText.pt || q.helperText.en };
+    if (q.tooltipTitle) q.tooltipTitle = { en: q.tooltipTitle.en, fr: q.tooltipTitle.fr, ro: q.tooltipTitle.ro || q.tooltipTitle.en, pt: q.tooltipTitle.pt || q.tooltipTitle.en };
+    if (q.tooltipBody) q.tooltipBody = { en: q.tooltipBody.en, fr: q.tooltipBody.fr, ro: q.tooltipBody.ro || q.tooltipBody.en, pt: q.tooltipBody.pt || q.tooltipBody.en };
     if (q.placeholder) q.placeholder = { en: q.placeholder.en, fr: q.placeholder.fr, ro: q.placeholder.ro || q.placeholder.en, pt: q.placeholder.pt || q.placeholder.en };
     if (q.options) q.options.forEach((o) => {
       o.label = { en: o.label.en, fr: o.label.fr, ro: roOptionLabels[o.value] || o.label.ro || o.label.en, pt: ptOptionLabels[o.value] || o.label.pt || o.label.en };
+      if (o.description) o.description = { en: o.description.en, fr: o.description.fr, ro: o.description.ro || o.description.en, pt: o.description.pt || o.description.en };
     });
   });
   Object.values(surveyConfig.branches).forEach((b) => {
@@ -389,6 +412,7 @@ function App() {
   const [index, setIndex] = useState(0);
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
+  const [tooltipOpen, setTooltipOpen] = useState(false);
   const [endpoint, setEndpoint] = useState('');
   const [meta, setMeta] = useState({ surveyDate: new Date().toISOString().slice(0, 10), teamName: '', respondent: '' });
 
@@ -443,6 +467,7 @@ function App() {
 
   const next = () => {
     setError('');
+    setTooltipOpen(false);
     if (current && !isAnswered(current, answers[current.id])) return setError(t.requiredError);
     setIndex((i) => Math.min(i + 1, flow.length));
   };
@@ -526,7 +551,19 @@ function App() {
               </div>
             ) : (
               <>
-            <h2>{localize(current.label, lang)}</h2>
+            <div className="question-title-row">
+              <h2>{localize(current.label, lang)}</h2>
+              {current.tooltipTitle && (
+                <button type="button" className="info-btn" onClick={() => setTooltipOpen((v) => !v)} aria-label={localize(current.tooltipTitle, lang)}>i</button>
+              )}
+            </div>
+            {current.helperText && <p className="helper-text">{localize(current.helperText, lang)}</p>}
+            {current.tooltipTitle && tooltipOpen && (
+              <div className="tooltip-box" role="note">
+                <strong>{localize(current.tooltipTitle, lang)}</strong>
+                <p>{localize(current.tooltipBody, lang)}</p>
+              </div>
+            )}
             <p className="q-meta">{current.required ? t.required : t.optionalTag} • {t[current.type]}</p>
             {current.type === 'free_text' ? (
               <textarea className="comment-box" rows={4} placeholder={localize(current.placeholder, lang)} value={answers[current.id] || ''} onChange={(e) => setAnswers((a) => ({ ...a, [current.id]: e.target.value }))} />
@@ -537,7 +574,10 @@ function App() {
                   return (
                     <label className={`option-card ${checked ? 'active' : ''}`} key={option.value}>
                       <input type={current.type === 'single_choice' ? 'radio' : 'checkbox'} name={current.id} checked={checked} onChange={() => current.type === 'single_choice' ? setSingle(current.id, option.value) : toggleMulti(current.id, option.value)} />
-                      <span>{localize(option.label, lang)}</span>
+                      <span>
+                        <span className="option-label">{localize(option.label, lang)}</span>
+                        {option.description && <small className="option-description">{localize(option.description, lang)}</small>}
+                      </span>
                     </label>
                   );
                 })}

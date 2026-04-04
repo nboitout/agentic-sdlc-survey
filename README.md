@@ -14,6 +14,7 @@ Static React survey with role-based branching and multilingual UI (English, Fren
 ## Key features
 
 - 4-language selector (`EN | FR | RO | PT`) at top-right
+- Role-selection question includes clear helper text + multilingual tooltip
 - Instant language switch for labels/questions/options without resetting answers
 - Stable answer values (language-independent keys)
 - Data-driven questionnaire config (no duplicated components)

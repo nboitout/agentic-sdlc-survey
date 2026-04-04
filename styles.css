@@ -23,6 +23,11 @@ input, textarea { width: 100%; border: 1px solid var(--border); border-radius: 1
 .progress-track { height: 10px; background: #eef1f7; border-radius: 999px; overflow: hidden; }
 .progress-fill { height: 100%; background: var(--accent); transition: width .25s ease; }
 .section-title { margin: 0; color: var(--muted); font-weight: 700; }
+.question-title-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.helper-text { margin: 2px 0 10px; color: var(--muted); font-size: 0.95rem; }
+.info-btn { width: 28px; height: 28px; border-radius: 50%; background: #e2e8f0; color: #0f172a; padding: 0; font-weight: 700; border: 1px solid #cbd5e1; }
+.tooltip-box { border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 10px; padding: 10px; margin-bottom: 10px; }
+.tooltip-box p { margin: 6px 0 0; color: var(--muted); }
 .question-panel.core { border-left: 4px solid #64748b; }
 .question-panel.branch { border-left: 4px solid #1d4ed8; background: #fbfdff; }
 .question-panel.final { border-left: 4px solid #0f766e; }
@@ -35,6 +40,8 @@ input, textarea { width: 100%; border: 1px solid var(--border); border-radius: 1
 .option-card.active { border-color: var(--accent); background: var(--accent-soft); }
 .option-card input { width: auto; margin-top: 2px; }
 .option-card span { white-space: normal; line-height: 1.35; }
+.option-label { display: block; }
+.option-description { display: block; font-size: 0.82rem; color: var(--muted); margin-top: 4px; font-weight: 500; }
 .actions { display: flex; justify-content: space-between; gap: 10px; margin-top: 18px; }
 button { border: none; background: var(--accent); color: #fff; border-radius: 10px; padding: 10px 16px; font-weight: 700; cursor: pointer; }
 button[disabled] { opacity: .5; cursor: not-allowed; }
