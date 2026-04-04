@@ -185,6 +185,12 @@ const surveyConfig = {
         'Alege opțiunea care reflectă majoritatea timpului tău.',
         'Escolha a opção que representa a maior parte do seu tempo.'
       ),
+      microcopy: L(
+        'Click the ⓘ for guidance',
+        'Cliquez sur le ⓘ pour obtenir de l’aide',
+        'Apasă pe ⓘ pentru ghidaj',
+        'Clique no ⓘ para orientação'
+      ),
       tooltipTitle: L(
         'Why are we asking this?',
         'Pourquoi posons-nous cette question ?',
@@ -198,9 +204,9 @@ const surveyConfig = {
         'Sua resposta ajuda a adaptar o questionário ao seu papel, para que você veja apenas as perguntas mais relevantes. Ela também ajuda a comparar os padrões de adoção de IA entre diferentes funções no ciclo de entrega de software.'
       ),
       options: [
-      { value: 'developer', label: L('Developer', 'Développeur', 'Dezvoltator', 'Desenvolvedor'), description: L('Examples: software engineer, backend/frontend developer, mobile developer, data engineer, DevOps, system / network / database engineer', 'Exemples : ingénieur logiciel, développeur backend/frontend, développeur mobile, data engineer, DevOps, ingénieur système / réseau / base de données', 'Exemple: inginer software, dezvoltator backend/frontend, dezvoltator mobile, data engineer, DevOps, inginer sistem / rețea / baze de date', 'Exemplos: engenheiro de software, desenvolvedor backend/frontend, desenvolvedor mobile, data engineer, DevOps, engenheiro de sistema / rede / banco de dados') },
-      { value: 'qa_testing_quality', label: L('QA / Testing / Quality', 'QA / Tests / Qualité', 'QA / Testare / Calitate', 'QA / Testes / Qualidade'), description: L('Examples: QA engineer, tester, validation engineer, test automation', 'Exemples : QA engineer, testeur, ingénieur validation, automatisation des tests', 'Exemple: QA engineer, tester, inginer validare, automatizare teste', 'Exemplos: QA engineer, tester, engenheiro de validação, automação de testes') },
-      { value: 'project_product_business_analysis_operations', label: L('Project / Product / Business Analysis / Operations', 'Projet / Produit / Analyse métier / Opérations', 'Proiect / Produs / Analiză de business / Operațiuni', 'Projeto / Produto / Análise de Negócio / Operações'), description: L('Examples: project manager, product owner, business analyst, data analyst, BI / reporting, operations / support, security / governance', 'Exemples : chef de projet, product owner, business analyst, data analyst, BI / reporting, opérations / support, sécurité / gouvernance', 'Exemple: project manager, product owner, business analyst, data analyst, BI / reporting, operațiuni / suport, securitate / guvernanță', 'Exemplos: gerente de projeto, product owner, business analyst, data analyst, BI / reporting, operações / suporte, segurança / governança') },
+      { value: 'developer', label: L('Developer', 'Développeur', 'Dezvoltator', 'Desenvolvedor'), description: L('Examples: software engineer, backend/frontend developer, mobile developer, data engineer, DevOps, SRE, cloud / infrastructure engineer, system / network / database engineer, security engineer, application security, DevSecOps', 'Exemples : développeur, ingénieur logiciel, développeur backend/frontend, développeur mobile, data engineer, DevOps, SRE, ingénieur cloud / infrastructure, ingénieur système / réseau / base de données, ingénieur sécurité, sécurité applicative, DevSecOps', 'Exemple: developer, inginer software, backend/frontend developer, mobile developer, data engineer, DevOps, SRE, inginer cloud / infrastructură, inginer sistem / rețea / baze de date, inginer de securitate, securitate aplicații, DevSecOps', 'Exemplos: engenheiro de software, desenvolvedor backend/frontend, desenvolvedor mobile, data engineer, DevOps, SRE, engenheiro de cloud / infraestrutura, engenheiro de sistemas / redes / banco de dados, engenheiro de segurança, segurança de aplicações, DevSecOps') },
+      { value: 'qa_testing_quality', label: L('QA / Testing / Quality', 'QA / Tests / Qualité', 'QA / Testare / Calitate', 'QA / Testes / Qualidade'), description: L('Examples: QA engineer, tester, validation engineer, test automation', 'Exemples : QA, testeur, ingénieur validation, automatisation des tests', 'Exemple: QA engineer, tester, inginer validare, automatizare teste', 'Exemplos: QA engineer, tester, engenheiro de validação, automação de testes') },
+      { value: 'project_product_business_analysis_operations', label: L('Project / Product / Business Analysis / Operations', 'Projet / Produit / Analyse métier / Opérations', 'Proiect / Produs / Analiză de business / Operațiuni', 'Projeto / Produto / Análise de Negócio / Operações'), description: L('Examples: project manager, product owner, business analyst, data analyst, BI / reporting, operations / support, production monitoring, security governance, risk, compliance, audit', 'Exemples : chef de projet, product owner, business analyst, data analyst, BI / reporting, opérations / support, supervision de production, gouvernance sécurité, risque, conformité, audit', 'Exemple: project manager, product owner, business analyst, data analyst, BI / reporting, operațiuni / suport, monitorizare producție, guvernanță de securitate, risc, conformitate, audit', 'Exemplos: gerente de projeto, product owner, business analyst, data analyst, BI / reporting, operações / suporte, monitoramento de produção, governança de segurança, risco, conformidade, auditoria') },
     ] },
     { id: 'q2_contract_model', type: 'single_choice', required: true, label: L('What best describes your current engagement model with your client?', 'Quel modèle d’intervention décrit le mieux votre mission actuelle chez le client ?', 'Care descrie cel mai bine modelul de colaborare actual cu clientul tău?', 'Qual das opções descreve melhor o seu modelo atual de trabalho com o cliente?'),
       helperText: L(
@@ -408,6 +414,7 @@ function enrichLabels() {
   all.forEach((q) => {
     q.label = { en: q.label.en, fr: q.label.fr, ro: roQuestionLabels[q.id] || q.label.ro || q.label.en, pt: ptQuestionLabels[q.id] || q.label.pt || q.label.en };
     if (q.helperText) q.helperText = { en: q.helperText.en, fr: q.helperText.fr, ro: q.helperText.ro || q.helperText.en, pt: q.helperText.pt || q.helperText.en };
+    if (q.microcopy) q.microcopy = { en: q.microcopy.en, fr: q.microcopy.fr, ro: q.microcopy.ro || q.microcopy.en, pt: q.microcopy.pt || q.microcopy.en };
     if (q.tooltipTitle) q.tooltipTitle = { en: q.tooltipTitle.en, fr: q.tooltipTitle.fr, ro: q.tooltipTitle.ro || q.tooltipTitle.en, pt: q.tooltipTitle.pt || q.tooltipTitle.en };
     if (q.tooltipBody) q.tooltipBody = { en: q.tooltipBody.en, fr: q.tooltipBody.fr, ro: q.tooltipBody.ro || q.tooltipBody.en, pt: q.tooltipBody.pt || q.tooltipBody.en };
     if (q.placeholder) q.placeholder = { en: q.placeholder.en, fr: q.placeholder.fr, ro: q.placeholder.ro || q.placeholder.en, pt: q.placeholder.pt || q.placeholder.en };
@@ -579,6 +586,7 @@ function App() {
                   onMouseEnter={() => setTooltipOpen(true)}
                   onMouseLeave={() => setTooltipOpen(false)}
                   onClick={() => setTooltipOpen((v) => !v)}
+                  onBlur={() => setTooltipOpen(false)}
                   aria-label={localize(current.tooltipTitle, lang)}
                 >
                   ⓘ
@@ -586,7 +594,7 @@ function App() {
               )}
             </div>
             {current.helperText && <p className="helper-text">{localize(current.helperText, lang)}</p>}
-            {current.tooltipTitle && <p className="tooltip-hint">{t.tooltipHint}</p>}
+            {current.microcopy && <p className="tooltip-hint">{localize(current.microcopy, lang)}</p>}
             {current.tooltipTitle && tooltipOpen && (
               <div className="tooltip-box" role="note">
                 <strong>{localize(current.tooltipTitle, lang)}</strong>

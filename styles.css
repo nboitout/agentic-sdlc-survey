@@ -26,6 +26,7 @@ input, textarea { width: 100%; border: 1px solid var(--border); border-radius: 1
 .question-title-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .helper-text { margin: 2px 0 10px; color: var(--muted); font-size: 0.95rem; }
 .info-btn { width: 34px; height: 34px; border-radius: 50%; background: #dbeafe; color: #1e3a8a; padding: 0; font-weight: 800; border: 1px solid #93c5fd; font-size: 0.95rem; }
+.info-btn:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
 .tooltip-hint { margin: -4px 0 8px; font-size: 0.83rem; color: #475569; }
 .tooltip-box { border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 10px; padding: 10px; margin-bottom: 10px; max-width: 760px; }
 .tooltip-box p { margin: 6px 0 0; color: var(--muted); }
