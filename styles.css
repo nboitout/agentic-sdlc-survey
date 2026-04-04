@@ -13,6 +13,7 @@ body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter,
 .panel { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 14px; }
 .header-panel h2 { margin: 8px 0; }
 .header-panel p { margin: 0; color: var(--muted); }
+.header-actions { margin-top: 12px; display: flex; justify-content: flex-end; }
 .language-toggle { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
 .lang-btn { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border); background: #fff; color: var(--text); cursor: pointer; }
 .lang-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
@@ -46,9 +47,12 @@ input, textarea { width: 100%; border: 1px solid var(--border); border-radius: 1
 .option-description { display: block; font-size: 0.82rem; color: var(--muted); margin-top: 4px; font-weight: 500; white-space: pre-line; }
 .actions { display: flex; justify-content: space-between; gap: 10px; margin-top: 18px; }
 button { border: none; background: var(--accent); color: #fff; border-radius: 10px; padding: 10px 16px; font-weight: 700; cursor: pointer; }
+.secondary-action { background: #fff; color: var(--text); border: 1px solid var(--border); }
 button[disabled] { opacity: .5; cursor: not-allowed; }
 .error { color: #b91c1c; font-weight: 600; }
 .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
 .review-grid > div { border: 1px solid var(--border); border-radius: 10px; padding: 10px; }
 .comment-box { min-height: 96px; resize: vertical; }
 .success-panel { text-align: center; }
+.draft-panel p { color: var(--muted); margin-top: 0; }
+.draft-actions { display: flex; gap: 10px; flex-wrap: wrap; }

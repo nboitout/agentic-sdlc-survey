@@ -1,6 +1,9 @@
 const { useEffect, useMemo, useState } = React;
 
 const STORAGE_KEY = 'agenticSdlcBranchingSurveyV3';
+const DRAFT_VERSION = 1;
+const DRAFT_TTL_MS = 72 * 60 * 60 * 1000;
+const DEFAULT_META = () => ({ surveyDate: new Date().toISOString().slice(0, 10), teamName: '', respondent: '' });
 
 const uiText = {
   en: {
@@ -42,6 +45,10 @@ const uiText = {
     transitionBody: 'These next questions are tailored to your role:',
     continue: 'Continue',
     tooltipHint: 'Click the ⓘ for guidance',
+    draftPromptTitle: 'A previous response draft was found',
+    draftPromptBody: 'Would you like to resume your previous response or start a new one?',
+    resumeDraft: 'Resume previous response',
+    startNew: 'Start a new response',
   },
   fr: {
     title: 'Diagnostic SDLC Agentique',
@@ -82,6 +89,10 @@ const uiText = {
     transitionBody: 'Les prochaines questions sont adaptées à votre rôle :',
     continue: 'Continuer',
     tooltipHint: 'Cliquez sur ⓘ pour voir l’aide',
+    draftPromptTitle: 'Un brouillon de réponse précédent a été trouvé',
+    draftPromptBody: 'Voulez-vous reprendre votre réponse précédente ou en démarrer une nouvelle ?',
+    resumeDraft: 'Reprendre la réponse précédente',
+    startNew: 'Commencer une nouvelle réponse',
   },
   ro: {
     title: 'Diagnostic SDLC Agentic',
@@ -122,6 +133,10 @@ const uiText = {
     transitionBody: 'Următoarele întrebări sunt adaptate rolului tău:',
     continue: 'Continuă',
     tooltipHint: 'Apasă pe ⓘ pentru ghidaj',
+    draftPromptTitle: 'A fost găsit un draft de răspuns anterior',
+    draftPromptBody: 'Vrei să reiei răspunsul anterior sau să începi unul nou?',
+    resumeDraft: 'Reia răspunsul anterior',
+    startNew: 'Începe un răspuns nou',
   },
   pt: {
     title: 'Diagnóstico SDLC Agêntico',
@@ -162,6 +177,10 @@ const uiText = {
     transitionBody: 'As próximas perguntas são adaptadas ao seu papel:',
     continue: 'Continuar',
     tooltipHint: 'Clique no ⓘ para orientação',
+    draftPromptTitle: 'Foi encontrado um rascunho de resposta anterior',
+    draftPromptBody: 'Você deseja retomar sua resposta anterior ou iniciar uma nova?',
+    resumeDraft: 'Retomar resposta anterior',
+    startNew: 'Iniciar nova resposta',
   }
 };
 
@@ -439,24 +458,93 @@ function App() {
   const [error, setError] = useState('');
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [endpoint, setEndpoint] = useState('');
-  const [meta, setMeta] = useState({ surveyDate: new Date().toISOString().slice(0, 10), teamName: '', respondent: '' });
+  const [meta, setMeta] = useState(DEFAULT_META());
+  const [hasHydrated, setHasHydrated] = useState(false);
+  const [resumeCandidate, setResumeCandidate] = useState(null);
+  const [needsDraftDecision, setNeedsDraftDecision] = useState(false);
 
   useEffect(() => {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return;
+    if (!raw) {
+      setHasHydrated(true);
+      return;
+    }
     try {
       const parsed = JSON.parse(raw);
-      setLang(parsed.lang || 'en');
-      setAnswers(parsed.answers || {});
-      setIndex(parsed.index || 0);
-      setEndpoint(parsed.endpoint || '');
-      setMeta(parsed.meta || meta);
-    } catch {}
+      const savedLang = parsed.language || parsed.lang || 'en';
+      setLang(savedLang);
+      const lastUpdated = parsed.lastUpdatedAt || parsed.startedAt;
+      const draftAge = lastUpdated ? Date.now() - new Date(lastUpdated).getTime() : Number.POSITIVE_INFINITY;
+      const isSubmitted = Boolean(parsed.submitted);
+      const isFresh = Number.isFinite(draftAge) && draftAge >= 0 && draftAge <= DRAFT_TTL_MS;
+      const hasProgress = Boolean(
+        parsed?.answers && Object.keys(parsed.answers).length > 0
+      ) || (parsed.index || 0) > 0;
+
+      if (isSubmitted || !isFresh || !hasProgress) {
+        localStorage.removeItem(STORAGE_KEY);
+        setHasHydrated(true);
+        return;
+      }
+
+      setResumeCandidate(parsed);
+      setNeedsDraftDecision(true);
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+    setHasHydrated(true);
   }, []);
 
+  const startNewResponse = () => {
+    setAnswers({});
+    setIndex(0);
+    setStatus('idle');
+    setError('');
+    setTooltipOpen(false);
+    setEndpoint('');
+    setMeta(DEFAULT_META());
+    setNeedsDraftDecision(false);
+    setResumeCandidate(null);
+    localStorage.removeItem(STORAGE_KEY);
+  };
+
+  const resumePreviousResponse = () => {
+    if (!resumeCandidate) return;
+    setLang(resumeCandidate.language || resumeCandidate.lang || 'en');
+    setAnswers(resumeCandidate.answers || {});
+    setIndex(resumeCandidate.currentStep ?? resumeCandidate.index ?? 0);
+    setEndpoint(resumeCandidate.endpoint || '');
+    setMeta(resumeCandidate.meta || DEFAULT_META());
+    setNeedsDraftDecision(false);
+    setResumeCandidate(null);
+  };
+
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ lang, answers, index, endpoint, meta }));
-  }, [lang, answers, index, endpoint, meta]);
+    if (!hasHydrated || needsDraftDecision || status === 'success') return;
+    const nowIso = new Date().toISOString();
+    const existing = (() => {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      } catch {
+        return {};
+      }
+    })();
+    const startedAt = existing.startedAt || nowIso;
+    const draft = {
+      version: DRAFT_VERSION,
+      startedAt,
+      lastUpdatedAt: nowIso,
+      submitted: false,
+      role: answers.q1_role || null,
+      branch: answers.q1_role || null,
+      language: lang,
+      answers,
+      currentStep: index,
+      endpoint,
+      meta,
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
+  }, [lang, answers, index, endpoint, meta, hasHydrated, needsDraftDecision, status]);
 
   const t = uiText[lang];
   const branchKey = answers.q1_role || null;
@@ -548,7 +636,24 @@ function App() {
         </div>
         <h2>{t.title}</h2>
         <p>{t.subtitle}</p>
+        <div className="header-actions">
+          <button type="button" className="secondary-action" onClick={startNewResponse}>{t.startNew}</button>
+        </div>
       </section>
+
+      {needsDraftDecision && (
+        <section className="panel draft-panel">
+          <h2>{t.draftPromptTitle}</h2>
+          <p>{t.draftPromptBody}</p>
+          <div className="draft-actions">
+            <button type="button" onClick={resumePreviousResponse}>{t.resumeDraft}</button>
+            <button type="button" className="secondary-action" onClick={startNewResponse}>{t.startNew}</button>
+          </div>
+        </section>
+      )}
+
+      {!needsDraftDecision && (
+        <>
 
       <section className="panel metadata-panel">
         <h2>{t.metadata}</h2>
@@ -645,6 +750,8 @@ function App() {
           {!onReview ? <button type="button" onClick={next}>{current?.type === 'transition' ? t.continue : t.next}</button> : <button type="button" onClick={submit} disabled={status === 'submitting'}>{status === 'submitting' ? t.submitting : t.submit}</button>}
         </div>
       </section>
+        </>
+      )}
     </div>
   );
 }
