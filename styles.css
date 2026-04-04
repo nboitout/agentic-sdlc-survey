@@ -88,3 +88,6 @@ button[disabled] { opacity: .5; cursor: not-allowed; }
   padding: 10px;
 }
 .success-panel { text-align: center; }
+
+.option-card span { white-space: normal; line-height: 1.35; }
+.comment-box { min-height: 96px; resize: vertical; }

@@ -2,28 +2,28 @@
 
 A static React-based diagnostic form with branching logic:
 
-- 10 shared core questions
-- 10 role-specific questions for one branch only:
+- 11 shared core required questions
+- 12 role-specific required questions for one branch only:
   - Developer
   - QA / Testing / Quality
   - Project / Product / Operations
-
-Each respondent completes exactly 20 questions.
+- 1 final optional free-text comment
 
 ## Key features
 
 - React UI with one-question-at-a-time flow
-- Data-driven question config (`coreQuestions` + `branches`)
+- Data-driven questionnaire config (`coreQuestions`, `branches`, `finalOptionalComment`)
 - Role-based branching from Q1
 - Progress indicator + Previous/Next navigation
-- Review screen before submit
-- Validation for required answers
+- Validation for all required single-choice and multi-select questions
+- Optional free-text question at the end
 - Local persistence via `localStorage`
 - Backend-friendly submission payload:
   - `role`
   - `coreAnswers`
   - `branch`
   - `branchAnswers`
+  - `comment`
   - `submittedAt`
   - `metadata`
 
@@ -45,7 +45,3 @@ Then open `http://localhost:8000`.
 
 - If an endpoint is provided in the form, the app sends `POST` JSON.
 - If endpoint is left empty, submission is mocked locally (payload logged in browser console).
-
-## Optional final comment
-
-Set `ENABLE_FINAL_COMMENT = true` in `app.js` to show one optional free-text field on the review screen.
