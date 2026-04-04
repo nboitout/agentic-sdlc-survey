@@ -8,7 +8,7 @@ Static React survey with role-based branching and multilingual UI (English, Fren
 - 12 role-specific required questions from one selected branch:
   - Developer
   - QA / Testing / Quality
-  - Project / Product / Operations
+  - Project / Product / Business Analysis / Operations
 - 1 final optional free-text comment
 
 ## Key features
@@ -17,6 +17,7 @@ Static React survey with role-based branching and multilingual UI (English, Fren
 - Instant language switch for labels/questions/options without resetting answers
 - Stable answer values (language-independent keys)
 - Data-driven questionnaire config (no duplicated components)
+- Visual core-to-branch transition panel with distinct section styling
 - Required validation for single/multi-select questions
 - Optional final free-text comment
 - Local persistence via `localStorage`

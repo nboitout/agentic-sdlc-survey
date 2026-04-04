@@ -38,6 +38,9 @@ const uiText = {
     noEndpoint: 'No endpoint set. Payload preview:',
     coreSection: 'Core Questions',
     finalSection: 'Final Optional Comment',
+    transitionTitle: 'Now entering your role-specific section',
+    transitionBody: 'These next questions are tailored to your role:',
+    continue: 'Continue',
   },
   fr: {
     title: 'Diagnostic SDLC Agentique',
@@ -74,6 +77,9 @@ const uiText = {
     noEndpoint: 'Aucun endpoint défini. Aperçu payload :',
     coreSection: 'Questions cœur',
     finalSection: 'Commentaire final optionnel',
+    transitionTitle: 'Vous entrez maintenant dans votre section spécifique au rôle',
+    transitionBody: 'Les prochaines questions sont adaptées à votre rôle :',
+    continue: 'Continuer',
   },
   ro: {
     title: 'Diagnostic SDLC Agentic',
@@ -110,6 +116,9 @@ const uiText = {
     noEndpoint: 'Nu este setat endpoint. Preview payload:',
     coreSection: 'Întrebări de bază',
     finalSection: 'Comentariu final opțional',
+    transitionTitle: 'Acum intri în secțiunea specifică rolului tău',
+    transitionBody: 'Următoarele întrebări sunt adaptate rolului tău:',
+    continue: 'Continuă',
   },
   pt: {
     title: 'Diagnóstico SDLC Agêntico',
@@ -146,6 +155,9 @@ const uiText = {
     noEndpoint: 'Nenhum endpoint definido. Prévia do payload:',
     coreSection: 'Perguntas centrais',
     finalSection: 'Comentário final opcional',
+    transitionTitle: 'Agora você está entrando na seção específica do seu papel',
+    transitionBody: 'As próximas perguntas são adaptadas ao seu papel:',
+    continue: 'Continuar',
   }
 };
 
@@ -162,10 +174,10 @@ const standardProvisioningOptions = [
 
 const surveyConfig = {
   coreQuestions: [
-    { id: 'q1_role', type: 'single_choice', required: true, label: L('What best describes your role?', 'Quel rôle décrit le mieux votre fonction ?'), options: [
+    { id: 'q1_role', type: 'single_choice', required: true, label: L('What best describes your primary role in software delivery today?', 'Quel rôle décrit le mieux votre rôle principal dans la delivery logicielle aujourd’hui ?', 'Care dintre următoarele descrie cel mai bine rolul tău principal în delivery software astăzi?', 'Qual opção descreve melhor seu papel principal na delivery de software hoje?'), options: [
       { value: 'developer', label: L('Developer', 'Développeur') },
       { value: 'qa_testing_quality', label: L('QA / Testing / Quality', 'QA / Tests / Qualité') },
-      { value: 'project_product_operations', label: L('Project / Product / Operations', 'Projet / Produit / Opérations') },
+      { value: 'project_product_business_analysis_operations', label: L('Project / Product / Business Analysis / Operations', 'Projet / Produit / Analyse Business / Opérations') },
     ] },
     { id: 'q2_ai_usage', type: 'single_choice', required: true, label: L('How do you currently use AI in your work?', 'Comment utilisez-vous actuellement l’IA dans votre travail ?'), options: [
       { value: 'no_use', label: L('I do not use AI', 'Je n’utilise pas l’IA') },
@@ -280,8 +292,8 @@ const surveyConfig = {
         { id: 'qat12', type: 'single_choice', required: true, label: L('How are these QA / testing AI tools provided in your environment?', 'Comment ces outils IA de tests sont-ils fournis dans votre environnement ?'), options: standardProvisioningOptions },
       ],
     },
-    project_product_operations: {
-      title: L('Project / Product / Operations Questions', 'Questions Projet / Produit / Opérations'),
+    project_product_business_analysis_operations: {
+      title: L('Project / Product / Business Analysis / Operations Questions', 'Questions Projet / Produit / Analyse Business / Opérations'),
       questions: [
         { id: 'ppo1', type: 'single_choice', required: true, label: L('How often do you use AI to help with requirements or user stories?', 'À quelle fréquence utilisez-vous l’IA pour les exigences ou user stories ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
         { id: 'ppo2', type: 'single_choice', required: true, label: L('How often does AI support planning or task breakdown?', 'À quelle fréquence l’IA aide-t-elle à la planification ou au découpage des tâches ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
@@ -334,7 +346,7 @@ const ptQuestionLabels = {
   q11_ai_skills: 'Como você desenvolveu suas habilidades em IA até agora?',
 };
 const roOptionLabels = {
-  developer: 'Dezvoltator', qa_testing_quality: 'QA / Testare / Calitate', project_product_operations: 'Proiect / Produs / Operațiuni',
+  developer: 'Dezvoltator', qa_testing_quality: 'QA / Testare / Calitate', project_product_business_analysis_operations: 'Proiect / Produs / Analiză Business / Operațiuni',
   no_use: 'Nu folosesc IA', occasional: 'Ocazional', regular: 'În mod regulat', most_tasks: 'În majoritatea sarcinilor mele',
   other_general_ai_tools: 'Alte instrumente IA', no_impact: 'Fără impact', slight: 'Impact redus', moderate: 'Impact moderat', significant: 'Impact semnificativ',
   individual_only: 'Utilizare individuală', informal_sharing: 'Partajare informală', some_team_practices: 'Practici parțiale', fully_integrated: 'Complet integrată',
@@ -344,7 +356,7 @@ const roOptionLabels = {
   no_effort: 'Fără efort', ad_hoc_learning: 'Învățare informală', self_learning: 'Auto-învățare', structured_learning: 'Formare structurată', advanced_usage: 'Utilizare avansată'
 };
 const ptOptionLabels = {
-  developer: 'Desenvolvedor', qa_testing_quality: 'QA / Testes / Qualidade', project_product_operations: 'Projeto / Produto / Operações',
+  developer: 'Desenvolvedor', qa_testing_quality: 'QA / Testes / Qualidade', project_product_business_analysis_operations: 'Projeto / Produto / Análise de Negócios / Operações',
   no_use: 'Não utilizo IA', occasional: 'Ocasionalmente', regular: 'Regularmente', most_tasks: 'Na maioria das minhas tarefas',
   other_general_ai_tools: 'Outras ferramentas', no_impact: 'Nenhum impacto', slight: 'Leve melhoria', moderate: 'Melhoria moderada', significant: 'Melhoria significativa',
   individual_only: 'Uso individual', informal_sharing: 'Compartilhamento informal', some_team_practices: 'Algumas práticas', fully_integrated: 'Totalmente integrada',
@@ -402,10 +414,11 @@ function App() {
   const branchDef = branchKey ? surveyConfig.branches[branchKey] : null;
 
   const flow = useMemo(() => {
-    const core = surveyConfig.coreQuestions.map((q) => ({ ...q, section: t.coreSection }));
+    const core = surveyConfig.coreQuestions.map((q) => ({ ...q, section: t.coreSection, sectionType: 'core' }));
     if (!branchDef) return core;
-    const branch = branchDef.questions.map((q) => ({ ...q, section: localize(branchDef.title, lang) }));
-    return [...core, ...branch, { ...surveyConfig.finalOptionalComment, section: t.finalSection }];
+    const transition = { id: 'branch_transition', type: 'transition', required: false, section: t.transitionTitle, sectionType: 'transition' };
+    const branch = branchDef.questions.map((q) => ({ ...q, section: localize(branchDef.title, lang), sectionType: 'branch' }));
+    return [...core, transition, ...branch, { ...surveyConfig.finalOptionalComment, section: t.finalSection, sectionType: 'final' }];
   }, [branchDef, lang]);
 
   const current = flow[index];
@@ -502,10 +515,17 @@ function App() {
         <small>{t.requiredAnswered}: {requiredAnswered}/{requiredCount}</small>
       </section>
 
-      <section className="panel question-panel">
+      <section className={`panel question-panel ${current?.sectionType || ''}`}>
         {!onReview && current && (
           <>
             <p className="section-title">{current.section}</p>
+            {current.type === 'transition' ? (
+              <div className="transition-box">
+                <h2>{t.transitionTitle}</h2>
+                <p>{t.transitionBody} <strong>{localize(branchDef?.title || '', lang)}</strong></p>
+              </div>
+            ) : (
+              <>
             <h2>{localize(current.label, lang)}</h2>
             <p className="q-meta">{current.required ? t.required : t.optionalTag} • {t[current.type]}</p>
             {current.type === 'free_text' ? (
@@ -523,6 +543,8 @@ function App() {
                 })}
               </div>
             )}
+              </>
+            )}
           </>
         )}
 
@@ -532,7 +554,7 @@ function App() {
             <h2>{t.ready}</h2>
             <div className="review-grid">
               <div><strong>{t.role}</strong><div>{answers.q1_role || '-'}</div></div>
-              <div><strong>{t.branch}</strong><div>{branchKey || '-'}</div></div>
+              <div><strong>{t.branch}</strong><div>{branchDef ? localize(branchDef.title, lang) : '-'}</div></div>
               <div><strong>{t.coreQuestions}</strong><div>{surveyConfig.coreQuestions.length}</div></div>
               <div><strong>{t.branchQuestions}</strong><div>{branchDef ? branchDef.questions.length : 0}</div></div>
             </div>
@@ -543,7 +565,7 @@ function App() {
 
         <div className="actions">
           <button type="button" onClick={() => setIndex((i) => Math.max(0, i - 1))} disabled={index === 0}>{t.previous}</button>
-          {!onReview ? <button type="button" onClick={next}>{t.next}</button> : <button type="button" onClick={submit} disabled={status === 'submitting'}>{status === 'submitting' ? t.submitting : t.submit}</button>}
+          {!onReview ? <button type="button" onClick={next}>{current?.type === 'transition' ? t.continue : t.next}</button> : <button type="button" onClick={submit} disabled={status === 'submitting'}>{status === 'submitting' ? t.submitting : t.submit}</button>}
         </div>
       </section>
     </div>
