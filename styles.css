@@ -41,6 +41,7 @@ input, textarea { width: 100%; border: 1px solid var(--border); border-radius: 1
 .options { display: grid; gap: 10px; }
 .option-card { border: 1px solid var(--border); border-radius: 12px; padding: 12px; display: flex; gap: 10px; align-items: flex-start; cursor: pointer; font-weight: 500; }
 .option-card.active { border-color: var(--accent); background: var(--accent-soft); }
+.option-card.disabled { opacity: 0.6; cursor: not-allowed; }
 .option-card input { width: auto; margin-top: 2px; }
 .option-card span { white-space: normal; line-height: 1.35; }
 .option-label { display: block; }

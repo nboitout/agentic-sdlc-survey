@@ -247,13 +247,16 @@ const surveyConfig = {
       { value: 'every_day', label: L('I use it every day', 'Je l’utilise tous les jours', 'O folosesc în fiecare zi', 'Utilizo todos os dias') },
       { value: 'many_times_per_day', label: L('I use it many times a day', 'Je l’utilise plusieurs fois par jour', 'O folosesc de mai multe ori pe zi', 'Utilizo várias vezes por dia') },
     ] },
-    { id: 'q3_general_tools', type: 'multi_select', required: true, label: L('Which general AI tools do you use today?', 'Quels outils d’IA généralistes utilisez-vous aujourd’hui ?'), options: [
+    { id: 'q3_general_tools', type: 'multi_select', required: true, label: L('Which general-purpose AI tools do you currently use in your work?', 'Quels outils d’IA généralistes utilisez-vous actuellement dans votre travail ?', 'Ce instrumente de IA cu uz general folosești în prezent în activitatea ta?', 'Quais ferramentas de IA de uso geral você utiliza atualmente no seu trabalho?'), options: [
       { value: 'chatgpt', label: L('ChatGPT', 'ChatGPT') },
       { value: 'claude', label: L('Claude', 'Claude') },
       { value: 'microsoft_copilot', label: L('Microsoft Copilot', 'Microsoft Copilot') },
       { value: 'gemini', label: L('Gemini', 'Gemini') },
       { value: 'perplexity', label: L('Perplexity', 'Perplexity') },
-      { value: 'other_general_ai_tools', label: L('Other general AI tools', 'Autres outils d’IA') },
+      { value: 'le_chat_mistral', label: L('Le Chat (Mistral)', 'Le Chat (Mistral)', 'Le Chat (Mistral)', 'Le Chat (Mistral)') },
+      { value: 'client_internal_ai_tools', label: L('Client-provided internal AI tools', 'Outils d’IA internes fournis par le client', 'Instrumente interne de IA furnizate de client', 'Ferramentas internas de IA fornecidas pelo cliente') },
+      { value: 'other_general_ai_tools', label: L('Other general-purpose AI tools', 'Autres outils d’IA généralistes', 'Alte instrumente de IA cu uz general', 'Outras ferramentas de IA de uso geral') },
+      { value: 'no_general_ai_tools', label: L('I do not use general-purpose AI tools', 'Je n’utilise pas d’outils d’IA généralistes', 'Nu folosesc instrumente de IA cu uz general', 'Não utilizo ferramentas de IA de uso geral') },
     ] },
     { id: 'q4_productivity', type: 'single_choice', required: true, label: L('How much does AI improve your productivity?', 'Dans quelle mesure l’IA améliore-t-elle votre productivité ?'), options: [
       { value: 'no_impact', label: L('No impact', 'Aucun impact') },
@@ -384,7 +387,7 @@ const surveyConfig = {
 const roQuestionLabels = {
   q1_role: 'Care dintre următoarele descrie cel mai bine rolul tău?',
   q2_ai_usage: 'Cât de des folosești IA în activitatea ta?',
-  q3_general_tools: 'Ce instrumente generale de inteligență artificială folosești în prezent?',
+  q3_general_tools: 'Ce instrumente de IA cu uz general folosești în prezent în activitatea ta?',
   q4_productivity: 'În ce măsură îți îmbunătățește IA productivitatea?',
   q5_quality: 'În ce măsură îți îmbunătățește IA calitatea muncii?',
   q6_team_usage: 'Cum este utilizată IA în echipa ta?',
@@ -397,7 +400,7 @@ const roQuestionLabels = {
 const ptQuestionLabels = {
   q1_role: 'Qual das opções descreve melhor o seu papel?',
   q2_ai_usage: 'Com que frequência você usa IA no seu trabalho?',
-  q3_general_tools: 'Quais ferramentas de IA você utiliza hoje?',
+  q3_general_tools: 'Quais ferramentas de IA de uso geral você utiliza atualmente no seu trabalho?',
   q4_productivity: 'Em que medida a IA melhora sua produtividade?',
   q5_quality: 'Em que medida a IA melhora a qualidade do seu trabalho?',
   q6_team_usage: 'Como a IA é utilizada na sua equipe?',
@@ -410,7 +413,7 @@ const ptQuestionLabels = {
 const roOptionLabels = {
   developer: 'Dezvoltator', qa_testing_quality: 'QA / Testare / Calitate', project_product_business_analysis_operations: 'Proiect / Produs / Analiză Business / Operațiuni',
   no_use: 'Nu folosesc IA', occasional: 'Ocazional', regular: 'În mod regulat', most_tasks: 'În majoritatea sarcinilor mele', few_times_per_week: 'O folosesc de câteva ori pe săptămână', every_day: 'O folosesc în fiecare zi', many_times_per_day: 'O folosesc de mai multe ori pe zi',
-  other_general_ai_tools: 'Alte instrumente IA', no_impact: 'Fără impact', slight: 'Impact redus', moderate: 'Impact moderat', significant: 'Impact semnificativ',
+  le_chat_mistral: 'Le Chat (Mistral)', client_internal_ai_tools: 'Instrumente interne de IA furnizate de client', other_general_ai_tools: 'Alte instrumente de IA cu uz general', no_general_ai_tools: 'Nu folosesc instrumente de IA cu uz general', no_impact: 'Fără impact', slight: 'Impact redus', moderate: 'Impact moderat', significant: 'Impact semnificativ',
   individual_only: 'Utilizare individuală', informal_sharing: 'Partajare informală', some_team_practices: 'Practici parțiale', fully_integrated: 'Complet integrată',
   suggests_only: 'Doar sugestii', generates_outputs: 'Generează conținut', executes_with_supervision: 'Execută cu supraveghere', runs_workflows: 'Rulează fluxuri complete',
   no: 'Nu', limited_async: 'Limitat', yes_independent: 'Da', no_measurement: 'Nu', informal_tracking: 'Informal', defined_metrics: 'Indicatori definiți',
@@ -420,7 +423,7 @@ const roOptionLabels = {
 const ptOptionLabels = {
   developer: 'Desenvolvedor', qa_testing_quality: 'QA / Testes / Qualidade', project_product_business_analysis_operations: 'Projeto / Produto / Análise de Negócios / Operações',
   no_use: 'Não utilizo IA', occasional: 'Ocasionalmente', regular: 'Regularmente', most_tasks: 'Na maioria das minhas tarefas', few_times_per_week: 'Utilizo algumas vezes por semana', every_day: 'Utilizo todos os dias', many_times_per_day: 'Utilizo várias vezes por dia',
-  other_general_ai_tools: 'Outras ferramentas', no_impact: 'Nenhum impacto', slight: 'Leve melhoria', moderate: 'Melhoria moderada', significant: 'Melhoria significativa',
+  le_chat_mistral: 'Le Chat (Mistral)', client_internal_ai_tools: 'Ferramentas internas de IA fornecidas pelo cliente', other_general_ai_tools: 'Outras ferramentas de IA de uso geral', no_general_ai_tools: 'Não utilizo ferramentas de IA de uso geral', no_impact: 'Nenhum impacto', slight: 'Leve melhoria', moderate: 'Melhoria moderada', significant: 'Melhoria significativa',
   individual_only: 'Uso individual', informal_sharing: 'Compartilhamento informal', some_team_practices: 'Algumas práticas', fully_integrated: 'Totalmente integrada',
   suggests_only: 'Apenas sugestões', generates_outputs: 'Gera conteúdo', executes_with_supervision: 'Executa com supervisão', runs_workflows: 'Executa fluxos completos',
   no: 'Não', limited_async: 'Limitado', yes_independent: 'Sim', no_measurement: 'Não', informal_tracking: 'Informal', defined_metrics: 'Métricas definidas',
@@ -575,6 +578,13 @@ function App() {
 
   const toggleMulti = (id, value) => setAnswers((prev) => {
     const existing = Array.isArray(prev[id]) ? prev[id] : [];
+    if (id === 'q3_general_tools') {
+      if (value === 'no_general_ai_tools') {
+        return { ...prev, [id]: existing.includes(value) ? [] : ['no_general_ai_tools'] };
+      }
+      const withoutNoTools = existing.filter((x) => x !== 'no_general_ai_tools');
+      return { ...prev, [id]: withoutNoTools.includes(value) ? withoutNoTools.filter((x) => x !== value) : [...withoutNoTools, value] };
+    }
     return { ...prev, [id]: existing.includes(value) ? existing.filter((x) => x !== value) : [...existing, value] };
   });
 
@@ -715,9 +725,11 @@ function App() {
               <div className="options">
                 {current.options.map((option) => {
                   const checked = current.type === 'single_choice' ? answers[current.id] === option.value : Array.isArray(answers[current.id]) && answers[current.id].includes(option.value);
+                  const noGeneralToolsSelected = current.id === 'q3_general_tools' && Array.isArray(answers[current.id]) && answers[current.id].includes('no_general_ai_tools');
+                  const disabled = current.id === 'q3_general_tools' && noGeneralToolsSelected && option.value !== 'no_general_ai_tools';
                   return (
-                    <label className={`option-card ${checked ? 'active' : ''}`} key={option.value}>
-                      <input type={current.type === 'single_choice' ? 'radio' : 'checkbox'} name={current.id} checked={checked} onChange={() => current.type === 'single_choice' ? setSingle(current.id, option.value) : toggleMulti(current.id, option.value)} />
+                    <label className={`option-card ${checked ? 'active' : ''} ${disabled ? 'disabled' : ''}`} key={option.value}>
+                      <input type={current.type === 'single_choice' ? 'radio' : 'checkbox'} name={current.id} checked={checked} disabled={disabled} onChange={() => current.type === 'single_choice' ? setSingle(current.id, option.value) : toggleMulti(current.id, option.value)} />
                       <span>
                         <span className="option-label">{localize(option.label, lang)}</span>
                         {option.description && <small className="option-description">{localize(option.description, lang)}</small>}
