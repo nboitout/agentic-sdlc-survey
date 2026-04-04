@@ -260,9 +260,9 @@ const surveyConfig = {
     ] },
     { id: 'q4_productivity', type: 'single_choice', required: true, label: L('How much does AI improve your productivity?', 'Dans quelle mesure l’IA améliore-t-elle votre productivité ?'), options: [
       { value: 'no_impact', label: L('No impact', 'Aucun impact') },
-      { value: 'slight', label: L('Slight improvement', 'Faible amélioration') },
-      { value: 'moderate', label: L('Moderate improvement', 'Amélioration modérée') },
-      { value: 'significant', label: L('Significant improvement', 'Amélioration significative') },
+      { value: 'moderate_improvement', label: L('Moderate improvement', 'Amélioration modérée', 'Îmbunătățire moderată', 'Melhoria moderada') },
+      { value: 'significant_improvement', label: L('Significant improvement', 'Amélioration significative', 'Îmbunătățire semnificativă', 'Melhoria significativa') },
+      { value: 'rely_on_ai_for_workload', label: L('I would struggle to handle my workload without AI', 'J’aurais du mal à gérer ma charge de travail sans l’IA', 'Mi-ar fi greu să îmi gestionez volumul de muncă fără IA', 'Eu teria dificuldade para lidar com minha carga de trabalho sem IA') },
     ] },
     { id: 'q5_quality', type: 'single_choice', required: true, label: L('How much does AI improve the quality of your work?', 'Dans quelle mesure l’IA améliore-t-elle la qualité de votre travail ?'), options: [
       { value: 'no_impact', label: L('No impact', 'Aucun impact') },
@@ -413,7 +413,7 @@ const ptQuestionLabels = {
 const roOptionLabels = {
   developer: 'Dezvoltator', qa_testing_quality: 'QA / Testare / Calitate', project_product_business_analysis_operations: 'Proiect / Produs / Analiză Business / Operațiuni',
   no_use: 'Nu folosesc IA', occasional: 'Ocazional', regular: 'În mod regulat', most_tasks: 'În majoritatea sarcinilor mele', few_times_per_week: 'O folosesc de câteva ori pe săptămână', every_day: 'O folosesc în fiecare zi', many_times_per_day: 'O folosesc de mai multe ori pe zi',
-  le_chat_mistral: 'Le Chat (Mistral)', client_internal_ai_tools: 'Instrumente interne de IA furnizate de client', other_general_ai_tools: 'Alte instrumente de IA cu uz general', no_general_ai_tools: 'Nu folosesc instrumente de IA cu uz general', no_impact: 'Fără impact', slight: 'Impact redus', moderate: 'Impact moderat', significant: 'Impact semnificativ',
+  le_chat_mistral: 'Le Chat (Mistral)', client_internal_ai_tools: 'Instrumente interne de IA furnizate de client', other_general_ai_tools: 'Alte instrumente de IA cu uz general', no_general_ai_tools: 'Nu folosesc instrumente de IA cu uz general', no_impact: 'Fără impact', slight: 'Impact redus', moderate: 'Impact moderat', significant: 'Impact semnificativ', moderate_improvement: 'Îmbunătățire moderată', significant_improvement: 'Îmbunătățire semnificativă', rely_on_ai_for_workload: 'Mi-ar fi greu să îmi gestionez volumul de muncă fără IA',
   individual_only: 'Utilizare individuală', informal_sharing: 'Partajare informală', some_team_practices: 'Practici parțiale', fully_integrated: 'Complet integrată',
   suggests_only: 'Doar sugestii', generates_outputs: 'Generează conținut', executes_with_supervision: 'Execută cu supraveghere', runs_workflows: 'Rulează fluxuri complete',
   no: 'Nu', limited_async: 'Limitat', yes_independent: 'Da', no_measurement: 'Nu', informal_tracking: 'Informal', defined_metrics: 'Indicatori definiți',
@@ -423,7 +423,7 @@ const roOptionLabels = {
 const ptOptionLabels = {
   developer: 'Desenvolvedor', qa_testing_quality: 'QA / Testes / Qualidade', project_product_business_analysis_operations: 'Projeto / Produto / Análise de Negócios / Operações',
   no_use: 'Não utilizo IA', occasional: 'Ocasionalmente', regular: 'Regularmente', most_tasks: 'Na maioria das minhas tarefas', few_times_per_week: 'Utilizo algumas vezes por semana', every_day: 'Utilizo todos os dias', many_times_per_day: 'Utilizo várias vezes por dia',
-  le_chat_mistral: 'Le Chat (Mistral)', client_internal_ai_tools: 'Ferramentas internas de IA fornecidas pelo cliente', other_general_ai_tools: 'Outras ferramentas de IA de uso geral', no_general_ai_tools: 'Não utilizo ferramentas de IA de uso geral', no_impact: 'Nenhum impacto', slight: 'Leve melhoria', moderate: 'Melhoria moderada', significant: 'Melhoria significativa',
+  le_chat_mistral: 'Le Chat (Mistral)', client_internal_ai_tools: 'Ferramentas internas de IA fornecidas pelo cliente', other_general_ai_tools: 'Outras ferramentas de IA de uso geral', no_general_ai_tools: 'Não utilizo ferramentas de IA de uso geral', no_impact: 'Nenhum impacto', slight: 'Leve melhoria', moderate: 'Melhoria moderada', significant: 'Melhoria significativa', moderate_improvement: 'Melhoria moderada', significant_improvement: 'Melhoria significativa', rely_on_ai_for_workload: 'Eu teria dificuldade para lidar com minha carga de trabalho sem IA',
   individual_only: 'Uso individual', informal_sharing: 'Compartilhamento informal', some_team_practices: 'Algumas práticas', fully_integrated: 'Totalmente integrada',
   suggests_only: 'Apenas sugestões', generates_outputs: 'Gera conteúdo', executes_with_supervision: 'Executa com supervisão', runs_workflows: 'Executa fluxos completos',
   no: 'Não', limited_async: 'Limitado', yes_independent: 'Sim', no_measurement: 'Não', informal_tracking: 'Informal', defined_metrics: 'Métricas definidas',
