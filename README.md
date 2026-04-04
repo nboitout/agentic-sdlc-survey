@@ -1,9 +1,11 @@
-# Agentic SDLC Diagnostic (Branching Survey)
+# Agentic SDLC Diagnostic (Branching Survey, EN/FR)
 
-A static React-based diagnostic form with branching logic:
+Static React survey with role-based branching and bilingual English/French UI.
+
+## Structure
 
 - 11 shared core required questions
-- 12 role-specific required questions for one branch only:
+- 12 role-specific required questions from one selected branch:
   - Developer
   - QA / Testing / Quality
   - Project / Product / Operations
@@ -11,27 +13,20 @@ A static React-based diagnostic form with branching logic:
 
 ## Key features
 
-- React UI with one-question-at-a-time flow
-- Data-driven questionnaire config (`coreQuestions`, `branches`, `finalOptionalComment`)
-- Role-based branching from Q1
-- Progress indicator + Previous/Next navigation
-- Validation for all required single-choice and multi-select questions
-- Optional free-text question at the end
+- EN/FR language toggle (`EN | FR`) at top-right
+- Instant language switch for labels/questions/options without resetting answers
+- Stable answer values (language-independent keys)
+- Data-driven questionnaire config (no duplicated components)
+- Required validation for single/multi-select questions
+- Optional final free-text comment
 - Local persistence via `localStorage`
-- Backend-friendly submission payload:
+- Backend-friendly payload:
   - `role`
   - `coreAnswers`
   - `branch`
   - `branchAnswers`
   - `comment`
   - `submittedAt`
-  - `metadata`
-
-## Files
-
-- `index.html`: page shell + React CDN bootstrap
-- `app.js`: survey config, branching, UI logic
-- `styles.css`: enterprise-style survey styling
 
 ## Run locally
 
@@ -40,8 +35,3 @@ python3 -m http.server 8000
 ```
 
 Then open `http://localhost:8000`.
-
-## Submission behavior
-
-- If an endpoint is provided in the form, the app sends `POST` JSON.
-- If endpoint is left empty, submission is mocked locally (payload logged in browser console).

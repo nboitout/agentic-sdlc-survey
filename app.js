@@ -1,211 +1,228 @@
 const { useEffect, useMemo, useState } = React;
 
-const STORAGE_KEY = 'agenticSdlcBranchingSurveyV2';
+const STORAGE_KEY = 'agenticSdlcBranchingSurveyV3';
+
+const uiText = {
+  en: {
+    title: 'Agentic SDLC Diagnostic',
+    subtitle: '11 core + 12 role-specific required questions plus 1 optional final comment. Professional, structured, and analytics-ready.',
+    language: 'Language',
+    metadata: 'Survey Metadata',
+    surveyDate: 'Survey date',
+    teamName: 'Team / Group name',
+    respondent: 'Respondent name',
+    endpoint: 'Submission endpoint (optional)',
+    optional: 'Optional',
+    progress: 'Progress',
+    steps: 'steps',
+    requiredAnswered: 'Required answered',
+    required: 'Required',
+    optionalTag: 'Optional',
+    single_choice: 'single choice',
+    multi_select: 'multi select',
+    free_text: 'free text',
+    next: 'Next',
+    previous: 'Previous',
+    review: 'Review & Submit',
+    ready: 'Ready to submit',
+    role: 'Role',
+    branch: 'Branch',
+    coreQuestions: 'Core questions',
+    branchQuestions: 'Branch questions',
+    submit: 'Submit',
+    submitting: 'Submitting...',
+    successTitle: 'Submission complete',
+    successBody: 'Thank you. Your diagnostic response has been recorded.',
+    requiredError: 'Please answer this required question to continue.',
+    incompleteError: 'Please complete all required questions before submitting.',
+    noEndpoint: 'No endpoint set. Payload preview:',
+    coreSection: 'Core Questions',
+    finalSection: 'Final Optional Comment',
+  },
+  fr: {
+    title: 'Diagnostic SDLC Agentique',
+    subtitle: '11 questions cœur + 12 questions spécifiques au rôle (obligatoires) + 1 commentaire final optionnel.',
+    language: 'Langue',
+    metadata: 'Métadonnées du questionnaire',
+    surveyDate: 'Date du questionnaire',
+    teamName: 'Nom de l’équipe / groupe',
+    respondent: 'Nom du répondant',
+    endpoint: 'Endpoint de soumission (optionnel)',
+    optional: 'Optionnel',
+    progress: 'Progression',
+    steps: 'étapes',
+    requiredAnswered: 'Obligatoires complétées',
+    required: 'Obligatoire',
+    optionalTag: 'Optionnel',
+    single_choice: 'choix unique',
+    multi_select: 'sélection multiple',
+    free_text: 'texte libre',
+    next: 'Suivant',
+    previous: 'Précédent',
+    review: 'Revue & Soumission',
+    ready: 'Prêt à soumettre',
+    role: 'Rôle',
+    branch: 'Branche',
+    coreQuestions: 'Questions cœur',
+    branchQuestions: 'Questions branche',
+    submit: 'Soumettre',
+    submitting: 'Soumission...',
+    successTitle: 'Soumission terminée',
+    successBody: 'Merci. Votre réponse au diagnostic a été enregistrée.',
+    requiredError: 'Veuillez répondre à cette question obligatoire pour continuer.',
+    incompleteError: 'Veuillez compléter toutes les questions obligatoires avant la soumission.',
+    noEndpoint: 'Aucun endpoint défini. Aperçu payload :',
+    coreSection: 'Questions cœur',
+    finalSection: 'Commentaire final optionnel',
+  }
+};
+
+const L = (en, fr) => ({ en, fr });
+const localize = (v, lang) => (typeof v === 'string' ? v : (v?.[lang] ?? v?.en ?? ''));
 
 const standardProvisioningOptions = [
-  { value: 'personally_chosen', label: 'Personally chosen / informal' },
-  { value: 'team_standard', label: 'Team-standard tool' },
-  { value: 'client_mandated', label: 'Client-mandated tool' },
-  { value: 'enterprise_standard', label: 'Enterprise-standard tool' },
-  { value: 'trial_experimental', label: 'Trial / experimental only' },
+  { value: 'personally_chosen', label: L('Personally chosen / informal', 'Choix personnel / informel') },
+  { value: 'team_standard', label: L('Team-standard tool', 'Outil standard de l’équipe') },
+  { value: 'client_mandated', label: L('Client-mandated tool', 'Outil imposé par le client') },
+  { value: 'enterprise_standard', label: L('Enterprise-standard tool', 'Outil standard entreprise') },
+  { value: 'trial_experimental', label: L('Trial / experimental only', 'Essai / expérimental uniquement') },
 ];
 
 const surveyConfig = {
-  survey: {
-    id: 'agentic_sdlc_diagnostic_v2',
-    title: 'Agentic SDLC Diagnostic',
-    description: '11 core + 12 role-specific required questions, plus 1 optional final comment.',
-  },
   coreQuestions: [
-    { id: 'q1_role', type: 'single_choice', required: true, label: 'What best describes your role?', options: [
-      { value: 'developer', label: 'Developer' },
-      { value: 'qa_testing_quality', label: 'QA / Testing / Quality' },
-      { value: 'project_product_operations', label: 'Project / Product / Operations' },
+    { id: 'q1_role', type: 'single_choice', required: true, label: L('What best describes your role?', 'Quel rôle décrit le mieux votre fonction ?'), options: [
+      { value: 'developer', label: L('Developer', 'Développeur') },
+      { value: 'qa_testing_quality', label: L('QA / Testing / Quality', 'QA / Tests / Qualité') },
+      { value: 'project_product_operations', label: L('Project / Product / Operations', 'Projet / Produit / Opérations') },
     ] },
-    { id: 'q2_ai_usage', type: 'single_choice', required: true, label: 'How do you currently use AI in your work?', options: [
-      { value: 'no_use', label: 'I do not use AI' },
-      { value: 'occasional', label: 'I use it occasionally' },
-      { value: 'regular', label: 'I use it regularly' },
-      { value: 'most_tasks', label: 'I use it in most of my tasks' },
+    { id: 'q2_ai_usage', type: 'single_choice', required: true, label: L('How do you currently use AI in your work?', 'Comment utilisez-vous actuellement l’IA dans votre travail ?'), options: [
+      { value: 'no_use', label: L('I do not use AI', 'Je n’utilise pas l’IA') },
+      { value: 'occasional', label: L('I use it occasionally', 'Occasionnellement') },
+      { value: 'regular', label: L('I use it regularly', 'Régulièrement') },
+      { value: 'most_tasks', label: L('I use it in most of my tasks', 'Dans la plupart de mes tâches') },
     ] },
-    { id: 'q3_general_tools', type: 'multi_select', required: true, label: 'Which general AI tools do you use today?', options: [
-      { value: 'chatgpt', label: 'ChatGPT' },
-      { value: 'claude', label: 'Claude' },
-      { value: 'microsoft_copilot', label: 'Microsoft Copilot' },
-      { value: 'gemini', label: 'Gemini' },
-      { value: 'perplexity', label: 'Perplexity' },
-      { value: 'other_general_ai_tools', label: 'Other general AI tools' },
+    { id: 'q3_general_tools', type: 'multi_select', required: true, label: L('Which general AI tools do you use today?', 'Quels outils d’IA généralistes utilisez-vous aujourd’hui ?'), options: [
+      { value: 'chatgpt', label: L('ChatGPT', 'ChatGPT') },
+      { value: 'claude', label: L('Claude', 'Claude') },
+      { value: 'microsoft_copilot', label: L('Microsoft Copilot', 'Microsoft Copilot') },
+      { value: 'gemini', label: L('Gemini', 'Gemini') },
+      { value: 'perplexity', label: L('Perplexity', 'Perplexity') },
+      { value: 'other_general_ai_tools', label: L('Other general AI tools', 'Autres outils d’IA') },
     ] },
-    { id: 'q4_productivity', type: 'single_choice', required: true, label: 'How much does AI improve your productivity?', options: [
-      { value: 'no_impact', label: 'No impact' },
-      { value: 'slight', label: 'Slight improvement' },
-      { value: 'moderate', label: 'Moderate improvement' },
-      { value: 'significant', label: 'Significant improvement' },
+    { id: 'q4_productivity', type: 'single_choice', required: true, label: L('How much does AI improve your productivity?', 'Dans quelle mesure l’IA améliore-t-elle votre productivité ?'), options: [
+      { value: 'no_impact', label: L('No impact', 'Aucun impact') },
+      { value: 'slight', label: L('Slight improvement', 'Faible amélioration') },
+      { value: 'moderate', label: L('Moderate improvement', 'Amélioration modérée') },
+      { value: 'significant', label: L('Significant improvement', 'Amélioration significative') },
     ] },
-    { id: 'q5_quality', type: 'single_choice', required: true, label: 'How much does AI improve the quality of your work?', options: [
-      { value: 'no_impact', label: 'No impact' },
-      { value: 'slight', label: 'Slight improvement' },
-      { value: 'moderate', label: 'Moderate improvement' },
-      { value: 'significant', label: 'Significant improvement' },
+    { id: 'q5_quality', type: 'single_choice', required: true, label: L('How much does AI improve the quality of your work?', 'Dans quelle mesure l’IA améliore-t-elle la qualité de votre travail ?'), options: [
+      { value: 'no_impact', label: L('No impact', 'Aucun impact') },
+      { value: 'slight', label: L('Slight improvement', 'Faible amélioration') },
+      { value: 'moderate', label: L('Moderate improvement', 'Amélioration modérée') },
+      { value: 'significant', label: L('Significant improvement', 'Amélioration significative') },
     ] },
-    { id: 'q6_team_usage', type: 'single_choice', required: true, label: 'How is AI used in your team today?', options: [
-      { value: 'individual_only', label: 'Individual use only' },
-      { value: 'informal_sharing', label: 'Informal sharing within the team' },
-      { value: 'some_team_practices', label: 'Some team practices are defined' },
-      { value: 'fully_integrated', label: 'Fully integrated into workflows' },
+    { id: 'q6_team_usage', type: 'single_choice', required: true, label: L('How is AI used in your team today?', 'Comment l’IA est-elle utilisée dans votre équipe aujourd’hui ?'), options: [
+      { value: 'individual_only', label: L('Individual use only', 'Usage individuel uniquement') },
+      { value: 'informal_sharing', label: L('Informal sharing within the team', 'Partage informel') },
+      { value: 'some_team_practices', label: L('Some team practices are defined', 'Quelques pratiques d’équipe') },
+      { value: 'fully_integrated', label: L('Fully integrated into workflows', 'Intégrée aux workflows') },
     ] },
-    { id: 'q7_autonomy', type: 'single_choice', required: true, label: 'What is the highest level of AI autonomy you use today?', options: [
-      { value: 'suggests_only', label: 'AI suggests only' },
-      { value: 'generates_outputs', label: 'AI generates outputs' },
-      { value: 'executes_with_supervision', label: 'AI executes tasks with supervision' },
-      { value: 'runs_workflows', label: 'AI runs workflows end-to-end' },
+    { id: 'q7_autonomy', type: 'single_choice', required: true, label: L('What is the highest level of AI autonomy you use today?', 'Quel est le niveau d’autonomie le plus élevé de l’IA que vous utilisez aujourd’hui ?'), options: [
+      { value: 'suggests_only', label: L('AI suggests only', 'Suggestions uniquement') },
+      { value: 'generates_outputs', label: L('AI generates outputs', 'Génère des contenus') },
+      { value: 'executes_with_supervision', label: L('AI executes tasks with supervision', 'Exécute avec supervision') },
+      { value: 'runs_workflows', label: L('AI runs workflows end-to-end', 'Exécute des workflows complets') },
     ] },
-    { id: 'q8_async', type: 'single_choice', required: true, label: 'Can AI-driven tasks run without your continuous involvement?', options: [
-      { value: 'no', label: 'No, I must always stay involved' },
-      { value: 'limited_async', label: 'Limited, some asynchronous usage is possible' },
-      { value: 'yes_independent', label: 'Yes, some tasks can run independently' },
+    { id: 'q8_async', type: 'single_choice', required: true, label: L('Can AI-driven tasks run without your continuous involvement?', 'Des tâches pilotées par l’IA peuvent-elles s’exécuter sans votre intervention continue ?'), options: [
+      { value: 'no', label: L('No, I must always stay involved', 'Non') },
+      { value: 'limited_async', label: L('Limited, some asynchronous usage is possible', 'Limité') },
+      { value: 'yes_independent', label: L('Yes, some tasks can run independently', 'Oui') },
     ] },
-    { id: 'q9_measurement', type: 'single_choice', required: true, label: 'Do you measure the impact of AI usage?', options: [
-      { value: 'no_measurement', label: 'No measurement' },
-      { value: 'informal_tracking', label: 'Informal tracking' },
-      { value: 'defined_metrics', label: 'Defined metrics are in place' },
+    { id: 'q9_measurement', type: 'single_choice', required: true, label: L('Do you measure the impact of AI usage?', 'Mesurez-vous l’impact de l’usage de l’IA ?'), options: [
+      { value: 'no_measurement', label: L('No measurement', 'Aucun suivi') },
+      { value: 'informal_tracking', label: L('Informal tracking', 'Suivi informel') },
+      { value: 'defined_metrics', label: L('Defined metrics are in place', 'Indicateurs définis') },
     ] },
-    { id: 'q10_sdlc_usage', type: 'multi_select', required: true, label: 'In which parts of the SDLC do you use AI today?', options: [
-      { value: 'requirements_specs', label: 'Requirements / Specs' },
-      { value: 'planning_project_management', label: 'Planning / Project Management' },
-      { value: 'coding', label: 'Coding' },
-      { value: 'code_review', label: 'Code Review' },
-      { value: 'testing', label: 'Testing' },
-      { value: 'debugging', label: 'Debugging' },
-      { value: 'cicd', label: 'CI/CD' },
-      { value: 'deployment', label: 'Deployment' },
-      { value: 'production_operations', label: 'Production / Operations' },
-      { value: 'documentation', label: 'Documentation' },
+    { id: 'q10_sdlc_usage', type: 'multi_select', required: true, label: L('In which parts of the SDLC do you use AI today?', 'Dans quelles parties du cycle de développement (SDLC) utilisez-vous l’IA ?'), options: [
+      { value: 'requirements_specs', label: L('Requirements / Specs', 'Spécifications') },
+      { value: 'planning_project_management', label: L('Planning / Project Management', 'Planification') },
+      { value: 'coding', label: L('Coding', 'Développement') },
+      { value: 'code_review', label: L('Code Review', 'Revue de code') },
+      { value: 'testing', label: L('Testing', 'Tests') },
+      { value: 'debugging', label: L('Debugging', 'Débogage') },
+      { value: 'cicd', label: L('CI/CD', 'CI/CD') },
+      { value: 'deployment', label: L('Deployment', 'Déploiement') },
+      { value: 'production_operations', label: L('Production / Operations', 'Production / Exploitation') },
+      { value: 'documentation', label: L('Documentation', 'Documentation') },
     ] },
-    { id: 'q11_ai_skills', type: 'single_choice', required: true, label: 'How have you developed your skills with AI tools so far?', options: [
-      { value: 'no_effort', label: 'I have not invested time in learning AI tools' },
-      { value: 'ad_hoc_learning', label: 'I learned informally through trial and error or occasional use' },
-      { value: 'self_learning', label: 'I actively learned through tutorials, videos, or documentation' },
-      { value: 'structured_learning', label: 'I followed structured training such as courses or internal programs' },
-      { value: 'advanced_usage', label: 'I actively experiment, optimize workflows, or build advanced usage such as agents or automation' },
+    { id: 'q11_ai_skills', type: 'single_choice', required: true, label: L('How have you developed your skills with AI tools so far?', 'Comment avez-vous développé vos compétences sur les outils d’IA jusqu’à présent ?'), options: [
+      { value: 'no_effort', label: L('I have not invested time in learning AI tools', 'Aucun effort') },
+      { value: 'ad_hoc_learning', label: L('I learned informally through trial and error or occasional use', 'Apprentissage informel') },
+      { value: 'self_learning', label: L('I actively learned through tutorials, videos, or documentation', 'Auto-formation') },
+      { value: 'structured_learning', label: L('I followed structured training such as courses or internal programs', 'Formation structurée') },
+      { value: 'advanced_usage', label: L('I actively experiment, optimize workflows, or build advanced usage such as agents or automation', 'Usage avancé / expérimentation') },
     ] },
   ],
   branches: {
     developer: {
-      title: 'Developer Questions',
+      title: L('Developer Questions', 'Questions Développeur'),
       questions: [
-        { id: 'd1_coding', type: 'single_choice', required: true, label: 'How do you use AI for coding?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'snippets_only', label: 'Snippets only' }, { value: 'functions_modules', label: 'Full functions or modules' }, { value: 'end_to_end_implementation', label: 'End-to-end implementation' },
+        { id: 'd1', type: 'single_choice', required: true, label: L('How do you use AI for coding?', 'Comment utilisez-vous l’IA pour le développement ?'), options: [
+          { value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'snippets_only', label: L('Snippets only', 'Extraits de code') }, { value: 'functions_modules', label: L('Full functions or modules', 'Fonctions ou modules complets') }, { value: 'end_to_end_implementation', label: L('End-to-end implementation', 'Développement complet') },
         ] },
-        { id: 'd2_understand_code', type: 'single_choice', required: true, label: 'How often does AI help you understand unfamiliar code?', options: [
-          { value: 'never', label: 'Never' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
+        { id: 'd2', type: 'single_choice', required: true, label: L('How often does AI help you understand unfamiliar code?', 'À quelle fréquence l’IA vous aide-t-elle à comprendre du code non familier ?'), options: [
+          { value: 'never', label: L('Never', 'Jamais') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') },
         ] },
-        { id: 'd3_refactor', type: 'single_choice', required: true, label: 'How does AI support refactoring in your work?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'minor_edits', label: 'Minor edits' }, { value: 'significant_refactoring', label: 'Significant refactoring' }, { value: 'automated_refactoring_workflows', label: 'Automated refactoring workflows' },
+        { id: 'd3', type: 'single_choice', required: true, label: L('How does AI support refactoring in your work?', 'Comment l’IA aide-t-elle au refactoring dans votre travail ?'), options: [
+          { value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'minor_edits', label: L('Minor edits', 'Éditions mineures') }, { value: 'significant_refactoring', label: L('Significant refactoring', 'Refactoring significatif') }, { value: 'automated_refactoring_workflows', label: L('Automated refactoring workflows', 'Workflows automatisés de refactoring') },
         ] },
-        { id: 'd4_review_freq', type: 'single_choice', required: true, label: 'How often do you use AI in code review?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematic_pr_review', label: 'Systematic part of PR review' },
+        { id: 'd4', type: 'single_choice', required: true, label: L('How often do you use AI in code review?', 'À quelle fréquence utilisez-vous l’IA en revue de code ?'), options: [
+          { value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematic_pr_review', label: L('Systematic part of PR review', 'Partie systématique de la revue PR') },
         ] },
-        { id: 'd5_review_usage', type: 'multi_select', required: true, label: 'What do you use AI for in code review?', options: [
-          { value: 'detect_bugs', label: 'Detect bugs' }, { value: 'suggest_improvements', label: 'Suggest improvements' }, { value: 'enforce_standards', label: 'Enforce standards' }, { value: 'summarize_prs', label: 'Summarize PRs' },
+        { id: 'd5', type: 'multi_select', required: true, label: L('What do you use AI for in code review?', 'Pour quoi utilisez-vous l’IA en revue de code ?'), options: [
+          { value: 'detect_bugs', label: L('Detect bugs', 'Détecter des bugs') }, { value: 'suggest_improvements', label: L('Suggest improvements', 'Suggérer des améliorations') }, { value: 'enforce_standards', label: L('Enforce standards', 'Appliquer des standards') }, { value: 'summarize_prs', label: L('Summarize PRs', 'Résumer des PR') },
         ] },
-        { id: 'd6_test_generation', type: 'single_choice', required: true, label: 'How often do you use AI to generate tests?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'd7_debug', type: 'single_choice', required: true, label: 'How often does AI help you debug issues?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'first_reflex', label: 'It is my first reflex' },
-        ] },
-        { id: 'd8_cicd', type: 'single_choice', required: true, label: 'How does AI help with CI/CD failures?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'suggests_fixes', label: 'It suggests fixes' }, { value: 'frequently_used', label: 'Frequently used for diagnosis or resolution' }, { value: 'automatically_resolves', label: 'Automatically resolves some issues' },
-        ] },
-        { id: 'd9_agents_usage', type: 'single_choice', required: true, label: 'How are agents used in your development workflow?', options: [
-          { value: 'none', label: 'None' }, { value: 'experimental', label: 'Experimental only' }, { value: 'some_workflows', label: 'Used in some workflows' }, { value: 'core_workflow', label: 'Core part of the workflow' },
-        ] },
-        { id: 'd10_agents_actions', type: 'multi_select', required: true, label: 'What can agents do in your development workflow?', options: [
-          { value: 'open_prs', label: 'Open PRs' }, { value: 'fix_bugs', label: 'Fix bugs' }, { value: 'refactor_code', label: 'Refactor code' }, { value: 'update_dependencies', label: 'Update dependencies' }, { value: 'maintain_documentation', label: 'Maintain documentation' },
-        ] },
-        { id: 'd11_dev_solutions', type: 'multi_select', required: true, label: 'Which developer AI solutions do you currently use?', options: [
-          { value: 'github_copilot', label: 'GitHub Copilot' }, { value: 'github_copilot_agent', label: 'GitHub Copilot cloud agent / code review' }, { value: 'claude_code', label: 'Claude Code' }, { value: 'openai_codex', label: 'OpenAI Codex' }, { value: 'cursor', label: 'Cursor' }, { value: 'gemini_code_assist', label: 'Gemini Code Assist' }, { value: 'devin', label: 'Devin' }, { value: 'windsurf', label: 'Windsurf' }, { value: 'jetbrains_ai_assistant', label: 'JetBrains AI Assistant' }, { value: 'tabnine', label: 'Tabnine' }, { value: 'other_developer_ai_tools', label: 'Other developer AI tools' }, { value: 'no_specific_developer_tool', label: 'No specific developer AI tool' },
-        ] },
-        { id: 'd12_provisioning', type: 'single_choice', required: true, label: 'How are these developer AI tools provided in your environment?', options: standardProvisioningOptions },
+        { id: 'd6', type: 'single_choice', required: true, label: L('How often do you use AI to generate tests?', 'À quelle fréquence utilisez-vous l’IA pour générer des tests ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'd7', type: 'single_choice', required: true, label: L('How often does AI help you debug issues?', 'À quelle fréquence l’IA vous aide-t-elle à déboguer des incidents ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'first_reflex', label: L('It is my first reflex', 'C’est mon premier réflexe') }] },
+        { id: 'd8', type: 'single_choice', required: true, label: L('How does AI help with CI/CD failures?', 'Comment l’IA aide-t-elle sur les échecs CI/CD ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'suggests_fixes', label: L('It suggests fixes', 'Suggère des correctifs') }, { value: 'frequently_used', label: L('Frequently used for diagnosis or resolution', 'Souvent utilisée pour diagnostic/résolution') }, { value: 'automatically_resolves', label: L('Automatically resolves some issues', 'Résout automatiquement certains incidents') }] },
+        { id: 'd9', type: 'single_choice', required: true, label: L('How are agents used in your development workflow?', 'Comment les agents sont-ils utilisés dans votre workflow de développement ?'), options: [{ value: 'none', label: L('None', 'Aucun') }, { value: 'experimental', label: L('Experimental only', 'Expérimental') }, { value: 'some_workflows', label: L('Used in some workflows', 'Utilisés dans certains workflows') }, { value: 'core_workflow', label: L('Core part of the workflow', 'Au cœur du workflow') }] },
+        { id: 'd10', type: 'multi_select', required: true, label: L('What can agents do in your development workflow?', 'Que peuvent faire les agents dans votre workflow de développement ?'), options: [{ value: 'open_prs', label: L('Open PRs', 'Ouvrir des PR') }, { value: 'fix_bugs', label: L('Fix bugs', 'Corriger des bugs') }, { value: 'refactor_code', label: L('Refactor code', 'Refactoriser du code') }, { value: 'update_dependencies', label: L('Update dependencies', 'Mettre à jour des dépendances') }, { value: 'maintain_documentation', label: L('Maintain documentation', 'Maintenir la documentation') }] },
+        { id: 'd11', type: 'multi_select', required: true, label: L('Which developer AI solutions do you currently use?', 'Quelles solutions d’IA pour le développement utilisez-vous actuellement ?'), options: [{ value: 'github_copilot', label: L('GitHub Copilot', 'GitHub Copilot') }, { value: 'github_copilot_agent', label: L('GitHub Copilot cloud agent / code review', 'GitHub Copilot cloud agent / revue de code') }, { value: 'claude_code', label: L('Claude Code', 'Claude Code') }, { value: 'openai_codex', label: L('OpenAI Codex', 'OpenAI Codex') }, { value: 'cursor', label: L('Cursor', 'Cursor') }, { value: 'gemini_code_assist', label: L('Gemini Code Assist', 'Gemini Code Assist') }, { value: 'devin', label: L('Devin', 'Devin') }, { value: 'windsurf', label: L('Windsurf', 'Windsurf') }, { value: 'jetbrains_ai_assistant', label: L('JetBrains AI Assistant', 'JetBrains AI Assistant') }, { value: 'tabnine', label: L('Tabnine', 'Tabnine') }, { value: 'other_developer_ai_tools', label: L('Other developer AI tools', 'Autres outils de développement IA') }, { value: 'no_specific_developer_tool', label: L('No specific developer AI tool', 'Aucun outil spécifique') }] },
+        { id: 'd12', type: 'single_choice', required: true, label: L('How are these developer AI tools provided in your environment?', 'Comment ces outils IA de développement sont-ils fournis dans votre environnement ?'), options: standardProvisioningOptions },
       ],
     },
     qa_testing_quality: {
-      title: 'QA / Testing / Quality Questions',
+      title: L('QA / Testing / Quality Questions', 'Questions QA / Tests / Qualité'),
       questions: [
-        { id: 'qat1_generate_cases', type: 'single_choice', required: true, label: 'How often do you use AI to generate test cases?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'qat2_repair_tests', type: 'single_choice', required: true, label: 'How often does AI help update or repair tests?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'automatically', label: 'Automatically' },
-        ] },
-        { id: 'qat3_missing_coverage', type: 'single_choice', required: true, label: 'How often does AI help identify missing test coverage?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'qat4_regressions', type: 'single_choice', required: true, label: 'How often does AI help detect regressions?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'qat5_ci_failures', type: 'single_choice', required: true, label: 'How often does AI help diagnose test failures in CI?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'qat6_root_causes', type: 'single_choice', required: true, label: 'How often does AI help identify root causes of defects?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'qat7_release_validation', type: 'single_choice', required: true, label: 'How often does AI support release readiness validation?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'qat8_test_data', type: 'single_choice', required: true, label: 'How often does AI help generate test data?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'qat9_orchestration', type: 'single_choice', required: true, label: 'How much does AI orchestrate testing workflows?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'limited', label: 'Limited orchestration' }, { value: 'frequent', label: 'Frequent orchestration' }, { value: 'fully_automated', label: 'Fully automated workflows' },
-        ] },
-        { id: 'qat10_agents_actions', type: 'multi_select', required: true, label: 'What can agents do in your QA / testing workflow?', options: [
-          { value: 'generate_tests', label: 'Generate tests' }, { value: 'execute_tests', label: 'Execute tests' }, { value: 'diagnose_failures', label: 'Diagnose failures' }, { value: 'suggest_fixes', label: 'Suggest fixes' }, { value: 'validate_releases', label: 'Validate releases' },
-        ] },
-        { id: 'qat11_qa_solutions', type: 'multi_select', required: true, label: 'Which QA / testing AI solutions do you currently use?', options: [
-          { value: 'tricentis_tosca', label: 'Tricentis Tosca / Agentic Test Automation' }, { value: 'testim', label: 'Testim' }, { value: 'mabl', label: 'mabl' }, { value: 'functionize', label: 'Functionize' }, { value: 'cloudbees_smart_tests', label: 'CloudBees Smart Tests' }, { value: 'launchable', label: 'Launchable' }, { value: 'other_qa_ai_tools', label: 'Other QA AI tools' }, { value: 'no_specific_qa_tool', label: 'No specific QA AI tool' },
-        ] },
-        { id: 'qat12_provisioning', type: 'single_choice', required: true, label: 'How are these QA / testing AI tools provided in your environment?', options: standardProvisioningOptions },
+        { id: 'qat1', type: 'single_choice', required: true, label: L('How often do you use AI to generate test cases?', 'À quelle fréquence utilisez-vous l’IA pour générer des cas de test ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'qat2', type: 'single_choice', required: true, label: L('How often does AI help update or repair tests?', 'À quelle fréquence l’IA aide-t-elle à mettre à jour ou réparer des tests ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'automatically', label: L('Automatically', 'Automatiquement') }] },
+        { id: 'qat3', type: 'single_choice', required: true, label: L('How often does AI help identify missing test coverage?', 'À quelle fréquence l’IA aide-t-elle à identifier les manques de couverture de tests ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'qat4', type: 'single_choice', required: true, label: L('How often does AI help detect regressions?', 'À quelle fréquence l’IA aide-t-elle à détecter des régressions ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'qat5', type: 'single_choice', required: true, label: L('How often does AI help diagnose test failures in CI?', 'À quelle fréquence l’IA aide-t-elle à diagnostiquer des échecs de tests en CI ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'qat6', type: 'single_choice', required: true, label: L('How often does AI help identify root causes of defects?', 'À quelle fréquence l’IA aide-t-elle à identifier les causes racines des défauts ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'qat7', type: 'single_choice', required: true, label: L('How often does AI support release readiness validation?', 'À quelle fréquence l’IA aide-t-elle la validation de readiness de release ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'qat8', type: 'single_choice', required: true, label: L('How often does AI help generate test data?', 'À quelle fréquence l’IA aide-t-elle à générer des données de test ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'qat9', type: 'single_choice', required: true, label: L('How much does AI orchestrate testing workflows?', 'Dans quelle mesure l’IA orchestre-t-elle les workflows de test ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'limited', label: L('Limited orchestration', 'Orchestration limitée') }, { value: 'frequent', label: L('Frequent orchestration', 'Orchestration fréquente') }, { value: 'fully_automated', label: L('Fully automated workflows', 'Workflows entièrement automatisés') }] },
+        { id: 'qat10', type: 'multi_select', required: true, label: L('What can agents do in your QA / testing workflow?', 'Que peuvent faire les agents dans votre workflow QA / tests ?'), options: [{ value: 'generate_tests', label: L('Generate tests', 'Générer des tests') }, { value: 'execute_tests', label: L('Execute tests', 'Exécuter des tests') }, { value: 'diagnose_failures', label: L('Diagnose failures', 'Diagnostiquer des échecs') }, { value: 'suggest_fixes', label: L('Suggest fixes', 'Suggérer des correctifs') }, { value: 'validate_releases', label: L('Validate releases', 'Valider des releases') }] },
+        { id: 'qat11', type: 'multi_select', required: true, label: L('Which QA / testing AI solutions do you currently use?', 'Quelles solutions d’IA pour les tests utilisez-vous actuellement ?'), options: [{ value: 'tricentis_tosca', label: L('Tricentis Tosca / Agentic Test Automation', 'Tricentis Tosca / Agentic Test Automation') }, { value: 'testim', label: L('Testim', 'Testim') }, { value: 'mabl', label: L('mabl', 'mabl') }, { value: 'functionize', label: L('Functionize', 'Functionize') }, { value: 'cloudbees_smart_tests', label: L('CloudBees Smart Tests', 'CloudBees Smart Tests') }, { value: 'launchable', label: L('Launchable', 'Launchable') }, { value: 'other_qa_ai_tools', label: L('Other QA AI tools', 'Autres outils QA IA') }, { value: 'no_specific_qa_tool', label: L('No specific QA AI tool', 'Aucun outil QA spécifique') }] },
+        { id: 'qat12', type: 'single_choice', required: true, label: L('How are these QA / testing AI tools provided in your environment?', 'Comment ces outils IA de tests sont-ils fournis dans votre environnement ?'), options: standardProvisioningOptions },
       ],
     },
     project_product_operations: {
-      title: 'Project / Product / Operations Questions',
+      title: L('Project / Product / Operations Questions', 'Questions Projet / Produit / Opérations'),
       questions: [
-        { id: 'ppo1_requirements', type: 'single_choice', required: true, label: 'How often do you use AI to help with requirements or user stories?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'ppo2_planning', type: 'single_choice', required: true, label: 'How often does AI support planning or task breakdown?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'ppo3_summary', type: 'single_choice', required: true, label: 'How often does AI help summarize team activity?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'ppo4_status_updates', type: 'single_choice', required: true, label: 'How often does AI help generate reports or status updates?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'ppo5_risks', type: 'single_choice', required: true, label: 'How often does AI help identify risks or delays?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'ppo6_prioritize', type: 'single_choice', required: true, label: 'How often does AI help prioritize work or backlog items?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'ppo7_docs', type: 'single_choice', required: true, label: 'How often does AI help maintain project or technical documentation?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'ppo8_incidents', type: 'single_choice', required: true, label: 'How often does AI help analyze incidents or production issues?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'ppo9_logs_metrics', type: 'single_choice', required: true, label: 'How often does AI help interpret logs, metrics, or alerts?', options: [
-          { value: 'not_used', label: 'Not used' }, { value: 'occasionally', label: 'Occasionally' }, { value: 'frequently', label: 'Frequently' }, { value: 'systematically', label: 'Systematically' },
-        ] },
-        { id: 'ppo10_ops_workflow', type: 'multi_select', required: true, label: 'How is AI used in your project / product / operations workflow?', options: [
-          { value: 'automate_reporting', label: 'Automate reporting' }, { value: 'suggest_actions', label: 'Suggest actions' }, { value: 'assist_incident_response', label: 'Assist incident response' }, { value: 'improve_workflows', label: 'Improve workflows' },
-        ] },
-        { id: 'ppo11_project_ops_solutions', type: 'multi_select', required: true, label: 'Which project / product / operations AI solutions do you currently use?', options: [
-          { value: 'jira_rovo', label: 'Jira + Rovo' }, { value: 'jira_service_management_ai', label: 'Jira Service Management AI / Rovo' }, { value: 'servicenow_now_assist', label: 'ServiceNow Now Assist' }, { value: 'servicenow_ai_agents', label: 'ServiceNow AI Agents' }, { value: 'asana_ai', label: 'Asana AI' }, { value: 'microsoft_copilot_m365', label: 'Microsoft Copilot for Microsoft 365' }, { value: 'other_project_ops_ai_tools', label: 'Other project / ops AI tools' }, { value: 'no_specific_project_ops_tool', label: 'No specific project / ops AI tool' },
-        ] },
-        { id: 'ppo12_provisioning', type: 'single_choice', required: true, label: 'How are these project / product / operations AI tools provided in your environment?', options: standardProvisioningOptions },
+        { id: 'ppo1', type: 'single_choice', required: true, label: L('How often do you use AI to help with requirements or user stories?', 'À quelle fréquence utilisez-vous l’IA pour les exigences ou user stories ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'ppo2', type: 'single_choice', required: true, label: L('How often does AI support planning or task breakdown?', 'À quelle fréquence l’IA aide-t-elle à la planification ou au découpage des tâches ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'ppo3', type: 'single_choice', required: true, label: L('How often does AI help summarize team activity?', 'À quelle fréquence l’IA aide-t-elle à résumer l’activité de l’équipe ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'ppo4', type: 'single_choice', required: true, label: L('How often does AI help generate reports or status updates?', 'À quelle fréquence l’IA vous aide-t-elle à générer des rapports ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'ppo5', type: 'single_choice', required: true, label: L('How often does AI help identify risks or delays?', 'À quelle fréquence l’IA aide-t-elle à identifier des risques ou retards ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'ppo6', type: 'single_choice', required: true, label: L('How often does AI help prioritize work or backlog items?', 'À quelle fréquence l’IA aide-t-elle à prioriser le travail ou le backlog ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'ppo7', type: 'single_choice', required: true, label: L('How often does AI help maintain project or technical documentation?', 'À quelle fréquence l’IA aide-t-elle à maintenir la documentation projet ou technique ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'ppo8', type: 'single_choice', required: true, label: L('How often does AI help analyze incidents or production issues?', 'À quelle fréquence l’IA aide-t-elle à analyser des incidents de production ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'ppo9', type: 'single_choice', required: true, label: L('How often does AI help interpret logs, metrics, or alerts?', 'À quelle fréquence l’IA aide-t-elle à interpréter logs, métriques ou alertes ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'occasionally', label: L('Occasionally', 'Occasionnellement') }, { value: 'frequently', label: L('Frequently', 'Fréquemment') }, { value: 'systematically', label: L('Systematically', 'Systématiquement') }] },
+        { id: 'ppo10', type: 'multi_select', required: true, label: L('How is AI used in your project / product / operations workflow?', 'Comment l’IA est-elle utilisée dans votre workflow projet / produit / opérations ?'), options: [{ value: 'automate_reporting', label: L('Automate reporting', 'Automatiser le reporting') }, { value: 'suggest_actions', label: L('Suggest actions', 'Suggérer des actions') }, { value: 'assist_incident_response', label: L('Assist incident response', 'Assister la réponse aux incidents') }, { value: 'improve_workflows', label: L('Improve workflows', 'Améliorer les workflows') }] },
+        { id: 'ppo11', type: 'multi_select', required: true, label: L('Which project / product / operations AI solutions do you currently use?', 'Quels outils d’IA utilisez-vous pour la gestion de projet ou les opérations ?'), options: [{ value: 'jira_rovo', label: L('Jira + Rovo', 'Jira + Rovo') }, { value: 'jira_service_management_ai', label: L('Jira Service Management AI / Rovo', 'Jira Service Management AI / Rovo') }, { value: 'servicenow_now_assist', label: L('ServiceNow Now Assist', 'ServiceNow Now Assist') }, { value: 'servicenow_ai_agents', label: L('ServiceNow AI Agents', 'ServiceNow AI Agents') }, { value: 'asana_ai', label: L('Asana AI', 'Asana AI') }, { value: 'microsoft_copilot_m365', label: L('Microsoft Copilot for Microsoft 365', 'Microsoft Copilot pour Microsoft 365') }, { value: 'other_project_ops_ai_tools', label: L('Other project / ops AI tools', 'Autres outils IA projet / ops') }, { value: 'no_specific_project_ops_tool', label: L('No specific project / ops AI tool', 'Aucun outil projet / ops spécifique') }] },
+        { id: 'ppo12', type: 'single_choice', required: true, label: L('How are these project / product / operations AI tools provided in your environment?', 'Comment ces outils IA projet / produit / opérations sont-ils fournis dans votre environnement ?'), options: standardProvisioningOptions },
       ],
     },
   },
@@ -213,19 +230,15 @@ const surveyConfig = {
     id: 'comment1',
     type: 'free_text',
     required: false,
-    label: 'Optional: any other AI tools, internal solutions, blocked tools, or comments you would like to mention?',
-    placeholder: 'Share any additional tools or comments here',
+    label: L('Optional: any other AI tools or comments?', 'Optionnel : autres outils d’IA ou commentaires ?'),
+    placeholder: L('Share your thoughts', 'Partagez vos remarques'),
   },
 };
 
-const isAnswered = (question, value) => {
-  if (!question.required) return true;
-  if (question.type === 'multi_select') return Array.isArray(value) && value.length > 0;
-  if (question.type === 'free_text') return true;
-  return Boolean(value);
-};
+const isAnswered = (q, v) => !q.required || q.type === 'free_text' || (q.type === 'multi_select' ? Array.isArray(v) && v.length > 0 : Boolean(v));
 
 function App() {
+  const [lang, setLang] = useState('en');
   const [answers, setAnswers] = useState({});
   const [index, setIndex] = useState(0);
   const [status, setStatus] = useState('idle');
@@ -238,118 +251,80 @@ function App() {
     if (!raw) return;
     try {
       const parsed = JSON.parse(raw);
+      setLang(parsed.lang || 'en');
       setAnswers(parsed.answers || {});
       setIndex(parsed.index || 0);
       setEndpoint(parsed.endpoint || '');
-      setMeta(parsed.meta || { surveyDate: new Date().toISOString().slice(0, 10), teamName: '', respondent: '' });
-    } catch (_e) {}
+      setMeta(parsed.meta || meta);
+    } catch {}
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ answers, index, endpoint, meta }));
-  }, [answers, index, endpoint, meta]);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ lang, answers, index, endpoint, meta }));
+  }, [lang, answers, index, endpoint, meta]);
 
+  const t = uiText[lang];
   const branchKey = answers.q1_role || null;
   const branchDef = branchKey ? surveyConfig.branches[branchKey] : null;
 
   const flow = useMemo(() => {
-    const core = surveyConfig.coreQuestions.map((q) => ({ ...q, section: 'Core Questions' }));
+    const core = surveyConfig.coreQuestions.map((q) => ({ ...q, section: t.coreSection }));
     if (!branchDef) return core;
-    const branch = branchDef.questions.map((q) => ({ ...q, section: branchDef.title, branch: branchKey }));
-    return [...core, ...branch, { ...surveyConfig.finalOptionalComment, section: 'Final Optional Comment' }];
-  }, [branchDef, branchKey]);
+    const branch = branchDef.questions.map((q) => ({ ...q, section: localize(branchDef.title, lang) }));
+    return [...core, ...branch, { ...surveyConfig.finalOptionalComment, section: t.finalSection }];
+  }, [branchDef, lang]);
 
-  const currentQuestion = flow[index] || null;
-  const progress = flow.length ? Math.round((Math.min(index + 1, flow.length) / flow.length) * 100) : 0;
-  const answeredRequiredCount = flow.filter((q) => q.required).filter((q) => isAnswered(q, answers[q.id])).length;
+  const current = flow[index];
+  const onReview = index >= flow.length;
   const requiredCount = flow.filter((q) => q.required).length;
+  const requiredAnswered = flow.filter((q) => q.required).filter((q) => isAnswered(q, answers[q.id])).length;
+  const progress = flow.length ? Math.round((Math.min(index + 1, flow.length) / flow.length) * 100) : 0;
 
-  const setSingle = (id, value) => {
-    setAnswers((prev) => {
-      const next = { ...prev, [id]: value };
-      if (id === 'q1_role') {
-        Object.keys(surveyConfig.branches).forEach((branch) => {
-          if (branch !== value) surveyConfig.branches[branch].questions.forEach((q) => delete next[q.id]);
-        });
-        delete next.comment1;
-      }
-      return next;
-    });
-  };
+  const setSingle = (id, value) => setAnswers((prev) => {
+    const next = { ...prev, [id]: value };
+    if (id === 'q1_role') {
+      Object.entries(surveyConfig.branches).forEach(([k, b]) => { if (k !== value) b.questions.forEach((q) => delete next[q.id]); });
+      delete next.comment1;
+    }
+    return next;
+  });
 
-  const toggleMulti = (id, value) => {
-    setAnswers((prev) => {
-      const existing = Array.isArray(prev[id]) ? prev[id] : [];
-      return { ...prev, [id]: existing.includes(value) ? existing.filter((x) => x !== value) : [...existing, value] };
-    });
-  };
-
-  const isCurrentValid = () => {
-    if (!currentQuestion) return true;
-    return isAnswered(currentQuestion, answers[currentQuestion.id]);
-  };
+  const toggleMulti = (id, value) => setAnswers((prev) => {
+    const existing = Array.isArray(prev[id]) ? prev[id] : [];
+    return { ...prev, [id]: existing.includes(value) ? existing.filter((x) => x !== value) : [...existing, value] };
+  });
 
   const next = () => {
     setError('');
-    if (!isCurrentValid()) return setError('Please answer this required question to continue.');
+    if (current && !isAnswered(current, answers[current.id])) return setError(t.requiredError);
     setIndex((i) => Math.min(i + 1, flow.length));
   };
 
-  const prev = () => {
-    setError('');
-    setIndex((i) => Math.max(0, i - 1));
-  };
+  const submit = async () => {
+    if (!branchKey || flow.filter((q) => q.required).some((q) => !isAnswered(q, answers[q.id]))) return setError(t.incompleteError);
 
-  const buildPayload = () => {
     const coreAnswers = {};
-    surveyConfig.coreQuestions.forEach((q) => {
-      coreAnswers[q.id] = answers[q.id] ?? (q.type === 'multi_select' ? [] : null);
-    });
-
+    surveyConfig.coreQuestions.forEach((q) => coreAnswers[q.id] = answers[q.id] ?? (q.type === 'multi_select' ? [] : null));
     const branchAnswers = {};
-    if (branchKey && surveyConfig.branches[branchKey]) {
-      surveyConfig.branches[branchKey].questions.forEach((q) => {
-        branchAnswers[q.id] = answers[q.id] ?? (q.type === 'multi_select' ? [] : null);
-      });
-    }
+    if (branchDef) branchDef.questions.forEach((q) => branchAnswers[q.id] = answers[q.id] ?? (q.type === 'multi_select' ? [] : null));
 
-    return {
+    const payload = {
       role: answers.q1_role || null,
       coreAnswers,
       branch: branchKey,
       branchAnswers,
       comment: answers.comment1 || '',
-      metadata: {
-        surveyId: surveyConfig.survey.id,
-        surveyDate: meta.surveyDate,
-        teamName: meta.teamName,
-        respondent: meta.respondent,
-      },
+      metadata: { surveyDate: meta.surveyDate, teamName: meta.teamName, respondent: meta.respondent },
       submittedAt: new Date().toISOString(),
     };
-  };
-
-  const submit = async () => {
-    const requiredIncomplete = flow.filter((q) => q.required).some((q) => !isAnswered(q, answers[q.id]));
-    if (!branchKey || requiredIncomplete) {
-      setError('Please complete all required questions before submitting.');
-      return;
-    }
-
-    setStatus('submitting');
-    setError('');
-    const payload = buildPayload();
 
     try {
+      setStatus('submitting');
       if (endpoint.trim()) {
-        const response = await fetch(endpoint.trim(), {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const r = await fetch(endpoint.trim(), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
       } else {
-        console.info('No endpoint set. Payload preview:', payload);
+        console.info(t.noEndpoint, payload);
       }
       localStorage.removeItem(STORAGE_KEY);
       setStatus('success');
@@ -360,68 +335,53 @@ function App() {
   };
 
   if (status === 'success') {
-    return (
-      <section className="panel success-panel">
-        <h2>Submission complete</h2>
-        <p>Thank you. Your diagnostic response has been recorded.</p>
-      </section>
-    );
+    return <section className="panel success-panel"><h2>{t.successTitle}</h2><p>{t.successBody}</p></section>;
   }
-
-  const onReview = index >= flow.length;
 
   return (
     <div className="survey-shell">
+      <section className="panel header-panel">
+        <div className="language-toggle">
+          <span>{t.language}</span>
+          <button type="button" className={lang === 'en' ? 'lang-btn active' : 'lang-btn'} onClick={() => setLang('en')}>EN</button>
+          <button type="button" className={lang === 'fr' ? 'lang-btn active' : 'lang-btn'} onClick={() => setLang('fr')}>FR</button>
+        </div>
+        <h2>{t.title}</h2>
+        <p>{t.subtitle}</p>
+      </section>
+
       <section className="panel metadata-panel">
-        <h2>Survey Metadata</h2>
+        <h2>{t.metadata}</h2>
         <div className="grid">
-          <label>Survey date<input type="date" value={meta.surveyDate} onChange={(e) => setMeta((m) => ({ ...m, surveyDate: e.target.value }))} /></label>
-          <label>Team / Group name<input type="text" placeholder="Optional" value={meta.teamName} onChange={(e) => setMeta((m) => ({ ...m, teamName: e.target.value }))} /></label>
-          <label>Respondent name<input type="text" placeholder="Optional" value={meta.respondent} onChange={(e) => setMeta((m) => ({ ...m, respondent: e.target.value }))} /></label>
-          <label>Submission endpoint (optional)<input type="url" placeholder="https://script.google.com/macros/s/.../exec" value={endpoint} onChange={(e) => setEndpoint(e.target.value)} /></label>
+          <label>{t.surveyDate}<input type="date" value={meta.surveyDate} onChange={(e) => setMeta((m) => ({ ...m, surveyDate: e.target.value }))} /></label>
+          <label>{t.teamName}<input type="text" placeholder={t.optional} value={meta.teamName} onChange={(e) => setMeta((m) => ({ ...m, teamName: e.target.value }))} /></label>
+          <label>{t.respondent}<input type="text" placeholder={t.optional} value={meta.respondent} onChange={(e) => setMeta((m) => ({ ...m, respondent: e.target.value }))} /></label>
+          <label>{t.endpoint}<input type="url" placeholder="https://script.google.com/macros/s/.../exec" value={endpoint} onChange={(e) => setEndpoint(e.target.value)} /></label>
         </div>
       </section>
 
       <section className="panel progress-panel">
-        <div className="progress-head"><strong>Progress</strong><span>{Math.min(index + 1, flow.length)} / {flow.length} steps</span></div>
+        <div className="progress-head"><strong>{t.progress}</strong><span>{Math.min(index + 1, flow.length)} / {flow.length} {t.steps}</span></div>
         <div className="progress-track"><div className="progress-fill" style={{ width: `${progress}%` }} /></div>
-        <small>Required answered: {answeredRequiredCount}/{requiredCount}</small>
+        <small>{t.requiredAnswered}: {requiredAnswered}/{requiredCount}</small>
       </section>
 
       <section className="panel question-panel">
-        {!onReview && currentQuestion && (
+        {!onReview && current && (
           <>
-            <p className="section-title">{currentQuestion.section}</p>
-            <h2>{currentQuestion.label}</h2>
-            <p className="q-meta">{currentQuestion.required ? 'Required' : 'Optional'} • {currentQuestion.type.replace('_', ' ')}</p>
-
-            {currentQuestion.type === 'free_text' && (
-              <label>
-                <textarea
-                  className="comment-box"
-                  rows={4}
-                  placeholder={currentQuestion.placeholder || ''}
-                  value={answers[currentQuestion.id] || ''}
-                  onChange={(e) => setAnswers((a) => ({ ...a, [currentQuestion.id]: e.target.value }))}
-                />
-              </label>
-            )}
-
-            {currentQuestion.type !== 'free_text' && (
+            <p className="section-title">{current.section}</p>
+            <h2>{localize(current.label, lang)}</h2>
+            <p className="q-meta">{current.required ? t.required : t.optionalTag} • {t[current.type]}</p>
+            {current.type === 'free_text' ? (
+              <textarea className="comment-box" rows={4} placeholder={localize(current.placeholder, lang)} value={answers[current.id] || ''} onChange={(e) => setAnswers((a) => ({ ...a, [current.id]: e.target.value }))} />
+            ) : (
               <div className="options">
-                {currentQuestion.options.map((option) => {
-                  const checked = currentQuestion.type === 'single_choice'
-                    ? answers[currentQuestion.id] === option.value
-                    : Array.isArray(answers[currentQuestion.id]) && answers[currentQuestion.id].includes(option.value);
+                {current.options.map((option) => {
+                  const checked = current.type === 'single_choice' ? answers[current.id] === option.value : Array.isArray(answers[current.id]) && answers[current.id].includes(option.value);
                   return (
                     <label className={`option-card ${checked ? 'active' : ''}`} key={option.value}>
-                      <input
-                        type={currentQuestion.type === 'single_choice' ? 'radio' : 'checkbox'}
-                        name={currentQuestion.id}
-                        checked={checked}
-                        onChange={() => currentQuestion.type === 'single_choice' ? setSingle(currentQuestion.id, option.value) : toggleMulti(currentQuestion.id, option.value)}
-                      />
-                      <span>{option.label}</span>
+                      <input type={current.type === 'single_choice' ? 'radio' : 'checkbox'} name={current.id} checked={checked} onChange={() => current.type === 'single_choice' ? setSingle(current.id, option.value) : toggleMulti(current.id, option.value)} />
+                      <span>{localize(option.label, lang)}</span>
                     </label>
                   );
                 })}
@@ -432,13 +392,13 @@ function App() {
 
         {onReview && (
           <>
-            <p className="section-title">Review & Submit</p>
-            <h2>Ready to submit</h2>
+            <p className="section-title">{t.review}</p>
+            <h2>{t.ready}</h2>
             <div className="review-grid">
-              <div><strong>Role</strong><div>{answers.q1_role || '-'}</div></div>
-              <div><strong>Branch</strong><div>{branchKey || '-'}</div></div>
-              <div><strong>Core questions</strong><div>{surveyConfig.coreQuestions.length}</div></div>
-              <div><strong>Branch questions</strong><div>{branchDef ? branchDef.questions.length : 0}</div></div>
+              <div><strong>{t.role}</strong><div>{answers.q1_role || '-'}</div></div>
+              <div><strong>{t.branch}</strong><div>{branchKey || '-'}</div></div>
+              <div><strong>{t.coreQuestions}</strong><div>{surveyConfig.coreQuestions.length}</div></div>
+              <div><strong>{t.branchQuestions}</strong><div>{branchDef ? branchDef.questions.length : 0}</div></div>
             </div>
           </>
         )}
@@ -446,12 +406,8 @@ function App() {
         {error && <p className="error">{error}</p>}
 
         <div className="actions">
-          <button type="button" onClick={prev} disabled={index === 0}>Previous</button>
-          {!onReview ? (
-            <button type="button" onClick={next}>Next</button>
-          ) : (
-            <button type="button" onClick={submit} disabled={status === 'submitting'}>{status === 'submitting' ? 'Submitting...' : 'Submit'}</button>
-          )}
+          <button type="button" onClick={() => setIndex((i) => Math.max(0, i - 1))} disabled={index === 0}>{t.previous}</button>
+          {!onReview ? <button type="button" onClick={next}>{t.next}</button> : <button type="button" onClick={submit} disabled={status === 'submitting'}>{status === 'submitting' ? t.submitting : t.submit}</button>}
         </div>
       </section>
     </div>
