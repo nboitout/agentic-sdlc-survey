@@ -264,11 +264,11 @@ const surveyConfig = {
       { value: 'significant_improvement', label: L('Significant improvement', 'Amélioration significative', 'Îmbunătățire semnificativă', 'Melhoria significativa') },
       { value: 'rely_on_ai_for_workload', label: L('I would struggle to handle my workload without AI', 'J’aurais du mal à gérer ma charge de travail sans l’IA', 'Mi-ar fi greu să îmi gestionez volumul de muncă fără IA', 'Eu teria dificuldade para lidar com minha carga de trabalho sem IA') },
     ] },
-    { id: 'q5_quality', type: 'single_choice', required: true, label: L('How much does AI improve the quality of your work?', 'Dans quelle mesure l’IA améliore-t-elle la qualité de votre travail ?'), options: [
+    { id: 'q5_quality', type: 'single_choice', required: true, label: L('How much does AI improve the quality of your work output?', 'Dans quelle mesure l’IA améliore-t-elle la qualité de ce que vous produisez ?', 'În ce măsură îți îmbunătățește IA calitatea rezultatelor muncii tale?', 'Em que medida a IA melhora a qualidade do que você produz?'), options: [
       { value: 'no_impact', label: L('No impact', 'Aucun impact') },
-      { value: 'slight', label: L('Slight improvement', 'Faible amélioration') },
-      { value: 'moderate', label: L('Moderate improvement', 'Amélioration modérée') },
-      { value: 'significant', label: L('Significant improvement', 'Amélioration significative') },
+      { value: 'moderate_improvement', label: L('Moderate improvement', 'Amélioration modérée', 'Îmbunătățire moderată', 'Melhoria moderada') },
+      { value: 'significant_improvement', label: L('Significant improvement', 'Amélioration significative', 'Îmbunătățire semnificativă', 'Melhoria significativa') },
+      { value: 'higher_quality_with_ai', label: L('AI helps me produce work I would struggle to reach otherwise', 'L’IA m’aide à produire un niveau de qualité que j’aurais du mal à atteindre autrement', 'IA mă ajută să obțin un nivel de calitate pe care mi-ar fi greu să îl ating altfel', 'A IA me ajuda a produzir um nível de qualidade que eu teria dificuldade de alcançar de outra forma') },
     ] },
     { id: 'q6_team_usage', type: 'single_choice', required: true, label: L('How is AI used in your team today?', 'Comment l’IA est-elle utilisée dans votre équipe aujourd’hui ?'), options: [
       { value: 'individual_only', label: L('Individual use only', 'Usage individuel uniquement') },
@@ -389,7 +389,7 @@ const roQuestionLabels = {
   q2_ai_usage: 'Cât de des folosești IA în activitatea ta?',
   q3_general_tools: 'Ce instrumente de IA cu uz general folosești în prezent în activitatea ta?',
   q4_productivity: 'În ce măsură îți îmbunătățește IA productivitatea?',
-  q5_quality: 'În ce măsură îți îmbunătățește IA calitatea muncii?',
+  q5_quality: 'În ce măsură îți îmbunătățește IA calitatea rezultatelor muncii tale?',
   q6_team_usage: 'Cum este utilizată IA în echipa ta?',
   q7_autonomy: 'Care este nivelul maxim de autonomie al IA pe care îl folosești?',
   q8_async: 'Pot sarcinile bazate pe IA să ruleze fără implicarea ta continuă?',
@@ -402,7 +402,7 @@ const ptQuestionLabels = {
   q2_ai_usage: 'Com que frequência você usa IA no seu trabalho?',
   q3_general_tools: 'Quais ferramentas de IA de uso geral você utiliza atualmente no seu trabalho?',
   q4_productivity: 'Em que medida a IA melhora sua produtividade?',
-  q5_quality: 'Em que medida a IA melhora a qualidade do seu trabalho?',
+  q5_quality: 'Em que medida a IA melhora a qualidade do que você produz?',
   q6_team_usage: 'Como a IA é utilizada na sua equipe?',
   q7_autonomy: 'Qual é o nível máximo de autonomia da IA que você utiliza?',
   q8_async: 'As tarefas com IA podem ser executadas sem sua participação contínua?',
@@ -413,7 +413,7 @@ const ptQuestionLabels = {
 const roOptionLabels = {
   developer: 'Dezvoltator', qa_testing_quality: 'QA / Testare / Calitate', project_product_business_analysis_operations: 'Proiect / Produs / Analiză Business / Operațiuni',
   no_use: 'Nu folosesc IA', occasional: 'Ocazional', regular: 'În mod regulat', most_tasks: 'În majoritatea sarcinilor mele', few_times_per_week: 'O folosesc de câteva ori pe săptămână', every_day: 'O folosesc în fiecare zi', many_times_per_day: 'O folosesc de mai multe ori pe zi',
-  le_chat_mistral: 'Le Chat (Mistral)', client_internal_ai_tools: 'Instrumente interne de IA furnizate de client', other_general_ai_tools: 'Alte instrumente de IA cu uz general', no_general_ai_tools: 'Nu folosesc instrumente de IA cu uz general', no_impact: 'Fără impact', slight: 'Impact redus', moderate: 'Impact moderat', significant: 'Impact semnificativ', moderate_improvement: 'Îmbunătățire moderată', significant_improvement: 'Îmbunătățire semnificativă', rely_on_ai_for_workload: 'Mi-ar fi greu să îmi gestionez volumul de muncă fără IA',
+  le_chat_mistral: 'Le Chat (Mistral)', client_internal_ai_tools: 'Instrumente interne de IA furnizate de client', other_general_ai_tools: 'Alte instrumente de IA cu uz general', no_general_ai_tools: 'Nu folosesc instrumente de IA cu uz general', no_impact: 'Fără impact', slight: 'Impact redus', moderate: 'Impact moderat', significant: 'Impact semnificativ', moderate_improvement: 'Îmbunătățire moderată', significant_improvement: 'Îmbunătățire semnificativă', rely_on_ai_for_workload: 'Mi-ar fi greu să îmi gestionez volumul de muncă fără IA', higher_quality_with_ai: 'IA mă ajută să obțin un nivel de calitate pe care mi-ar fi greu să îl ating altfel',
   individual_only: 'Utilizare individuală', informal_sharing: 'Partajare informală', some_team_practices: 'Practici parțiale', fully_integrated: 'Complet integrată',
   suggests_only: 'Doar sugestii', generates_outputs: 'Generează conținut', executes_with_supervision: 'Execută cu supraveghere', runs_workflows: 'Rulează fluxuri complete',
   no: 'Nu', limited_async: 'Limitat', yes_independent: 'Da', no_measurement: 'Nu', informal_tracking: 'Informal', defined_metrics: 'Indicatori definiți',
@@ -423,7 +423,7 @@ const roOptionLabels = {
 const ptOptionLabels = {
   developer: 'Desenvolvedor', qa_testing_quality: 'QA / Testes / Qualidade', project_product_business_analysis_operations: 'Projeto / Produto / Análise de Negócios / Operações',
   no_use: 'Não utilizo IA', occasional: 'Ocasionalmente', regular: 'Regularmente', most_tasks: 'Na maioria das minhas tarefas', few_times_per_week: 'Utilizo algumas vezes por semana', every_day: 'Utilizo todos os dias', many_times_per_day: 'Utilizo várias vezes por dia',
-  le_chat_mistral: 'Le Chat (Mistral)', client_internal_ai_tools: 'Ferramentas internas de IA fornecidas pelo cliente', other_general_ai_tools: 'Outras ferramentas de IA de uso geral', no_general_ai_tools: 'Não utilizo ferramentas de IA de uso geral', no_impact: 'Nenhum impacto', slight: 'Leve melhoria', moderate: 'Melhoria moderada', significant: 'Melhoria significativa', moderate_improvement: 'Melhoria moderada', significant_improvement: 'Melhoria significativa', rely_on_ai_for_workload: 'Eu teria dificuldade para lidar com minha carga de trabalho sem IA',
+  le_chat_mistral: 'Le Chat (Mistral)', client_internal_ai_tools: 'Ferramentas internas de IA fornecidas pelo cliente', other_general_ai_tools: 'Outras ferramentas de IA de uso geral', no_general_ai_tools: 'Não utilizo ferramentas de IA de uso geral', no_impact: 'Nenhum impacto', slight: 'Leve melhoria', moderate: 'Melhoria moderada', significant: 'Melhoria significativa', moderate_improvement: 'Melhoria moderada', significant_improvement: 'Melhoria significativa', rely_on_ai_for_workload: 'Eu teria dificuldade para lidar com minha carga de trabalho sem IA', higher_quality_with_ai: 'A IA me ajuda a produzir um nível de qualidade que eu teria dificuldade de alcançar de outra forma',
   individual_only: 'Uso individual', informal_sharing: 'Compartilhamento informal', some_team_practices: 'Algumas práticas', fully_integrated: 'Totalmente integrada',
   suggests_only: 'Apenas sugestões', generates_outputs: 'Gera conteúdo', executes_with_supervision: 'Executa com supervisão', runs_workflows: 'Executa fluxos completos',
   no: 'Não', limited_async: 'Limitado', yes_independent: 'Sim', no_measurement: 'Não', informal_tracking: 'Informal', defined_metrics: 'Métricas definidas',
