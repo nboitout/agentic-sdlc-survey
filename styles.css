@@ -25,8 +25,9 @@ input, textarea { width: 100%; border: 1px solid var(--border); border-radius: 1
 .section-title { margin: 0; color: var(--muted); font-weight: 700; }
 .question-title-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .helper-text { margin: 2px 0 10px; color: var(--muted); font-size: 0.95rem; }
-.info-btn { width: 28px; height: 28px; border-radius: 50%; background: #e2e8f0; color: #0f172a; padding: 0; font-weight: 700; border: 1px solid #cbd5e1; }
-.tooltip-box { border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 10px; padding: 10px; margin-bottom: 10px; }
+.info-btn { width: 34px; height: 34px; border-radius: 50%; background: #dbeafe; color: #1e3a8a; padding: 0; font-weight: 800; border: 1px solid #93c5fd; font-size: 0.95rem; }
+.tooltip-hint { margin: -4px 0 8px; font-size: 0.83rem; color: #475569; }
+.tooltip-box { border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 10px; padding: 10px; margin-bottom: 10px; max-width: 760px; }
 .tooltip-box p { margin: 6px 0 0; color: var(--muted); }
 .question-panel.core { border-left: 4px solid #64748b; }
 .question-panel.branch { border-left: 4px solid #1d4ed8; background: #fbfdff; }

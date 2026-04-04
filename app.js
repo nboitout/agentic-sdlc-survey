@@ -41,6 +41,7 @@ const uiText = {
     transitionTitle: 'Now entering your role-specific section',
     transitionBody: 'These next questions are tailored to your role:',
     continue: 'Continue',
+    tooltipHint: 'Click the ⓘ for guidance',
   },
   fr: {
     title: 'Diagnostic SDLC Agentique',
@@ -80,6 +81,7 @@ const uiText = {
     transitionTitle: 'Vous entrez maintenant dans votre section spécifique au rôle',
     transitionBody: 'Les prochaines questions sont adaptées à votre rôle :',
     continue: 'Continuer',
+    tooltipHint: 'Cliquez sur ⓘ pour voir l’aide',
   },
   ro: {
     title: 'Diagnostic SDLC Agentic',
@@ -119,6 +121,7 @@ const uiText = {
     transitionTitle: 'Acum intri în secțiunea specifică rolului tău',
     transitionBody: 'Următoarele întrebări sunt adaptate rolului tău:',
     continue: 'Continuă',
+    tooltipHint: 'Apasă pe ⓘ pentru ghidaj',
   },
   pt: {
     title: 'Diagnóstico SDLC Agêntico',
@@ -158,6 +161,7 @@ const uiText = {
     transitionTitle: 'Agora você está entrando na seção específica do seu papel',
     transitionBody: 'As próximas perguntas são adaptadas ao seu papel:',
     continue: 'Continuar',
+    tooltipHint: 'Clique no ⓘ para orientação',
   }
 };
 
@@ -194,9 +198,9 @@ const surveyConfig = {
         'Sua resposta ajuda a adaptar o questionário ao seu papel, para que você veja apenas as perguntas mais relevantes. Ela também ajuda a comparar os padrões de adoção de IA entre diferentes funções no ciclo de entrega de software.'
       ),
       options: [
-      { value: 'developer', label: L('Developer', 'Développeur', 'Dezvoltator', 'Desenvolvedor'), description: L('Examples: software engineer, backend/frontend developer, data engineer', 'Exemples : développeur, ingénieur logiciel, data engineer', 'Exemple: developer, inginer software, data engineer', 'Exemplos: engenheiro de software, desenvolvedor, data engineer') },
-      { value: 'qa_testing_quality', label: L('QA / Testing / Quality', 'QA / Tests / Qualité', 'QA / Testare / Calitate', 'QA / Testes / Qualidade'), description: L('Examples: QA engineer, tester, validation engineer', 'Exemples : QA, testeur, ingénieur validation', 'Exemple: QA engineer, tester, inginer validare', 'Exemplos: QA engineer, tester, validação') },
-      { value: 'project_product_business_analysis_operations', label: L('Project / Product / Business Analysis / Operations', 'Projet / Produit / Analyse métier / Opérations', 'Proiect / Produs / Analiză de business / Operațiuni', 'Projeto / Produto / Análise de Negócio / Operações'), description: L('Examples: project manager, product owner, business analyst, data analyst, operations / support', 'Exemples : chef de projet, product owner, business analyst, data analyst, opérations / support', 'Exemple: project manager, product owner, business analyst, data analyst, operațiuni / suport', 'Exemplos: gerente de projeto, product owner, business analyst, data analyst, operações / suporte') },
+      { value: 'developer', label: L('Developer', 'Développeur', 'Dezvoltator', 'Desenvolvedor'), description: L('Examples: software engineer, backend/frontend developer, mobile developer, data engineer, DevOps, system / network / database engineer', 'Exemples : ingénieur logiciel, développeur backend/frontend, développeur mobile, data engineer, DevOps, ingénieur système / réseau / base de données', 'Exemple: inginer software, dezvoltator backend/frontend, dezvoltator mobile, data engineer, DevOps, inginer sistem / rețea / baze de date', 'Exemplos: engenheiro de software, desenvolvedor backend/frontend, desenvolvedor mobile, data engineer, DevOps, engenheiro de sistema / rede / banco de dados') },
+      { value: 'qa_testing_quality', label: L('QA / Testing / Quality', 'QA / Tests / Qualité', 'QA / Testare / Calitate', 'QA / Testes / Qualidade'), description: L('Examples: QA engineer, tester, validation engineer, test automation', 'Exemples : QA engineer, testeur, ingénieur validation, automatisation des tests', 'Exemple: QA engineer, tester, inginer validare, automatizare teste', 'Exemplos: QA engineer, tester, engenheiro de validação, automação de testes') },
+      { value: 'project_product_business_analysis_operations', label: L('Project / Product / Business Analysis / Operations', 'Projet / Produit / Analyse métier / Opérations', 'Proiect / Produs / Analiză de business / Operațiuni', 'Projeto / Produto / Análise de Negócio / Operações'), description: L('Examples: project manager, product owner, business analyst, data analyst, BI / reporting, operations / support, security / governance', 'Exemples : chef de projet, product owner, business analyst, data analyst, BI / reporting, opérations / support, sécurité / gouvernance', 'Exemple: project manager, product owner, business analyst, data analyst, BI / reporting, operațiuni / suport, securitate / guvernanță', 'Exemplos: gerente de projeto, product owner, business analyst, data analyst, BI / reporting, operações / suporte, segurança / governança') },
     ] },
     { id: 'q2_ai_usage', type: 'single_choice', required: true, label: L('How do you currently use AI in your work?', 'Comment utilisez-vous actuellement l’IA dans votre travail ?'), options: [
       { value: 'no_use', label: L('I do not use AI', 'Je n’utilise pas l’IA') },
@@ -554,10 +558,20 @@ function App() {
             <div className="question-title-row">
               <h2>{localize(current.label, lang)}</h2>
               {current.tooltipTitle && (
-                <button type="button" className="info-btn" onClick={() => setTooltipOpen((v) => !v)} aria-label={localize(current.tooltipTitle, lang)}>i</button>
+                <button
+                  type="button"
+                  className="info-btn"
+                  onMouseEnter={() => setTooltipOpen(true)}
+                  onMouseLeave={() => setTooltipOpen(false)}
+                  onClick={() => setTooltipOpen((v) => !v)}
+                  aria-label={localize(current.tooltipTitle, lang)}
+                >
+                  ⓘ
+                </button>
               )}
             </div>
             {current.helperText && <p className="helper-text">{localize(current.helperText, lang)}</p>}
+            {current.tooltipTitle && <p className="tooltip-hint">{t.tooltipHint}</p>}
             {current.tooltipTitle && tooltipOpen && (
               <div className="tooltip-box" role="note">
                 <strong>{localize(current.tooltipTitle, lang)}</strong>
