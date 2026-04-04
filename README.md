@@ -1,6 +1,6 @@
-# Agentic SDLC Diagnostic (Branching Survey, EN/FR)
+# Agentic SDLC Diagnostic (Branching Survey, EN/FR/RO/PT)
 
-Static React survey with role-based branching and bilingual English/French UI.
+Static React survey with role-based branching and multilingual UI (English, French, Romanian, Portuguese).
 
 ## Structure
 
@@ -13,7 +13,7 @@ Static React survey with role-based branching and bilingual English/French UI.
 
 ## Key features
 
-- EN/FR language toggle (`EN | FR`) at top-right
+- 4-language selector (`EN | FR | RO | PT`) at top-right
 - Instant language switch for labels/questions/options without resetting answers
 - Stable answer values (language-independent keys)
 - Data-driven questionnaire config (no duplicated components)

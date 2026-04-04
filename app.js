@@ -74,10 +74,82 @@ const uiText = {
     noEndpoint: 'Aucun endpoint défini. Aperçu payload :',
     coreSection: 'Questions cœur',
     finalSection: 'Commentaire final optionnel',
+  },
+  ro: {
+    title: 'Diagnostic SDLC Agentic',
+    subtitle: '11 întrebări de bază + 12 întrebări specifice rolului + 1 comentariu final opțional.',
+    language: 'Limbă',
+    metadata: 'Metadate chestionar',
+    surveyDate: 'Data chestionarului',
+    teamName: 'Nume echipă / grup',
+    respondent: 'Nume respondent',
+    endpoint: 'Endpoint trimitere (opțional)',
+    optional: 'Opțional',
+    progress: 'Progres',
+    steps: 'pași',
+    requiredAnswered: 'Obligatorii completate',
+    required: 'Obligatoriu',
+    optionalTag: 'Opțional',
+    single_choice: 'alegere unică',
+    multi_select: 'selecție multiplă',
+    free_text: 'text liber',
+    next: 'Următor',
+    previous: 'Înapoi',
+    review: 'Revizuire & Trimitere',
+    ready: 'Gata pentru trimitere',
+    role: 'Rol',
+    branch: 'Ramură',
+    coreQuestions: 'Întrebări de bază',
+    branchQuestions: 'Întrebări pe ramură',
+    submit: 'Trimite',
+    submitting: 'Se trimite...',
+    successTitle: 'Trimitere finalizată',
+    successBody: 'Mulțumim. Răspunsul a fost înregistrat.',
+    requiredError: 'Te rugăm să răspunzi la această întrebare obligatorie.',
+    incompleteError: 'Te rugăm să completezi toate întrebările obligatorii înainte de trimitere.',
+    noEndpoint: 'Nu este setat endpoint. Preview payload:',
+    coreSection: 'Întrebări de bază',
+    finalSection: 'Comentariu final opțional',
+  },
+  pt: {
+    title: 'Diagnóstico SDLC Agêntico',
+    subtitle: '11 perguntas centrais + 12 perguntas específicas por papel + 1 comentário final opcional.',
+    language: 'Idioma',
+    metadata: 'Metadados do questionário',
+    surveyDate: 'Data do questionário',
+    teamName: 'Nome da equipe / grupo',
+    respondent: 'Nome do respondente',
+    endpoint: 'Endpoint de envio (opcional)',
+    optional: 'Opcional',
+    progress: 'Progresso',
+    steps: 'etapas',
+    requiredAnswered: 'Obrigatórias respondidas',
+    required: 'Obrigatória',
+    optionalTag: 'Opcional',
+    single_choice: 'escolha única',
+    multi_select: 'seleção múltipla',
+    free_text: 'texto livre',
+    next: 'Próximo',
+    previous: 'Anterior',
+    review: 'Revisão e Envio',
+    ready: 'Pronto para enviar',
+    role: 'Papel',
+    branch: 'Trilha',
+    coreQuestions: 'Perguntas centrais',
+    branchQuestions: 'Perguntas da trilha',
+    submit: 'Enviar',
+    submitting: 'Enviando...',
+    successTitle: 'Envio concluído',
+    successBody: 'Obrigado. Sua resposta foi registrada.',
+    requiredError: 'Responda esta pergunta obrigatória para continuar.',
+    incompleteError: 'Complete todas as perguntas obrigatórias antes de enviar.',
+    noEndpoint: 'Nenhum endpoint definido. Prévia do payload:',
+    coreSection: 'Perguntas centrais',
+    finalSection: 'Comentário final opcional',
   }
 };
 
-const L = (en, fr) => ({ en, fr });
+const L = (en, fr, ro = en, pt = en) => ({ en, fr, ro, pt });
 const localize = (v, lang) => (typeof v === 'string' ? v : (v?.[lang] ?? v?.en ?? ''));
 
 const standardProvisioningOptions = [
@@ -235,6 +307,68 @@ const surveyConfig = {
   },
 };
 
+const roQuestionLabels = {
+  q1_role: 'Care dintre următoarele descrie cel mai bine rolul tău?',
+  q2_ai_usage: 'Cum folosești în prezent inteligența artificială în activitatea ta?',
+  q3_general_tools: 'Ce instrumente generale de inteligență artificială folosești în prezent?',
+  q4_productivity: 'În ce măsură îți îmbunătățește IA productivitatea?',
+  q5_quality: 'În ce măsură îți îmbunătățește IA calitatea muncii?',
+  q6_team_usage: 'Cum este utilizată IA în echipa ta?',
+  q7_autonomy: 'Care este nivelul maxim de autonomie al IA pe care îl folosești?',
+  q8_async: 'Pot sarcinile bazate pe IA să ruleze fără implicarea ta continuă?',
+  q9_measurement: 'Măsori impactul utilizării IA?',
+  q10_sdlc_usage: 'În ce etape ale SDLC folosești IA?',
+  q11_ai_skills: 'Cum ți-ai dezvoltat competențele în utilizarea IA?',
+};
+const ptQuestionLabels = {
+  q1_role: 'Qual das opções descreve melhor o seu papel?',
+  q2_ai_usage: 'Como você utiliza atualmente a IA no seu trabalho?',
+  q3_general_tools: 'Quais ferramentas de IA você utiliza hoje?',
+  q4_productivity: 'Em que medida a IA melhora sua produtividade?',
+  q5_quality: 'Em que medida a IA melhora a qualidade do seu trabalho?',
+  q6_team_usage: 'Como a IA é utilizada na sua equipe?',
+  q7_autonomy: 'Qual é o nível máximo de autonomia da IA que você utiliza?',
+  q8_async: 'As tarefas com IA podem ser executadas sem sua participação contínua?',
+  q9_measurement: 'Você mede o impacto do uso de IA?',
+  q10_sdlc_usage: 'Em quais partes do SDLC você utiliza IA?',
+  q11_ai_skills: 'Como você desenvolveu suas habilidades em IA até agora?',
+};
+const roOptionLabels = {
+  developer: 'Dezvoltator', qa_testing_quality: 'QA / Testare / Calitate', project_product_operations: 'Proiect / Produs / Operațiuni',
+  no_use: 'Nu folosesc IA', occasional: 'Ocazional', regular: 'În mod regulat', most_tasks: 'În majoritatea sarcinilor mele',
+  other_general_ai_tools: 'Alte instrumente IA', no_impact: 'Fără impact', slight: 'Impact redus', moderate: 'Impact moderat', significant: 'Impact semnificativ',
+  individual_only: 'Utilizare individuală', informal_sharing: 'Partajare informală', some_team_practices: 'Practici parțiale', fully_integrated: 'Complet integrată',
+  suggests_only: 'Doar sugestii', generates_outputs: 'Generează conținut', executes_with_supervision: 'Execută cu supraveghere', runs_workflows: 'Rulează fluxuri complete',
+  no: 'Nu', limited_async: 'Limitat', yes_independent: 'Da', no_measurement: 'Nu', informal_tracking: 'Informal', defined_metrics: 'Indicatori definiți',
+  requirements_specs: 'Cerințe', planning_project_management: 'Planificare', coding: 'Dezvoltare', code_review: 'Revizuire cod', testing: 'Testare', debugging: 'Depanare', deployment: 'Implementare', production_operations: 'Operațiuni', documentation: 'Documentație',
+  no_effort: 'Fără efort', ad_hoc_learning: 'Învățare informală', self_learning: 'Auto-învățare', structured_learning: 'Formare structurată', advanced_usage: 'Utilizare avansată'
+};
+const ptOptionLabels = {
+  developer: 'Desenvolvedor', qa_testing_quality: 'QA / Testes / Qualidade', project_product_operations: 'Projeto / Produto / Operações',
+  no_use: 'Não utilizo IA', occasional: 'Ocasionalmente', regular: 'Regularmente', most_tasks: 'Na maioria das minhas tarefas',
+  other_general_ai_tools: 'Outras ferramentas', no_impact: 'Nenhum impacto', slight: 'Leve melhoria', moderate: 'Melhoria moderada', significant: 'Melhoria significativa',
+  individual_only: 'Uso individual', informal_sharing: 'Compartilhamento informal', some_team_practices: 'Algumas práticas', fully_integrated: 'Totalmente integrada',
+  suggests_only: 'Apenas sugestões', generates_outputs: 'Gera conteúdo', executes_with_supervision: 'Executa com supervisão', runs_workflows: 'Executa fluxos completos',
+  no: 'Não', limited_async: 'Limitado', yes_independent: 'Sim', no_measurement: 'Não', informal_tracking: 'Informal', defined_metrics: 'Métricas definidas',
+  requirements_specs: 'Requisitos', planning_project_management: 'Planejamento', coding: 'Desenvolvimento', code_review: 'Revisão de código', testing: 'Testes', debugging: 'Depuração', deployment: 'Implantação', production_operations: 'Operações', documentation: 'Documentação',
+  no_effort: 'Nenhum esforço', ad_hoc_learning: 'Aprendizado informal', self_learning: 'Autoaprendizado', structured_learning: 'Treinamento estruturado', advanced_usage: 'Uso avançado'
+};
+
+function enrichLabels() {
+  const all = [...surveyConfig.coreQuestions, ...Object.values(surveyConfig.branches).flatMap((b) => b.questions), surveyConfig.finalOptionalComment];
+  all.forEach((q) => {
+    q.label = { en: q.label.en, fr: q.label.fr, ro: roQuestionLabels[q.id] || q.label.ro || q.label.en, pt: ptQuestionLabels[q.id] || q.label.pt || q.label.en };
+    if (q.placeholder) q.placeholder = { en: q.placeholder.en, fr: q.placeholder.fr, ro: q.placeholder.ro || q.placeholder.en, pt: q.placeholder.pt || q.placeholder.en };
+    if (q.options) q.options.forEach((o) => {
+      o.label = { en: o.label.en, fr: o.label.fr, ro: roOptionLabels[o.value] || o.label.ro || o.label.en, pt: ptOptionLabels[o.value] || o.label.pt || o.label.en };
+    });
+  });
+  Object.values(surveyConfig.branches).forEach((b) => {
+    b.title = { en: b.title.en, fr: b.title.fr, ro: b.title.ro || b.title.en, pt: b.title.pt || b.title.en };
+  });
+}
+enrichLabels();
+
 const isAnswered = (q, v) => !q.required || q.type === 'free_text' || (q.type === 'multi_select' ? Array.isArray(v) && v.length > 0 : Boolean(v));
 
 function App() {
@@ -345,6 +479,8 @@ function App() {
           <span>{t.language}</span>
           <button type="button" className={lang === 'en' ? 'lang-btn active' : 'lang-btn'} onClick={() => setLang('en')}>EN</button>
           <button type="button" className={lang === 'fr' ? 'lang-btn active' : 'lang-btn'} onClick={() => setLang('fr')}>FR</button>
+          <button type="button" className={lang === 'ro' ? 'lang-btn active' : 'lang-btn'} onClick={() => setLang('ro')}>RO</button>
+          <button type="button" className={lang === 'pt' ? 'lang-btn active' : 'lang-btn'} onClick={() => setLang('pt')}>PT</button>
         </div>
         <h2>{t.title}</h2>
         <p>{t.subtitle}</p>
