@@ -282,10 +282,10 @@ const surveyConfig = {
       { value: 'executes_tasks_with_supervision', label: L('AI executes tasks with human supervision', 'L’IA exécute des tâches avec supervision humaine', 'IA execută sarcini cu supraveghere umană', 'A IA executa tarefas com supervisão humana') },
       { value: 'runs_workflows_end_to_end', label: L('AI runs workflows end-to-end', 'L’IA exécute des workflows de bout en bout', 'IA rulează fluxuri de lucru cap-coadă', 'A IA executa fluxos de trabalho de ponta a ponta') },
     ] },
-    { id: 'q8_async', type: 'single_choice', required: true, label: L('Can AI-driven tasks run without your continuous involvement?', 'Des tâches pilotées par l’IA peuvent-elles s’exécuter sans votre intervention continue ?'), options: [
-      { value: 'no', label: L('No, I must always stay involved', 'Non') },
-      { value: 'limited_async', label: L('Limited, some asynchronous usage is possible', 'Limité') },
-      { value: 'yes_independent', label: L('Yes, some tasks can run independently', 'Oui') },
+    { id: 'q8_async', type: 'single_choice', required: true, label: L('Can AI continue working on some tasks without your constant involvement?', 'L’IA peut-elle continuer à travailler sur certaines tâches sans votre implication constante ?', 'Poate IA să continue să lucreze la anumite sarcini fără implicarea ta constantă?', 'A IA consegue continuar trabalhando em algumas tarefas sem o seu envolvimento constante?'), options: [
+      { value: 'continuous_involvement_required', label: L('No, I need to stay involved throughout', 'Non, je dois rester impliqué du début à la fin', 'Nu, trebuie să rămân implicat pe tot parcursul', 'Não, preciso permanecer envolvido o tempo todo') },
+      { value: 'partial_handoff', label: L('Partly, I can hand off some tasks and come back later', 'Partiellement, je peux lui confier certaines tâches et y revenir plus tard', 'Parțial, pot delega unele sarcini și să revin mai târziu', 'Parcialmente, posso delegar algumas tarefas e voltar depois') },
+      { value: 'independent_tasks', label: L('Yes, some tasks can run independently', 'Oui, certaines tâches peuvent s’exécuter de manière autonome', 'Da, unele sarcini pot rula independent', 'Sim, algumas tarefas podem ser executadas de forma independente') },
     ] },
     { id: 'q9_measurement', type: 'single_choice', required: true, label: L('Do you measure the impact of AI usage?', 'Mesurez-vous l’impact de l’usage de l’IA ?'), options: [
       { value: 'no_measurement', label: L('No measurement', 'Aucun suivi') },
@@ -392,7 +392,7 @@ const roQuestionLabels = {
   q5_quality: 'În ce măsură îți îmbunătățește IA calitatea rezultatelor muncii tale?',
   q6_team_usage: 'Cum este utilizată în prezent IA în cadrul echipei tale?',
   q7_autonomy: 'Care este cel mai ridicat nivel de autonomie pe care îl folosești în prezent cu IA în activitatea ta?',
-  q8_async: 'Pot sarcinile bazate pe IA să ruleze fără implicarea ta continuă?',
+  q8_async: 'Poate IA să continue să lucreze la anumite sarcini fără implicarea ta constantă?',
   q9_measurement: 'Măsori impactul utilizării IA?',
   q10_sdlc_usage: 'În ce etape ale SDLC folosești IA?',
   q11_ai_skills: 'Cum ți-ai dezvoltat competențele în utilizarea IA?',
@@ -405,7 +405,7 @@ const ptQuestionLabels = {
   q5_quality: 'Em que medida a IA melhora a qualidade do que você produz?',
   q6_team_usage: 'Como a IA é atualmente utilizada dentro da sua equipe?',
   q7_autonomy: 'Qual é o nível mais alto de autonomia que você utiliza atualmente com IA no seu trabalho?',
-  q8_async: 'As tarefas com IA podem ser executadas sem sua participação contínua?',
+  q8_async: 'A IA consegue continuar trabalhando em algumas tarefas sem o seu envolvimento constante?',
   q9_measurement: 'Você mede o impacto do uso de IA?',
   q10_sdlc_usage: 'Em quais partes do SDLC você utiliza IA?',
   q11_ai_skills: 'Como você desenvolveu suas habilidades em IA até agora?',
@@ -416,7 +416,7 @@ const roOptionLabels = {
   le_chat_mistral: 'Le Chat (Mistral)', client_internal_ai_tools: 'Instrumente interne de IA furnizate de client', other_general_ai_tools: 'Alte instrumente de IA cu uz general', no_general_ai_tools: 'Nu folosesc instrumente de IA cu uz general', no_impact: 'Fără impact', slight: 'Impact redus', moderate: 'Impact moderat', significant: 'Impact semnificativ', moderate_improvement: 'Îmbunătățire moderată', significant_improvement: 'Îmbunătățire semnificativă', rely_on_ai_for_workload: 'Mi-ar fi greu să îmi gestionez volumul de muncă fără IA', higher_quality_with_ai: 'IA mă ajută să obțin un nivel de calitate pe care mi-ar fi greu să îl ating altfel',
   individual_only: 'Utilizare individuală doar', informal_sharing: 'Membrii echipei își împărtășesc practicile în mod informal', some_team_practices: 'Există anumite practici sau reguli de echipă definite', workflow_integrated: 'IA este integrată în fluxurile de lucru ale echipei', fully_integrated: 'Complet integrată',
   suggests_only: 'IA oferă doar sugestii', generates_outputs: 'IA generează conținut, cod sau alte rezultate', executes_tasks_with_supervision: 'IA execută sarcini cu supraveghere umană', runs_workflows_end_to_end: 'IA rulează fluxuri de lucru cap-coadă', executes_with_supervision: 'Execută cu supraveghere', runs_workflows: 'Rulează fluxuri complete',
-  no: 'Nu', limited_async: 'Limitat', yes_independent: 'Da', no_measurement: 'Nu', informal_tracking: 'Informal', defined_metrics: 'Indicatori definiți',
+  continuous_involvement_required: 'Nu, trebuie să rămân implicat pe tot parcursul', partial_handoff: 'Parțial, pot delega unele sarcini și să revin mai târziu', independent_tasks: 'Da, unele sarcini pot rula independent', no: 'Nu', limited_async: 'Limitat', yes_independent: 'Da', no_measurement: 'Nu', informal_tracking: 'Informal', defined_metrics: 'Indicatori definiți',
   requirements_specs: 'Cerințe', planning_project_management: 'Planificare', coding: 'Dezvoltare', code_review: 'Revizuire cod', testing: 'Testare', debugging: 'Depanare', deployment: 'Implementare', production_operations: 'Operațiuni', documentation: 'Documentație',
   no_effort: 'Fără efort', ad_hoc_learning: 'Învățare informală', self_learning: 'Auto-învățare', structured_learning: 'Formare structurată', advanced_usage: 'Utilizare avansată'
 };
@@ -426,7 +426,7 @@ const ptOptionLabels = {
   le_chat_mistral: 'Le Chat (Mistral)', client_internal_ai_tools: 'Ferramentas internas de IA fornecidas pelo cliente', other_general_ai_tools: 'Outras ferramentas de IA de uso geral', no_general_ai_tools: 'Não utilizo ferramentas de IA de uso geral', no_impact: 'Nenhum impacto', slight: 'Leve melhoria', moderate: 'Melhoria moderada', significant: 'Melhoria significativa', moderate_improvement: 'Melhoria moderada', significant_improvement: 'Melhoria significativa', rely_on_ai_for_workload: 'Eu teria dificuldade para lidar com minha carga de trabalho sem IA', higher_quality_with_ai: 'A IA me ajuda a produzir um nível de qualidade que eu teria dificuldade de alcançar de outra forma',
   individual_only: 'Uso individual apenas', informal_sharing: 'Os membros da equipe compartilham práticas de forma informal', some_team_practices: 'Algumas práticas ou orientações da equipe estão definidas', workflow_integrated: 'A IA está integrada aos fluxos de trabalho da equipe', fully_integrated: 'Totalmente integrada',
   suggests_only: 'A IA fornece apenas sugestões', generates_outputs: 'A IA gera conteúdo, código ou outros resultados', executes_tasks_with_supervision: 'A IA executa tarefas com supervisão humana', runs_workflows_end_to_end: 'A IA executa fluxos de trabalho de ponta a ponta', executes_with_supervision: 'Executa com supervisão', runs_workflows: 'Executa fluxos completos',
-  no: 'Não', limited_async: 'Limitado', yes_independent: 'Sim', no_measurement: 'Não', informal_tracking: 'Informal', defined_metrics: 'Métricas definidas',
+  continuous_involvement_required: 'Não, preciso permanecer envolvido o tempo todo', partial_handoff: 'Parcialmente, posso delegar algumas tarefas e voltar depois', independent_tasks: 'Sim, algumas tarefas podem ser executadas de forma independente', no: 'Não', limited_async: 'Limitado', yes_independent: 'Sim', no_measurement: 'Não', informal_tracking: 'Informal', defined_metrics: 'Métricas definidas',
   requirements_specs: 'Requisitos', planning_project_management: 'Planejamento', coding: 'Desenvolvimento', code_review: 'Revisão de código', testing: 'Testes', debugging: 'Depuração', deployment: 'Implantação', production_operations: 'Operações', documentation: 'Documentação',
   no_effort: 'Nenhum esforço', ad_hoc_learning: 'Aprendizado informal', self_learning: 'Autoaprendizado', structured_learning: 'Treinamento estruturado', advanced_usage: 'Uso avançado'
 };
