@@ -65,8 +65,14 @@ const uiText = {
     introP3: 'The survey takes only a few minutes to complete. Responses will be analyzed in aggregated form.',
     introThanks: 'Thank you for your contribution.',
     allRequiredCompleted: 'All required questions have been completed.',
+    doneReadyToSubmit: 'You’re done — ready to submit your responses.',
     questionsAnswered: 'Questions answered',
     submitHelper: 'Submission takes a few seconds.',
+    thankYouTitle: 'Thank you',
+    submittedSuccess: 'Your response has been submitted successfully.',
+    submittedSupport: 'Thank you for taking the time to complete this survey. Your input will help us better understand how AI is used across the organization and where we can improve tools, support, and practices.',
+    submittedAggregated: 'Your responses will be analyzed in aggregated form.',
+    submitAnother: 'Submit another response',
   },
   fr: {
     title: 'Diagnostic SDLC Agentique',
@@ -127,8 +133,14 @@ const uiText = {
     introP3: 'Le questionnaire prend seulement quelques minutes à compléter. Les réponses seront analysées de manière agrégée.',
     introThanks: 'Merci pour votre contribution.',
     allRequiredCompleted: 'Toutes les questions obligatoires ont été complétées.',
+    doneReadyToSubmit: 'Vous avez terminé — prêt à soumettre vos réponses.',
     questionsAnswered: 'Questions répondues',
     submitHelper: 'La soumission prend quelques secondes.',
+    thankYouTitle: 'Merci',
+    submittedSuccess: 'Votre réponse a été soumise avec succès.',
+    submittedSupport: 'Merci d’avoir pris le temps de compléter ce questionnaire. Votre contribution nous aide à mieux comprendre comment l’IA est utilisée dans l’organisation et où améliorer les outils, le support et les pratiques.',
+    submittedAggregated: 'Vos réponses seront analysées de manière agrégée.',
+    submitAnother: 'Soumettre une autre réponse',
   },
   ro: {
     title: 'Diagnostic SDLC Agentic',
@@ -189,8 +201,14 @@ const uiText = {
     introP3: 'Chestionarul durează doar câteva minute. Răspunsurile vor fi analizate în formă agregată.',
     introThanks: 'Vă mulțumim pentru contribuție.',
     allRequiredCompleted: 'Toate întrebările obligatorii au fost completate.',
+    doneReadyToSubmit: 'Ai terminat — ești gata să trimiți răspunsurile.',
     questionsAnswered: 'Întrebări completate',
     submitHelper: 'Trimiterea durează câteva secunde.',
+    thankYouTitle: 'Mulțumim',
+    submittedSuccess: 'Răspunsul tău a fost trimis cu succes.',
+    submittedSupport: 'Îți mulțumim că ți-ai făcut timp să completezi acest chestionar. Contribuția ta ne ajută să înțelegem mai bine cum este utilizată IA în organizație și unde putem îmbunătăți instrumentele, suportul și practicile.',
+    submittedAggregated: 'Răspunsurile vor fi analizate în formă agregată.',
+    submitAnother: 'Trimite un alt răspuns',
   },
   pt: {
     title: 'Diagnóstico SDLC Agêntico',
@@ -251,8 +269,14 @@ const uiText = {
     introP3: 'A pesquisa leva apenas alguns minutos para ser concluída. As respostas serão analisadas de forma agregada.',
     introThanks: 'Obrigado pela sua contribuição.',
     allRequiredCompleted: 'Todas as perguntas obrigatórias foram concluídas.',
+    doneReadyToSubmit: 'Você concluiu — pronto para enviar suas respostas.',
     questionsAnswered: 'Perguntas respondidas',
     submitHelper: 'O envio leva alguns segundos.',
+    thankYouTitle: 'Obrigado',
+    submittedSuccess: 'Sua resposta foi enviada com sucesso.',
+    submittedSupport: 'Obrigado por dedicar seu tempo para concluir esta pesquisa. Sua contribuição nos ajudará a entender melhor como a IA é usada na organização e onde podemos melhorar ferramentas, suporte e práticas.',
+    submittedAggregated: 'As respostas serão analisadas de forma agregada.',
+    submitAnother: 'Enviar outra resposta',
   }
 };
 
@@ -744,7 +768,15 @@ function App() {
   };
 
   if (status === 'success') {
-    return <section className="panel success-panel"><h2>{t.successTitle}</h2><p>{t.successBody}</p></section>;
+    return (
+      <section className="panel success-panel">
+        <h2>{t.thankYouTitle}</h2>
+        <p className="success-main">{t.submittedSuccess}</p>
+        <p>{t.submittedSupport}</p>
+        <p className="success-aggregated">{t.submittedAggregated}</p>
+        <button type="button" className="secondary-action" onClick={startNewResponse}>{t.submitAnother}</button>
+      </section>
+    );
   }
 
   return (
@@ -824,6 +856,7 @@ function App() {
               <div className="final-review">
                 <h2>{t.review}</h2>
                 <p className="final-complete">{t.allRequiredCompleted}</p>
+                <p className="final-ready">{t.doneReadyToSubmit}</p>
                 <div className="review-grid">
                   <div><strong>{t.role}</strong><div>{answers.q1_role || '-'}</div></div>
                   <div><strong>{t.branch}</strong><div>{branchDef ? localize(branchDef.title, lang) : '-'}</div></div>

@@ -61,10 +61,14 @@ button[disabled] { opacity: .5; cursor: not-allowed; }
 .comment-box { min-height: 96px; resize: vertical; }
 .final-review h2 { margin: 0 0 6px; }
 .final-complete { color: #0f766e; font-weight: 600; margin: 0 0 12px; }
+.final-ready { margin: 0 0 12px; color: #1f2937; }
 .final-comment-label { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
 .submit-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
 .submit-wrap small { color: var(--muted); }
 .submit-response-btn { padding: 12px 20px; font-size: 1rem; }
 .success-panel { text-align: center; }
+.success-main { font-weight: 700; color: #0f172a; }
+.success-aggregated { color: #475569; }
+.success-panel button { margin-top: 8px; }
 .draft-panel p { color: var(--muted); margin-top: 0; }
 .draft-actions { display: flex; gap: 10px; flex-wrap: wrap; }
