@@ -292,7 +292,7 @@ const surveyConfig = {
       { value: 'informal_tracking', label: L('It is tracked informally', 'Il est suivi de manière informelle', 'Este urmărit informal', 'É acompanhado de forma informal') },
       { value: 'defined_metrics', label: L('It is measured with defined metrics', 'Il est mesuré à l’aide d’indicateurs définis', 'Este măsurat prin indicatori definiți', 'É medido com métricas definidas') },
     ] },
-    { id: 'q10_sdlc_usage', type: 'multi_select', required: true, label: L('In which parts of the software delivery lifecycle do you currently use AI?', 'Dans quelles parties du cycle de delivery logiciel utilisez-vous actuellement l’IA ?', 'În ce părți ale ciclului de livrare software folosești în prezent IA?', 'Em quais partes do ciclo de entrega de software você utiliza IA atualmente?'), options: [
+    { id: 'q10_sdlc_usage', type: 'multi_select', required: true, label: L('In which parts of the software delivery lifecycle is AI currently used in your team or immediate work environment?', 'Dans quelles parties du cycle de delivery logiciel l’IA est-elle actuellement utilisée dans votre équipe ou votre environnement de travail immédiat ?', 'În ce părți ale ciclului de livrare software este utilizată în prezent IA în echipa ta sau în mediul tău imediat de lucru?', 'Em quais partes do ciclo de entrega de software a IA é atualmente utilizada em sua equipe ou em seu ambiente de trabalho imediato?'), options: [
       { value: 'requirements_business_analysis', label: L('Requirements / Business Analysis', 'Exigences / Analyse métier', 'Cerințe / Analiză de business', 'Requisitos / Análise de Negócio') },
       { value: 'planning_coordination', label: L('Planning / Coordination', 'Planification / Coordination', 'Planificare / Coordonare', 'Planejamento / Coordenação') },
       { value: 'coding_implementation', label: L('Coding / Implementation', 'Développement / Implémentation', 'Dezvoltare / Implementare', 'Desenvolvimento / Implementação') },
@@ -399,7 +399,7 @@ const roQuestionLabels = {
   q7_autonomy: 'Care este cel mai ridicat nivel de autonomie pe care îl folosești în prezent cu IA în activitatea ta?',
   q8_async: 'Poate IA să continue să lucreze la anumite sarcini fără implicarea ta constantă?',
   q9_measurement: 'Cum măsori în prezent impactul IA în activitatea ta?',
-  q10_sdlc_usage: 'În ce părți ale ciclului de livrare software folosești în prezent IA?',
+  q10_sdlc_usage: 'În ce părți ale ciclului de livrare software este utilizată în prezent IA în echipa ta sau în mediul tău imediat de lucru?',
   q11_learning_path: 'Cum ți-ai dezvoltat până acum competențele legate de instrumentele IA?',
   q12_experimentation_level: 'Cât de departe mergi în prezent cu experimentarea IA în activitatea ta?',
 };
@@ -413,7 +413,7 @@ const ptQuestionLabels = {
   q7_autonomy: 'Qual é o nível mais alto de autonomia que você utiliza atualmente com IA no seu trabalho?',
   q8_async: 'A IA consegue continuar trabalhando em algumas tarefas sem o seu envolvimento constante?',
   q9_measurement: 'Como você mede atualmente o impacto da IA no seu trabalho?',
-  q10_sdlc_usage: 'Em quais partes do ciclo de entrega de software você utiliza IA atualmente?',
+  q10_sdlc_usage: 'Em quais partes do ciclo de entrega de software a IA é atualmente utilizada em sua equipe ou em seu ambiente de trabalho imediato?',
   q11_learning_path: 'Como você desenvolveu até agora suas habilidades com ferramentas de IA?',
   q12_experimentation_level: 'Até que ponto você experimenta IA atualmente no seu trabalho?',
 };
