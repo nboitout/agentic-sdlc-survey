@@ -59,6 +59,12 @@ button[disabled] { opacity: .5; cursor: not-allowed; }
 .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
 .review-grid > div { border: 1px solid var(--border); border-radius: 10px; padding: 10px; }
 .comment-box { min-height: 96px; resize: vertical; }
+.final-review h2 { margin: 0 0 6px; }
+.final-complete { color: #0f766e; font-weight: 600; margin: 0 0 12px; }
+.final-comment-label { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+.submit-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.submit-wrap small { color: var(--muted); }
+.submit-response-btn { padding: 12px 20px; font-size: 1rem; }
 .success-panel { text-align: center; }
 .draft-panel p { color: var(--muted); margin-top: 0; }
 .draft-actions { display: flex; gap: 10px; flex-wrap: wrap; }

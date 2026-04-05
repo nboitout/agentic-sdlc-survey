@@ -26,13 +26,14 @@ const uiText = {
     free_text: 'free text',
     next: 'Next',
     previous: 'Previous',
-    review: 'Review & Submit',
+    review: 'Review & submit',
     ready: 'Ready to submit',
     role: 'Role',
     branch: 'Branch',
     coreQuestions: 'Core questions',
     branchQuestions: 'Branch questions',
     submit: 'Submit',
+    submitResponse: 'Submit response',
     submitting: 'Submitting...',
     successTitle: 'Submission complete',
     successBody: 'Thank you. Your diagnostic response has been recorded.',
@@ -63,6 +64,9 @@ const uiText = {
     introList4: 'evolve our delivery model',
     introP3: 'The survey takes only a few minutes to complete. Responses will be analyzed in aggregated form.',
     introThanks: 'Thank you for your contribution.',
+    allRequiredCompleted: 'All required questions have been completed.',
+    questionsAnswered: 'Questions answered',
+    submitHelper: 'Submission takes a few seconds.',
   },
   fr: {
     title: 'Diagnostic SDLC Agentique',
@@ -91,6 +95,7 @@ const uiText = {
     coreQuestions: 'Questions cœur',
     branchQuestions: 'Questions branche',
     submit: 'Soumettre',
+    submitResponse: 'Soumettre la réponse',
     submitting: 'Soumission...',
     successTitle: 'Soumission terminée',
     successBody: 'Merci. Votre réponse au diagnostic a été enregistrée.',
@@ -121,6 +126,9 @@ const uiText = {
     introList4: 'faire évoluer notre modèle de delivery',
     introP3: 'Le questionnaire prend seulement quelques minutes à compléter. Les réponses seront analysées de manière agrégée.',
     introThanks: 'Merci pour votre contribution.',
+    allRequiredCompleted: 'Toutes les questions obligatoires ont été complétées.',
+    questionsAnswered: 'Questions répondues',
+    submitHelper: 'La soumission prend quelques secondes.',
   },
   ro: {
     title: 'Diagnostic SDLC Agentic',
@@ -149,6 +157,7 @@ const uiText = {
     coreQuestions: 'Întrebări de bază',
     branchQuestions: 'Întrebări pe ramură',
     submit: 'Trimite',
+    submitResponse: 'Trimite răspunsul',
     submitting: 'Se trimite...',
     successTitle: 'Trimitere finalizată',
     successBody: 'Mulțumim. Răspunsul a fost înregistrat.',
@@ -179,6 +188,9 @@ const uiText = {
     introList4: 'evoluăm modelul nostru de delivery',
     introP3: 'Chestionarul durează doar câteva minute. Răspunsurile vor fi analizate în formă agregată.',
     introThanks: 'Vă mulțumim pentru contribuție.',
+    allRequiredCompleted: 'Toate întrebările obligatorii au fost completate.',
+    questionsAnswered: 'Întrebări completate',
+    submitHelper: 'Trimiterea durează câteva secunde.',
   },
   pt: {
     title: 'Diagnóstico SDLC Agêntico',
@@ -207,6 +219,7 @@ const uiText = {
     coreQuestions: 'Perguntas centrais',
     branchQuestions: 'Perguntas da trilha',
     submit: 'Enviar',
+    submitResponse: 'Enviar resposta',
     submitting: 'Enviando...',
     successTitle: 'Envio concluído',
     successBody: 'Obrigado. Sua resposta foi registrada.',
@@ -237,6 +250,9 @@ const uiText = {
     introList4: 'evoluir nosso modelo de delivery',
     introP3: 'A pesquisa leva apenas alguns minutos para ser concluída. As respostas serão analisadas de forma agregada.',
     introThanks: 'Obrigado pela sua contribuição.',
+    allRequiredCompleted: 'Todas as perguntas obrigatórias foram concluídas.',
+    questionsAnswered: 'Perguntas respondidas',
+    submitHelper: 'O envio leva alguns segundos.',
   }
 };
 
@@ -422,7 +438,14 @@ const surveyConfig = {
             { value: 'other_developer_ai_tools', label: L('Other developer AI tools', 'Autres outils IA pour le développement', 'Alte instrumente IA pentru dezvoltare', 'Outras ferramentas IA para desenvolvimento') },
             { value: 'no_coding_agents', label: L('I don’t use coding agents', 'Je n’utilise pas d’agents de codage', 'Nu folosesc agenți de codare', 'Não utilizo agentes de codificação') },
           ] },
-        { id: 'd12', type: 'single_choice', required: true, label: L('How are these developer AI tools provided in your environment?', 'Comment ces outils IA de développement sont-ils fournis dans votre environnement ?'), options: standardProvisioningOptions },
+        { id: 'd12', type: 'multi_select', required: true, label: L('How are these AI coding tools adopted in your environment?', 'Comment ces outils de codage assisté par l’IA sont-ils adoptés dans votre environnement ?', 'Cum sunt adoptate aceste instrumente de codare cu IA în mediul tău?', 'Como essas ferramentas de codificação com IA são adotadas no seu ambiente?'), options: [
+          { value: 'personally_chosen', label: L('Some are chosen individually', 'Certains sont choisis individuellement', 'Unele sunt alese individual', 'Algumas são escolhidas individualmente') },
+          { value: 'informal_team_use', label: L('Some are used informally within the team', 'Certains sont utilisés de manière informelle dans l’équipe', 'Unele sunt folosite informal în cadrul echipei', 'Algumas são utilizadas informalmente na equipe') },
+          { value: 'team_or_project_standard', label: L('Some are standardized at team or project level', 'Certains sont standardisés au niveau de l’équipe ou du projet', 'Unele sunt standardizate la nivel de echipă sau proiect', 'Algumas são padronizadas no nível da equipe ou do projeto') },
+          { value: 'client_mandated', label: L('Some are mandated by the client', 'Certains sont imposés par le client', 'Unele sunt impuse de client', 'Algumas são impostas pelo cliente') },
+          { value: 'company_standard', label: L('Some are standardized at company level', 'Certains sont standardisés au niveau de l’entreprise', 'Unele sunt standardizate la nivelul companiei', 'Algumas são padronizadas no nível da empresa') },
+          { value: 'trial_experimental', label: L('Some are still in trial or experimental use', 'Certains sont encore en phase de test ou d’expérimentation', 'Unele sunt încă în fază de test sau utilizare experimentală', 'Algumas ainda estão em fase de teste ou uso experimental') },
+        ] },
       ],
     },
     qa_testing_quality: {
@@ -464,8 +487,8 @@ const surveyConfig = {
     id: 'comment1',
     type: 'free_text',
     required: false,
-    label: L('Optional: any other AI tools or comments?', 'Optionnel : autres outils d’IA ou commentaires ?'),
-    placeholder: L('Share your thoughts', 'Partagez vos remarques'),
+    label: L('Any additional comments or tools to mention? (optional)', 'Des commentaires supplémentaires ou des outils à mentionner ? (optionnel)', 'Comentarii suplimentare sau instrumente de menționat? (opțional)', 'Algum comentário adicional ou ferramenta para mencionar? (opcional)'),
+    placeholder: L('Share anything else you think is useful', 'Partagez tout autre élément que vous jugez utile', 'Împărtășește orice alt lucru pe care îl consideri util', 'Compartilhe qualquer outro ponto que você considere útil'),
   },
 };
 
@@ -649,7 +672,7 @@ function App() {
   }, [branchDef, lang]);
 
   const current = flow[index];
-  const onReview = index >= flow.length;
+  const isFinalStep = current?.id === 'comment1';
   const requiredCount = flow.filter((q) => q.required).length;
   const requiredAnswered = flow.filter((q) => q.required).filter((q) => isAnswered(q, answers[q.id])).length;
   const progress = flow.length ? Math.round((Math.min(index + 1, flow.length) / flow.length) * 100) : 0;
@@ -682,7 +705,7 @@ function App() {
     setError('');
     setTooltipOpen(false);
     if (current && !isAnswered(current, answers[current.id])) return setError(t.requiredError);
-    setIndex((i) => Math.min(i + 1, flow.length));
+    setIndex((i) => Math.min(i + 1, Math.max(0, flow.length - 1)));
   };
 
   const submit = async () => {
@@ -789,13 +812,27 @@ function App() {
       </section>
 
       <section className={`panel question-panel ${current?.sectionType || ''}`}>
-        {!onReview && current && (
+        {current && (
           <>
             <p className="section-title">{current.section}</p>
             {current.type === 'transition' ? (
               <div className="transition-box">
                 <h2>{t.transitionTitle}</h2>
                 <p>{t.transitionBody} <strong>{localize(branchDef?.title || '', lang)}</strong></p>
+              </div>
+            ) : isFinalStep ? (
+              <div className="final-review">
+                <h2>{t.review}</h2>
+                <p className="final-complete">{t.allRequiredCompleted}</p>
+                <div className="review-grid">
+                  <div><strong>{t.role}</strong><div>{answers.q1_role || '-'}</div></div>
+                  <div><strong>{t.branch}</strong><div>{branchDef ? localize(branchDef.title, lang) : '-'}</div></div>
+                  <div><strong>{t.questionsAnswered}</strong><div>{requiredAnswered}/{requiredCount}</div></div>
+                </div>
+                <label className="final-comment-label">
+                  {localize(current.label, lang)}
+                  <textarea className="comment-box" rows={4} placeholder={localize(current.placeholder, lang)} value={answers[current.id] || ''} onChange={(e) => setAnswers((a) => ({ ...a, [current.id]: e.target.value }))} />
+                </label>
               </div>
             ) : (
               <>
@@ -853,24 +890,16 @@ function App() {
           </>
         )}
 
-        {onReview && (
-          <>
-            <p className="section-title">{t.review}</p>
-            <h2>{t.ready}</h2>
-            <div className="review-grid">
-              <div><strong>{t.role}</strong><div>{answers.q1_role || '-'}</div></div>
-              <div><strong>{t.branch}</strong><div>{branchDef ? localize(branchDef.title, lang) : '-'}</div></div>
-              <div><strong>{t.coreQuestions}</strong><div>{surveyConfig.coreQuestions.length}</div></div>
-              <div><strong>{t.branchQuestions}</strong><div>{branchDef ? branchDef.questions.length : 0}</div></div>
-            </div>
-          </>
-        )}
-
         {error && <p className="error">{error}</p>}
 
         <div className="actions">
           <button type="button" onClick={() => setIndex((i) => Math.max(0, i - 1))} disabled={index === 0}>{t.previous}</button>
-          {!onReview ? <button type="button" onClick={next}>{current?.type === 'transition' ? t.continue : t.next}</button> : <button type="button" onClick={submit} disabled={status === 'submitting'}>{status === 'submitting' ? t.submitting : t.submit}</button>}
+          {!isFinalStep ? <button type="button" onClick={next}>{current?.type === 'transition' ? t.continue : t.next}</button> : (
+            <div className="submit-wrap">
+              <button type="button" className="submit-response-btn" onClick={submit} disabled={status === 'submitting'}>{status === 'submitting' ? t.submitting : t.submitResponse}</button>
+              <small>{t.submitHelper}</small>
+            </div>
+          )}
         </div>
       </section>
         </>
