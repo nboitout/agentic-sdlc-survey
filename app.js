@@ -49,6 +49,20 @@ const uiText = {
     draftPromptBody: 'Would you like to resume your previous response or start a new one?',
     resumeDraft: 'Resume previous response',
     startNew: 'Start a new response',
+    introHeading: 'Welcome',
+    introP1: 'We are launching this company-wide survey to better understand how AI is really used across our teams in day-to-day practices, workflows, and delivery work.',
+    introGoalLabel: 'Our objective is simple:',
+    introGoal1: 'identify what is working',
+    introGoal2: 'understand our current level of maturity',
+    introGoal3: 'accelerate, collectively, how we use AI',
+    introP2: 'This is not an individual evaluation. The goal is to reflect the reality on the ground: current practices, challenges, and opportunities.',
+    introListLabel: 'Your responses will help us:',
+    introList1: 'improve available tools and support',
+    introList2: 'share best practices across teams',
+    introList3: 'prioritize training actions and investments',
+    introList4: 'evolve our delivery model',
+    introP3: 'The survey takes only a few minutes to complete. Responses will be analyzed in aggregated form.',
+    introThanks: 'Thank you for your contribution.',
   },
   fr: {
     title: 'Diagnostic SDLC Agentique',
@@ -93,6 +107,20 @@ const uiText = {
     draftPromptBody: 'Voulez-vous reprendre votre réponse précédente ou en démarrer une nouvelle ?',
     resumeDraft: 'Reprendre la réponse précédente',
     startNew: 'Commencer une nouvelle réponse',
+    introHeading: 'Bienvenue',
+    introP1: 'Nous lançons cette enquête à l’échelle de l’entreprise afin de mieux comprendre comment l’IA est réellement utilisée au sein de nos équipes dans les pratiques, les workflows et le travail de delivery au quotidien.',
+    introGoalLabel: 'Notre objectif est simple :',
+    introGoal1: 'identifier ce qui fonctionne',
+    introGoal2: 'comprendre notre niveau actuel de maturité',
+    introGoal3: 'accélérer, de manière collective, notre utilisation de l’IA',
+    introP2: 'Il ne s’agit pas d’une évaluation individuelle. Cette démarche vise à refléter la réalité du terrain : les usages actuels, les difficultés rencontrées et les opportunités.',
+    introListLabel: 'Vos réponses nous permettront de :',
+    introList1: 'améliorer les outils et le support proposés',
+    introList2: 'partager les bonnes pratiques entre équipes',
+    introList3: 'prioriser les actions de formation et les investissements',
+    introList4: 'faire évoluer notre modèle de delivery',
+    introP3: 'Le questionnaire prend seulement quelques minutes à compléter. Les réponses seront analysées de manière agrégée.',
+    introThanks: 'Merci pour votre contribution.',
   },
   ro: {
     title: 'Diagnostic SDLC Agentic',
@@ -137,6 +165,20 @@ const uiText = {
     draftPromptBody: 'Vrei să reiei răspunsul anterior sau să începi unul nou?',
     resumeDraft: 'Reia răspunsul anterior',
     startNew: 'Începe un răspuns nou',
+    introHeading: 'Bun venit',
+    introP1: 'Lansăm acest chestionar la nivelul întregii companii pentru a înțelege mai bine cum este folosită în mod real inteligența artificială în echipele noastre, în practicile de zi cu zi, în fluxurile de lucru și în activitatea de delivery.',
+    introGoalLabel: 'Obiectivul nostru este simplu:',
+    introGoal1: 'să identificăm ce funcționează',
+    introGoal2: 'să înțelegem nivelul nostru actual de maturitate',
+    introGoal3: 'să accelerăm, în mod colectiv, modul în care folosim IA',
+    introP2: 'Acesta nu este o evaluare individuală. Scopul este să reflecte realitatea din teren: practicile actuale, dificultățile întâlnite și oportunitățile existente.',
+    introListLabel: 'Răspunsurile voastre ne vor ajuta să:',
+    introList1: 'îmbunătățim instrumentele și suportul disponibile',
+    introList2: 'împărtășim bune practici între echipe',
+    introList3: 'prioritizăm acțiunile de formare și investițiile',
+    introList4: 'evoluăm modelul nostru de delivery',
+    introP3: 'Chestionarul durează doar câteva minute. Răspunsurile vor fi analizate în formă agregată.',
+    introThanks: 'Vă mulțumim pentru contribuție.',
   },
   pt: {
     title: 'Diagnóstico SDLC Agêntico',
@@ -181,6 +223,20 @@ const uiText = {
     draftPromptBody: 'Você deseja retomar sua resposta anterior ou iniciar uma nova?',
     resumeDraft: 'Retomar resposta anterior',
     startNew: 'Iniciar nova resposta',
+    introHeading: 'Bem-vindo',
+    introP1: 'Estamos lançando esta pesquisa em toda a empresa para entender melhor como a IA está sendo realmente utilizada em nossas equipes, nas práticas do dia a dia, nos fluxos de trabalho e no trabalho de delivery.',
+    introGoalLabel: 'Nosso objetivo é simples:',
+    introGoal1: 'identificar o que está funcionando',
+    introGoal2: 'entender nosso nível atual de maturidade',
+    introGoal3: 'acelerar, de forma coletiva, a maneira como usamos IA',
+    introP2: 'Isto não é uma avaliação individual. O objetivo é refletir a realidade do dia a dia: práticas atuais, desafios e oportunidades.',
+    introListLabel: 'Suas respostas vão nos ajudar a:',
+    introList1: 'melhorar as ferramentas e o suporte disponíveis',
+    introList2: 'compartilhar boas práticas entre equipes',
+    introList3: 'priorizar ações de capacitação e investimentos',
+    introList4: 'evoluir nosso modelo de delivery',
+    introP3: 'A pesquisa leva apenas alguns minutos para ser concluída. As respostas serão analisadas de forma agregada.',
+    introThanks: 'Obrigado pela sua contribuição.',
   }
 };
 
@@ -653,11 +709,26 @@ function App() {
         </div>
         <h2>{t.title}</h2>
         <p>{t.subtitle}</p>
-        {!needsDraftDecision && (
-          <div className="header-actions">
-            <button type="button" className="secondary-action" onClick={startNewResponse}>{t.startNew}</button>
-          </div>
-        )}
+        <div className="intro-block">
+          <h3>{t.introHeading}</h3>
+          <p>{t.introP1}</p>
+          <p><strong>{t.introGoalLabel}</strong></p>
+          <ul className="intro-goals">
+            <li>👉 {t.introGoal1}</li>
+            <li>👉 {t.introGoal2}</li>
+            <li>👉 {t.introGoal3}</li>
+          </ul>
+          <p>{t.introP2}</p>
+          <p><strong>{t.introListLabel}</strong></p>
+          <ul className="intro-list">
+            <li>{t.introList1}</li>
+            <li>{t.introList2}</li>
+            <li>{t.introList3}</li>
+            <li>{t.introList4}</li>
+          </ul>
+          <p>{t.introP3}</p>
+          <p className="intro-thanks">{t.introThanks}</p>
+        </div>
       </section>
 
       {needsDraftDecision && (
