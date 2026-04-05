@@ -360,9 +360,9 @@ const surveyConfig = {
       { value: 'production_operations', label: L('Production / Operations', 'Production / Opérations', 'Producție / Operațiuni', 'Produção / Operações') },
       { value: 'documentation_knowledge_sharing', label: L('Documentation / Knowledge Sharing', 'Documentation / Partage de connaissances', 'Documentație / Partajare de cunoștințe', 'Documentação / Compartilhamento de conhecimento') },
     ] },
-    { id: 'q11_learning_path', type: 'single_choice', required: true, label: L('How have you built your skills with AI tools so far?', 'Comment avez-vous développé vos compétences sur les outils d’IA jusqu’à présent ?', 'Cum ți-ai dezvoltat până acum competențele legate de instrumentele IA?', 'Como você desenvolveu até agora suas habilidades com ferramentas de IA?'), options: [
+    { id: 'q11_learning_path', type: 'multi_select', required: true, label: L('How have you learned to use AI tools in your work so far?', 'Comment avez-vous appris à utiliser les outils d’IA dans votre travail jusqu’à présent ?', 'Cum ai învățat până acum să folosești instrumentele IA în activitatea ta?', 'Como você aprendeu até agora a usar ferramentas de IA no seu trabalho?'), options: [
       { value: 'no_learning_effort', label: L('I have not invested time in learning AI tools', 'Je n’ai pas investi de temps pour apprendre à utiliser les outils d’IA', 'Nu am investit timp pentru a învăța să folosesc instrumente IA', 'Não investi tempo em aprender a usar ferramentas de IA') },
-      { value: 'informal_learning', label: L('I learned mainly informally, through trial and error', 'J’ai appris principalement de manière informelle, par essais et erreurs', 'Am învățat în principal informal, prin încercări și erori', 'Aprendi principalmente de forma informal, por tentativa e erro') },
+      { value: 'personal_projects', label: L('I learned mainly by using AI on personal projects', 'J’ai appris principalement en utilisant l’IA sur des projets personnels', 'Am învățat în principal folosind IA în proiecte personale', 'Aprendi principalmente usando IA em projetos pessoais') },
       { value: 'self_directed_learning', label: L('I learned through tutorials, videos, or documentation', 'J’ai appris via des tutoriels, des vidéos ou de la documentation', 'Am învățat prin tutoriale, videoclipuri sau documentație', 'Aprendi por meio de tutoriais, vídeos ou documentação') },
       { value: 'structured_training', label: L('I followed structured training such as courses or internal programs', 'J’ai suivi une formation structurée, comme des cours ou des programmes internes', 'Am urmat formare structurată, cum ar fi cursuri sau programe interne', 'Participei de treinamentos estruturados, como cursos ou programas internos') },
     ] },
@@ -456,7 +456,7 @@ const roQuestionLabels = {
   q8_async: 'Poate IA să continue să lucreze la anumite sarcini fără implicarea ta constantă?',
   q9_measurement: 'Cum măsori în prezent impactul IA în activitatea ta?',
   q10_sdlc_usage: 'În ce părți ale ciclului de livrare software este utilizată în prezent IA în echipa ta sau în mediul tău imediat de lucru?',
-  q11_learning_path: 'Cum ți-ai dezvoltat până acum competențele legate de instrumentele IA?',
+  q11_learning_path: 'Cum ai învățat până acum să folosești instrumentele IA în activitatea ta?',
   q12_experimentation_level: 'Cât de departe mergi în prezent cu experimentarea IA în activitatea ta?',
 };
 const ptQuestionLabels = {
@@ -470,7 +470,7 @@ const ptQuestionLabels = {
   q8_async: 'A IA consegue continuar trabalhando em algumas tarefas sem o seu envolvimento constante?',
   q9_measurement: 'Como você mede atualmente o impacto da IA no seu trabalho?',
   q10_sdlc_usage: 'Em quais partes do ciclo de entrega de software a IA é atualmente utilizada em sua equipe ou em seu ambiente de trabalho imediato?',
-  q11_learning_path: 'Como você desenvolveu até agora suas habilidades com ferramentas de IA?',
+  q11_learning_path: 'Como você aprendeu até agora a usar ferramentas de IA no seu trabalho?',
   q12_experimentation_level: 'Até que ponto você experimenta IA atualmente no seu trabalho?',
 };
 const roOptionLabels = {
@@ -481,7 +481,7 @@ const roOptionLabels = {
   suggests_only: 'IA oferă doar sugestii', generates_outputs: 'IA generează conținut, cod sau alte rezultate', executes_tasks_with_supervision: 'IA execută sarcini cu supraveghere umană', runs_workflows_end_to_end: 'IA rulează fluxuri de lucru cap-coadă', executes_with_supervision: 'Execută cu supraveghere', runs_workflows: 'Rulează fluxuri complete',
   continuous_involvement_required: 'Nu, trebuie să rămân implicat pe tot parcursul', partial_handoff: 'Parțial, pot delega unele sarcini și să revin mai târziu', independent_tasks: 'Da, unele sarcini pot rula independent', no: 'Nu', limited_async: 'Limitat', yes_independent: 'Da', no_measurement: 'Nu este măsurat', informal_tracking: 'Este urmărit informal', defined_metrics: 'Este măsurat prin indicatori definiți',
   requirements_business_analysis: 'Cerințe / Analiză de business', planning_coordination: 'Planificare / Coordonare', coding_implementation: 'Dezvoltare / Implementare', code_review: 'Revizuire de cod', testing_validation: 'Testare / Validare', debugging_troubleshooting: 'Depanare / Rezolvare probleme', cicd_automation: 'CI/CD / Automatizare', deployment_release: 'Deployment / Lansare', production_operations: 'Producție / Operațiuni', documentation_knowledge_sharing: 'Documentație / Partajare de cunoștințe', requirements_specs: 'Cerințe', planning_project_management: 'Planificare', coding: 'Dezvoltare', testing: 'Testare', debugging: 'Depanare', deployment: 'Implementare', documentation: 'Documentație',
-  no_learning_effort: 'Nu am investit timp pentru a învăța să folosesc instrumente IA', informal_learning: 'Am învățat în principal informal, prin încercări și erori', self_directed_learning: 'Am învățat prin tutoriale, videoclipuri sau documentație', structured_training: 'Am urmat formare structurată, cum ar fi cursuri sau programe interne', standard_usage: 'Folosesc în principal funcțiile standard', occasional_experimentation: 'Încerc ocazional noi moduri de lucru cu IA', regular_workflow_refinement: 'Testez și îmbunătățesc regulat prompturile sau fluxurile de lucru', advanced_automation: 'Construiesc sau folosesc configurații avansate precum automatizări, agenți sau fluxuri reutilizabile', no_effort: 'Fără efort', ad_hoc_learning: 'Învățare informală', self_learning: 'Auto-învățare', structured_learning: 'Formare structurată', advanced_usage: 'Utilizare avansată'
+  no_learning_effort: 'Nu am investit timp pentru a învăța să folosesc instrumente IA', personal_projects: 'Am învățat în principal folosind IA în proiecte personale', informal_learning: 'Am învățat în principal informal, prin încercări și erori', self_directed_learning: 'Am învățat prin tutoriale, videoclipuri sau documentație', structured_training: 'Am urmat formare structurată, cum ar fi cursuri sau programe interne', standard_usage: 'Folosesc în principal funcțiile standard', occasional_experimentation: 'Încerc ocazional noi moduri de lucru cu IA', regular_workflow_refinement: 'Testez și îmbunătățesc regulat prompturile sau fluxurile de lucru', advanced_automation: 'Construiesc sau folosesc configurații avansate precum automatizări, agenți sau fluxuri reutilizabile', no_effort: 'Fără efort', ad_hoc_learning: 'Învățare informală', self_learning: 'Auto-învățare', structured_learning: 'Formare structurată', advanced_usage: 'Utilizare avansată'
 };
 const ptOptionLabels = {
   developer: 'Desenvolvedor', qa_testing_quality: 'QA / Testes / Qualidade', project_product_business_analysis_operations: 'Projeto / Produto / Análise de Negócios / Operações',
@@ -491,7 +491,7 @@ const ptOptionLabels = {
   suggests_only: 'A IA fornece apenas sugestões', generates_outputs: 'A IA gera conteúdo, código ou outros resultados', executes_tasks_with_supervision: 'A IA executa tarefas com supervisão humana', runs_workflows_end_to_end: 'A IA executa fluxos de trabalho de ponta a ponta', executes_with_supervision: 'Executa com supervisão', runs_workflows: 'Executa fluxos completos',
   continuous_involvement_required: 'Não, preciso permanecer envolvido o tempo todo', partial_handoff: 'Parcialmente, posso delegar algumas tarefas e voltar depois', independent_tasks: 'Sim, algumas tarefas podem ser executadas de forma independente', no: 'Não', limited_async: 'Limitado', yes_independent: 'Sim', no_measurement: 'Não é medido', informal_tracking: 'É acompanhado de forma informal', defined_metrics: 'É medido com métricas definidas',
   requirements_business_analysis: 'Requisitos / Análise de Negócio', planning_coordination: 'Planejamento / Coordenação', coding_implementation: 'Desenvolvimento / Implementação', code_review: 'Revisão de código', testing_validation: 'Testes / Validação', debugging_troubleshooting: 'Depuração / Resolução de problemas', cicd_automation: 'CI/CD / Automação', deployment_release: 'Implantação / Release', production_operations: 'Produção / Operações', documentation_knowledge_sharing: 'Documentação / Compartilhamento de conhecimento', requirements_specs: 'Requisitos', planning_project_management: 'Planejamento', coding: 'Desenvolvimento', testing: 'Testes', debugging: 'Depuração', deployment: 'Implantação', documentation: 'Documentação',
-  no_learning_effort: 'Não investi tempo em aprender a usar ferramentas de IA', informal_learning: 'Aprendi principalmente de forma informal, por tentativa e erro', self_directed_learning: 'Aprendi por meio de tutoriais, vídeos ou documentação', structured_training: 'Participei de treinamentos estruturados, como cursos ou programas internos', standard_usage: 'Uso principalmente recursos padrão', occasional_experimentation: 'Experimento ocasionalmente novas formas de trabalhar com IA', regular_workflow_refinement: 'Testo e refino regularmente meus prompts ou fluxos de trabalho', advanced_automation: 'Desenvolvo ou utilizo configurações avançadas, como automações, agentes ou fluxos reutilizáveis', no_effort: 'Nenhum esforço', ad_hoc_learning: 'Aprendizado informal', self_learning: 'Autoaprendizado', structured_learning: 'Treinamento estruturado', advanced_usage: 'Uso avançado'
+  no_learning_effort: 'Não investi tempo em aprender a usar ferramentas de IA', personal_projects: 'Aprendi principalmente usando IA em projetos pessoais', informal_learning: 'Aprendi principalmente de forma informal, por tentativa e erro', self_directed_learning: 'Aprendi por meio de tutoriais, vídeos ou documentação', structured_training: 'Participei de treinamentos estruturados, como cursos ou programas internos', standard_usage: 'Uso principalmente recursos padrão', occasional_experimentation: 'Experimento ocasionalmente novas formas de trabalhar com IA', regular_workflow_refinement: 'Testo e refino regularmente meus prompts ou fluxos de trabalho', advanced_automation: 'Desenvolvo ou utilizo configurações avançadas, como automações, agentes ou fluxos reutilizáveis', no_effort: 'Nenhum esforço', ad_hoc_learning: 'Aprendizado informal', self_learning: 'Autoaprendizado', structured_learning: 'Treinamento estruturado', advanced_usage: 'Uso avançado'
 };
 
 function enrichLabels() {
@@ -641,11 +641,12 @@ function App() {
 
   const toggleMulti = (id, value) => setAnswers((prev) => {
     const existing = Array.isArray(prev[id]) ? prev[id] : [];
-    if (id === 'q3_general_tools') {
-      if (value === 'no_general_ai_tools') {
-        return { ...prev, [id]: existing.includes(value) ? [] : ['no_general_ai_tools'] };
+    if (id === 'q3_general_tools' || id === 'q11_learning_path') {
+      const exclusiveValue = id === 'q3_general_tools' ? 'no_general_ai_tools' : 'no_learning_effort';
+      if (value === exclusiveValue) {
+        return { ...prev, [id]: existing.includes(value) ? [] : [exclusiveValue] };
       }
-      const withoutNoTools = existing.filter((x) => x !== 'no_general_ai_tools');
+      const withoutNoTools = existing.filter((x) => x !== exclusiveValue);
       return { ...prev, [id]: withoutNoTools.includes(value) ? withoutNoTools.filter((x) => x !== value) : [...withoutNoTools, value] };
     }
     return { ...prev, [id]: existing.includes(value) ? existing.filter((x) => x !== value) : [...existing, value] };
@@ -804,7 +805,9 @@ function App() {
                 {current.options.map((option) => {
                   const checked = current.type === 'single_choice' ? answers[current.id] === option.value : Array.isArray(answers[current.id]) && answers[current.id].includes(option.value);
                   const noGeneralToolsSelected = current.id === 'q3_general_tools' && Array.isArray(answers[current.id]) && answers[current.id].includes('no_general_ai_tools');
-                  const disabled = current.id === 'q3_general_tools' && noGeneralToolsSelected && option.value !== 'no_general_ai_tools';
+                  const noLearningEffortSelected = current.id === 'q11_learning_path' && Array.isArray(answers[current.id]) && answers[current.id].includes('no_learning_effort');
+                  const disabled = (current.id === 'q3_general_tools' && noGeneralToolsSelected && option.value !== 'no_general_ai_tools')
+                    || (current.id === 'q11_learning_path' && noLearningEffortSelected && option.value !== 'no_learning_effort');
                   return (
                     <label className={`option-card ${checked ? 'active' : ''} ${disabled ? 'disabled' : ''}`} key={option.value}>
                       <input type={current.type === 'single_choice' ? 'radio' : 'checkbox'} name={current.id} checked={checked} disabled={disabled} onChange={() => current.type === 'single_choice' ? setSingle(current.id, option.value) : toggleMulti(current.id, option.value)} />
