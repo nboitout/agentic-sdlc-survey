@@ -397,7 +397,31 @@ const surveyConfig = {
         { id: 'd8', type: 'single_choice', required: true, label: L('How does AI help with CI/CD failures?', 'Comment l’IA aide-t-elle sur les échecs CI/CD ?'), options: [{ value: 'not_used', label: L('Not used', 'Non utilisé') }, { value: 'suggests_fixes', label: L('It suggests fixes', 'Suggère des correctifs') }, { value: 'frequently_used', label: L('Frequently used for diagnosis or resolution', 'Souvent utilisée pour diagnostic/résolution') }, { value: 'automatically_resolves', label: L('Automatically resolves some issues', 'Résout automatiquement certains incidents') }] },
         { id: 'd9', type: 'single_choice', required: true, label: L('How are agents used in your development workflow?', 'Comment les agents sont-ils utilisés dans votre workflow de développement ?'), options: [{ value: 'none', label: L('None', 'Aucun') }, { value: 'experimental', label: L('Experimental only', 'Expérimental') }, { value: 'some_workflows', label: L('Used in some workflows', 'Utilisés dans certains workflows') }, { value: 'core_workflow', label: L('Core part of the workflow', 'Au cœur du workflow') }] },
         { id: 'd10', type: 'multi_select', required: true, label: L('What can agents do in your development workflow?', 'Que peuvent faire les agents dans votre workflow de développement ?'), options: [{ value: 'open_prs', label: L('Open PRs', 'Ouvrir des PR') }, { value: 'fix_bugs', label: L('Fix bugs', 'Corriger des bugs') }, { value: 'refactor_code', label: L('Refactor code', 'Refactoriser du code') }, { value: 'update_dependencies', label: L('Update dependencies', 'Mettre à jour des dépendances') }, { value: 'maintain_documentation', label: L('Maintain documentation', 'Maintenir la documentation') }] },
-        { id: 'd11', type: 'multi_select', required: true, label: L('Which developer AI solutions do you currently use?', 'Quelles solutions d’IA pour le développement utilisez-vous actuellement ?'), options: [{ value: 'github_copilot', label: L('GitHub Copilot', 'GitHub Copilot') }, { value: 'github_copilot_agent', label: L('GitHub Copilot cloud agent / code review', 'GitHub Copilot cloud agent / revue de code') }, { value: 'claude_code', label: L('Claude Code', 'Claude Code') }, { value: 'openai_codex', label: L('OpenAI Codex', 'OpenAI Codex') }, { value: 'cursor', label: L('Cursor', 'Cursor') }, { value: 'gemini_code_assist', label: L('Gemini Code Assist', 'Gemini Code Assist') }, { value: 'devin', label: L('Devin', 'Devin') }, { value: 'windsurf', label: L('Windsurf', 'Windsurf') }, { value: 'jetbrains_ai_assistant', label: L('JetBrains AI Assistant', 'JetBrains AI Assistant') }, { value: 'tabnine', label: L('Tabnine', 'Tabnine') }, { value: 'other_developer_ai_tools', label: L('Other developer AI tools', 'Autres outils de développement IA') }, { value: 'no_specific_developer_tool', label: L('No specific developer AI tool', 'Aucun outil spécifique') }] },
+        { id: 'd11', type: 'multi_select', required: true, label: L('Which AI coding tools or developer assistants do you currently use?', 'Quels outils de codage assisté par l’IA ou assistants de développement utilisez-vous actuellement ?', 'Ce instrumente de codare cu IA sau asistenți pentru dezvoltatori folosești în prezent?', 'Quais ferramentas de codificação com IA ou assistentes para desenvolvedores você utiliza atualmente?'),
+          helperText: L(
+            'Please select the tools or products you use directly in your development workflow, not the underlying AI models.',
+            'Merci de sélectionner les outils ou produits que vous utilisez directement dans votre workflow de développement, et non les modèles d’IA sous-jacents.',
+            'Te rugăm să selectezi instrumentele sau produsele pe care le folosești direct în fluxul tău de dezvoltare, nu modelele IA care stau la bază.',
+            'Selecione as ferramentas ou produtos que você utiliza diretamente no seu fluxo de desenvolvimento, e não os modelos de IA subjacentes.'
+          ),
+          options: [
+            { value: 'github_copilot_ide', label: L('GitHub Copilot (IDE)', 'GitHub Copilot (IDE)', 'GitHub Copilot (IDE)', 'GitHub Copilot (IDE)') },
+            { value: 'github_coding_agent_cloud', label: L('GitHub Coding Agent (Cloud Agent)', 'GitHub Coding Agent (Cloud Agent)', 'GitHub Coding Agent (Cloud Agent)', 'GitHub Coding Agent (Cloud Agent)') },
+            { value: 'github_code_review', label: L('GitHub Code Review', 'GitHub Code Review', 'GitHub Code Review', 'GitHub Code Review') },
+            { value: 'claude_code', label: L('Claude Code', 'Claude Code', 'Claude Code', 'Claude Code') },
+            { value: 'openai_codex', label: L('OpenAI Codex', 'OpenAI Codex', 'OpenAI Codex', 'OpenAI Codex') },
+            { value: 'cursor', label: L('Cursor', 'Cursor', 'Cursor', 'Cursor') },
+            { value: 'google_antigravity', label: L('Google Antigravity', 'Google Antigravity', 'Google Antigravity', 'Google Antigravity') },
+            { value: 'amazon_q_developer', label: L('Amazon Q Developer', 'Amazon Q Developer', 'Amazon Q Developer', 'Amazon Q Developer') },
+            { value: 'ibm_watsonx_code_assistant_z', label: L('IBM watsonx Code Assistant for Z', 'IBM watsonx Code Assistant for Z', 'IBM watsonx Code Assistant for Z', 'IBM watsonx Code Assistant for Z') },
+            { value: 'replit_ai', label: L('Replit AI', 'Replit AI', 'Replit AI', 'Replit AI') },
+            { value: 'v0_vercel', label: L('v0 by Vercel', 'v0 by Vercel', 'v0 by Vercel', 'v0 by Vercel') },
+            { value: 'jetbrains_ai_assistant', label: L('JetBrains AI Assistant', 'JetBrains AI Assistant', 'JetBrains AI Assistant', 'JetBrains AI Assistant') },
+            { value: 'tabnine', label: L('Tabnine', 'Tabnine', 'Tabnine', 'Tabnine') },
+            { value: 'mistral_code', label: L('Mistral Code', 'Mistral Code', 'Mistral Code', 'Mistral Code') },
+            { value: 'other_developer_ai_tools', label: L('Other developer AI tools', 'Autres outils IA pour le développement', 'Alte instrumente IA pentru dezvoltare', 'Outras ferramentas IA para desenvolvimento') },
+            { value: 'no_coding_agents', label: L('I don’t use coding agents', 'Je n’utilise pas d’agents de codage', 'Nu folosesc agenți de codare', 'Não utilizo agentes de codificação') },
+          ] },
         { id: 'd12', type: 'single_choice', required: true, label: L('How are these developer AI tools provided in your environment?', 'Comment ces outils IA de développement sont-ils fournis dans votre environnement ?'), options: standardProvisioningOptions },
       ],
     },
@@ -641,8 +665,10 @@ function App() {
 
   const toggleMulti = (id, value) => setAnswers((prev) => {
     const existing = Array.isArray(prev[id]) ? prev[id] : [];
-    if (id === 'q3_general_tools' || id === 'q11_learning_path') {
-      const exclusiveValue = id === 'q3_general_tools' ? 'no_general_ai_tools' : 'no_learning_effort';
+    if (id === 'q3_general_tools' || id === 'q11_learning_path' || id === 'd11') {
+      const exclusiveValue = id === 'q3_general_tools'
+        ? 'no_general_ai_tools'
+        : (id === 'q11_learning_path' ? 'no_learning_effort' : 'no_coding_agents');
       if (value === exclusiveValue) {
         return { ...prev, [id]: existing.includes(value) ? [] : [exclusiveValue] };
       }
@@ -806,8 +832,10 @@ function App() {
                   const checked = current.type === 'single_choice' ? answers[current.id] === option.value : Array.isArray(answers[current.id]) && answers[current.id].includes(option.value);
                   const noGeneralToolsSelected = current.id === 'q3_general_tools' && Array.isArray(answers[current.id]) && answers[current.id].includes('no_general_ai_tools');
                   const noLearningEffortSelected = current.id === 'q11_learning_path' && Array.isArray(answers[current.id]) && answers[current.id].includes('no_learning_effort');
+                  const noCodingAgentsSelected = current.id === 'd11' && Array.isArray(answers[current.id]) && answers[current.id].includes('no_coding_agents');
                   const disabled = (current.id === 'q3_general_tools' && noGeneralToolsSelected && option.value !== 'no_general_ai_tools')
-                    || (current.id === 'q11_learning_path' && noLearningEffortSelected && option.value !== 'no_learning_effort');
+                    || (current.id === 'q11_learning_path' && noLearningEffortSelected && option.value !== 'no_learning_effort')
+                    || (current.id === 'd11' && noCodingAgentsSelected && option.value !== 'no_coding_agents');
                   return (
                     <label className={`option-card ${checked ? 'active' : ''} ${disabled ? 'disabled' : ''}`} key={option.value}>
                       <input type={current.type === 'single_choice' ? 'radio' : 'checkbox'} name={current.id} checked={checked} disabled={disabled} onChange={() => current.type === 'single_choice' ? setSingle(current.id, option.value) : toggleMulti(current.id, option.value)} />
