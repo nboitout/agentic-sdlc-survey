@@ -663,7 +663,7 @@ function enrichLabels() {
 enrichLabels();
 
 const isAnswered = (q, v) => !q.required || q.type === 'free_text' || (q.type === 'multi_select' ? Array.isArray(v) && v.length > 0 : Boolean(v));
-const isGoogleAppsScriptUrl = (url) => /https:\/\/script\.google(?:usercontent)?\.com\/.*\/macros\/s\//.test(url);
+const isGoogleAppsScriptUrl = (url) => /https:\/\/script\.google(?:usercontent)?\.com.*\/macros\/s\//.test(url);
 
 const toSheetSubmissionFields = (payload) => ({
   // Compatibility keys for legacy Apps Script projects (e.g., fixed `getHeaders()` layouts).
