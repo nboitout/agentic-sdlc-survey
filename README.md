@@ -42,7 +42,7 @@ Then open `http://localhost:8000`.
 
 ## Save responses to Google Sheets (Apps Script)
 
-This survey can post directly to a Google Apps Script Web App URL (for example `https://script.google.com/macros/s/.../exec`) using a hidden form submission pattern inspired by your **Humano-Veritas** project.
+This survey can post directly to a Google Apps Script Web App URL (for example `https://script.google.com/macros/s/.../exec`) using an `application/x-www-form-urlencoded` POST (`fetch` with `mode: "no-cors"`), compatible with scripts that read `e.parameter`.
 
 ### 1) Create a Google Sheet
 
@@ -107,5 +107,8 @@ function doPost(e) {
 Paste that URL in the survey’s **Submission endpoint** field and submit.
 
 Notes:
-- For Apps Script URLs, the app sends form fields (`payload_json`, `core_answers_json`, `branch_answers_json`, plus top-level metadata columns).
+- For Apps Script URLs, the app sends URL-encoded form fields (readable from `e.parameter`).
+- It also sends compatibility keys for legacy scripts with fixed headers:
+  - `timestamp`, `societe`, `poste`, `nom`
+  - plus survey-native keys (`payload_json`, `core_answers_json`, `branch_answers_json`, `role`, `branch`, etc.)
 - For non-Apps Script endpoints, the app keeps the existing JSON `fetch` POST behavior.
