@@ -663,7 +663,7 @@ function enrichLabels() {
 enrichLabels();
 
 const isAnswered = (q, v) => !q.required || q.type === 'free_text' || (q.type === 'multi_select' ? Array.isArray(v) && v.length > 0 : Boolean(v));
-const isGoogleAppsScriptUrl = (url) => /https:\/\/script\.google\.com\/macros\/s\//.test(url);
+const isGoogleAppsScriptUrl = (url) => /https:\/\/script\.google(?:usercontent)?\.com\/.*\/macros\/s\//.test(url);
 
 const toSheetSubmissionFields = (payload) => ({
   // Compatibility keys for legacy Apps Script projects (e.g., fixed `getHeaders()` layouts).
@@ -688,19 +688,48 @@ const toSheetSubmissionFields = (payload) => ({
 
 const postToGoogleAppsScript = (url, payload) => new Promise((resolve, reject) => {
   try {
-    const body = new URLSearchParams();
-    Object.entries(toSheetSubmissionFields(payload)).forEach(([key, value]) => {
-      body.append(key, value == null ? '' : String(value));
+    const fields = toSheetSubmissionFields(payload);
+    const targetName = `gas_target_${Date.now()}`;
+    const iframe = document.createElement('iframe');
+    iframe.name = targetName;
+    iframe.style.display = 'none';
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = url;
+    form.target = targetName;
+    form.style.display = 'none';
+
+    Object.entries(fields).forEach(([key, value]) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = value == null ? '' : String(value);
+      form.appendChild(input);
     });
 
+    // Primary: form POST (very reliable with Apps Script redirects/CORS constraints)
+    document.body.appendChild(iframe);
+    document.body.appendChild(form);
+    form.submit();
+
+    // Secondary: no-cors fetch beacon (extra compatibility for certain deployments)
+    const body = new URLSearchParams();
+    Object.entries(fields).forEach(([key, value]) => body.append(key, value == null ? '' : String(value)));
     fetch(url, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
       body,
-    })
-      .then(() => resolve())
-      .catch(reject);
+    }).catch(() => {});
+
+    setTimeout(() => {
+      try {
+        form.remove();
+        iframe.remove();
+      } catch {}
+      resolve();
+    }, 1200);
   } catch (error) {
     reject(error);
   }
