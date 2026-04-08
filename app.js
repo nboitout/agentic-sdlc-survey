@@ -663,6 +663,58 @@ function enrichLabels() {
 enrichLabels();
 
 const isAnswered = (q, v) => !q.required || q.type === 'free_text' || (q.type === 'multi_select' ? Array.isArray(v) && v.length > 0 : Boolean(v));
+const isGoogleAppsScriptUrl = (url) => /https:\/\/script\.google\.com\/macros\/s\//.test(url);
+
+const toSheetSubmissionFields = (payload) => ({
+  payload_json: JSON.stringify(payload),
+  role: payload.role || '',
+  branch: payload.branch || '',
+  contract_model: payload.contractModel || '',
+  submitted_at: payload.submittedAt || '',
+  survey_date: payload?.metadata?.surveyDate || '',
+  team_name: payload?.metadata?.teamName || '',
+  respondent: payload?.metadata?.respondent || '',
+  comment: payload.comment || '',
+  core_answers_json: JSON.stringify(payload.coreAnswers || {}),
+  branch_answers_json: JSON.stringify(payload.branchAnswers || {}),
+});
+
+const postToGoogleAppsScript = (url, payload) => new Promise((resolve, reject) => {
+  try {
+    const targetName = `gas_target_${Date.now()}`;
+    const iframe = document.createElement('iframe');
+    iframe.name = targetName;
+    iframe.style.display = 'none';
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = url;
+    form.target = targetName;
+    form.style.display = 'none';
+
+    Object.entries(toSheetSubmissionFields(payload)).forEach(([key, value]) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = value == null ? '' : String(value);
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(iframe);
+    document.body.appendChild(form);
+    form.submit();
+
+    setTimeout(() => {
+      try {
+        form.remove();
+        iframe.remove();
+      } catch {}
+      resolve();
+    }, 1000);
+  } catch (error) {
+    reject(error);
+  }
+});
 
 function App() {
   const [lang, setLang] = useState('en');
@@ -842,8 +894,13 @@ function App() {
     try {
       setStatus('submitting');
       if (endpoint.trim()) {
-        const r = await fetch(endpoint.trim(), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const targetEndpoint = endpoint.trim();
+        if (isGoogleAppsScriptUrl(targetEndpoint)) {
+          await postToGoogleAppsScript(targetEndpoint, payload);
+        } else {
+          const r = await fetch(targetEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        }
       } else {
         console.info(t.noEndpoint, payload);
       }
