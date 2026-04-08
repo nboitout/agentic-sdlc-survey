@@ -708,20 +708,10 @@ const postToGoogleAppsScript = (url, payload) => new Promise((resolve, reject) =
       form.appendChild(input);
     });
 
-    // Primary: form POST (very reliable with Apps Script redirects/CORS constraints)
+    // Primary: form POST to hidden iframe (CORS-safe, no preflight)
     document.body.appendChild(iframe);
     document.body.appendChild(form);
     form.submit();
-
-    // Secondary: no-cors fetch beacon (extra compatibility for certain deployments)
-    const body = new URLSearchParams();
-    Object.entries(fields).forEach(([key, value]) => body.append(key, value == null ? '' : String(value)));
-    fetch(url, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-      body,
-    }).catch(() => {});
 
     setTimeout(() => {
       try {
