@@ -1,0 +1,24 @@
+{
+  "name": "agentic-sdlc-survey-api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Azure Function backend for Agentic SDLC survey ingestion",
+  "main": "dist/src/functions/*.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist",
+    "start": "func start",
+    "start:build": "npm run build && func start",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.5.0",
+    "mssql": "^11.0.1"
+  },
+  "devDependencies": {
+    "@types/mssql": "^9.1.11",
+    "@types/node": "^22.10.5",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.2"
+  }
+}
