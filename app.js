@@ -73,7 +73,6 @@ const uiText = {
     submittedSupport: 'Thank you for taking the time to complete this survey. Your input will help us better understand how AI is used across the organization and where we can improve tools, support, and practices.',
     submittedAggregated: 'Your responses will be analyzed in aggregated form.',
     submitAnother: 'Submit another response',
-    printPreview: 'Preview & Print',
   },
   fr: {
     title: 'Diagnostic SDLC Agentique',
@@ -142,7 +141,6 @@ const uiText = {
     submittedSupport: 'Merci d’avoir pris le temps de compléter ce questionnaire. Votre contribution nous aide à mieux comprendre comment l’IA est utilisée dans l’organisation et où améliorer les outils, le support et les pratiques.',
     submittedAggregated: 'Vos réponses seront analysées de manière agrégée.',
     submitAnother: 'Soumettre une autre réponse',
-    printPreview: 'Aperçu & Imprimer',
   },
   ro: {
     title: 'Diagnostic SDLC Agentic',
@@ -211,7 +209,6 @@ const uiText = {
     submittedSupport: 'Îți mulțumim că ți-ai făcut timp să completezi acest chestionar. Contribuția ta ne ajută să înțelegem mai bine cum este utilizată IA în organizație și unde putem îmbunătăți instrumentele, suportul și practicile.',
     submittedAggregated: 'Răspunsurile vor fi analizate în formă agregată.',
     submitAnother: 'Trimite un alt răspuns',
-    printPreview: 'Previzualizare & Tipărire',
   },
   pt: {
     title: 'Diagnóstico SDLC Agêntico',
@@ -280,7 +277,6 @@ const uiText = {
     submittedSupport: 'Obrigado por dedicar seu tempo para concluir esta pesquisa. Sua contribuição nos ajudará a entender melhor como a IA é usada na organização e onde podemos melhorar ferramentas, suporte e práticas.',
     submittedAggregated: 'As respostas serão analisadas de forma agregada.',
     submitAnother: 'Enviar outra resposta',
-    printPreview: 'Pré-visualizar & Imprimir',
   }
 };
 
@@ -667,7 +663,26 @@ function enrichLabels() {
 enrichLabels();
 
 const isAnswered = (q, v) => !q.required || q.type === 'free_text' || (q.type === 'multi_select' ? Array.isArray(v) && v.length > 0 : Boolean(v));
-const isGoogleAppsScriptUrl = (url) => /https:\/\/script\.google(?:usercontent)?\.com.*\/macros\/s\//.test(url);
+const isGoogleAppsScriptUrl = (url) => /https:\/\/script\.google(?:usercontent)?\.com\/.*\/macros\/s\//.test(url);
+const SURVEY_VERSION = '2026-04';
+const SOURCE_APP = 'agentic-sdlc-survey';
+
+const getRuntimeConfig = () => {
+  const appConfig = (typeof window !== 'undefined' && window.__APP_CONFIG__) || {};
+  const metaContent = (name) => (typeof document !== 'undefined'
+    ? (document.querySelector(`meta[name=\"${name}\"]`)?.content || '').trim()
+    : '');
+  const inferredEnv = (typeof window !== 'undefined' && ['localhost', '127.0.0.1'].includes(window.location.hostname)) ? 'dev' : 'prod';
+  return {
+    azureSurveySubmitUrl: appConfig.azureSurveySubmitUrl || metaContent('azure-survey-submit-url') || '',
+    sourceEnv: appConfig.sourceEnv || metaContent('app-source-env') || inferredEnv,
+  };
+};
+
+const generateClientSubmissionId = () => {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID();
+  return `sub_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+};
 
 const toSheetSubmissionFields = (payload) => ({
   // Compatibility keys for legacy Apps Script projects (e.g., fixed `getHeaders()` layouts).
@@ -712,10 +727,20 @@ const postToGoogleAppsScript = (url, payload) => new Promise((resolve, reject) =
       form.appendChild(input);
     });
 
-    // Primary: form POST to hidden iframe (CORS-safe, no preflight)
+    // Primary: form POST (very reliable with Apps Script redirects/CORS constraints)
     document.body.appendChild(iframe);
     document.body.appendChild(form);
     form.submit();
+
+    // Secondary: no-cors fetch beacon (extra compatibility for certain deployments)
+    const body = new URLSearchParams();
+    Object.entries(fields).forEach(([key, value]) => body.append(key, value == null ? '' : String(value)));
+    fetch(url, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+      body,
+    }).catch(() => {});
 
     setTimeout(() => {
       try {
@@ -729,117 +754,29 @@ const postToGoogleAppsScript = (url, payload) => new Promise((resolve, reject) =
   }
 });
 
-const printAnswers = ({ flow, answers, meta, lang, branchDef }) => {
-  const t = uiText[lang] || uiText.en;
+const buildAzureSurveyPayload = ({ payload, language, sourceEnv, clientSubmissionId }) => ({
+  clientSubmissionId,
+  surveyVersion: SURVEY_VERSION,
+  clientSubmittedAt: payload.submittedAt,
+  language,
+  role: payload.role,
+  branch: payload.branch,
+  contractModel: payload.contractModel,
+  coreAnswers: payload.coreAnswers,
+  branchAnswers: payload.branchAnswers,
+  comment: payload.comment || '',
+  sourceApp: SOURCE_APP,
+  sourceEnv,
+});
 
-  const resolveAnswerLabel = (q, value) => {
-    if (value === null || value === undefined || (Array.isArray(value) && value.length === 0) || value === '') return '\u2014';
-    if (q.type === 'free_text') return String(value);
-    if (q.type === 'single_choice') {
-      const opt = (q.options || []).find(o => o.value === value);
-      return opt ? localize(opt.label, lang) : String(value);
-    }
-    if (q.type === 'multi_select') {
-      const vals = Array.isArray(value) ? value : [value];
-      return vals.map(v => {
-        const opt = (q.options || []).find(o => o.value === v);
-        return opt ? localize(opt.label, lang) : v;
-      }).join(', ');
-    }
-    return String(value);
-  };
-
-  const rows = flow
-    .filter(q => q.type !== 'transition' && q.id !== 'comment1')
-    .map(q => ({
-      section: q.section || '',
-      label: localize(q.label, lang),
-      answer: resolveAnswerLabel(q, answers[q.id]),
-    }));
-
-  const comment = answers.comment1 || '';
-  const branchTitle = branchDef ? localize(branchDef.title, lang) : '\u2014';
-  const printLabel = { en: 'Print', fr: 'Imprimer', ro: 'Tipărește', pt: 'Imprimir' }[lang] || 'Print';
-  const previewLabel = { en: 'Preview & Print', fr: 'Aperçu & Imprimer', ro: 'Previzualizare & Tipărire', pt: 'Pré-visualizar & Imprimir' }[lang] || 'Preview & Print';
-  const dateStr = new Date().toLocaleDateString(
-    lang === 'fr' ? 'fr-FR' : lang === 'ro' ? 'ro-RO' : lang === 'pt' ? 'pt-BR' : 'en-GB'
-  );
-
-  let tableHtml = '';
-  let lastSection = '';
-  rows.forEach(row => {
-    if (row.section !== lastSection) {
-      if (lastSection !== '') tableHtml += '</table>';
-      tableHtml += `<div class="section-title">${row.section}</div><table>`;
-      lastSection = row.section;
-    }
-    const unanswered = row.answer === '\u2014';
-    tableHtml += `<tr class="${unanswered ? 'unanswered' : ''}">
-      <td class="q-label">${row.label}</td>
-      <td class="q-answer">${row.answer}</td>
-    </tr>`;
+const submitSurveyToAzure = async (azureUrl, azurePayload) => {
+  const response = await fetch(azureUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(azurePayload),
   });
-  if (lastSection !== '') tableHtml += '</table>';
-
-  const html = `<!DOCTYPE html>
-<html lang="${lang}">
-<head>
-<meta charset="UTF-8">
-<title>Agentic SDLC Diagnostic \u2014 ${previewLabel}</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11pt; color: #1a1a2e; background: #fff; padding: 1.5cm 2cm; }
-  .doc-header { border-bottom: 2px solid #1a2e6e; padding-bottom: 14px; margin-bottom: 20px; }
-  .doc-header h1 { font-size: 17pt; font-weight: 700; color: #1a2e6e; }
-  .doc-header .subtitle { font-size: 9pt; color: #666; margin-top: 4px; }
-  .meta-block { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px 20px; background: #f5f7fc; border: 1px solid #dde3f0; border-radius: 6px; padding: 12px 16px; margin-bottom: 22px; font-size: 9.5pt; }
-  .meta-item { display: flex; flex-direction: column; gap: 2px; }
-  .meta-label { font-size: 7.5pt; color: #888; text-transform: uppercase; letter-spacing: 0.06em; }
-  .meta-value { font-weight: 600; color: #1a2e6e; }
-  .section-title { font-size: 7.5pt; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #1a2e6e; background: #eef1f9; padding: 5px 10px; margin: 18px 0 0 0; border-left: 3px solid #1a2e6e; page-break-after: avoid; }
-  table { width: 100%; border-collapse: collapse; }
-  tr { page-break-inside: avoid; }
-  td { padding: 6px 10px; vertical-align: top; border-bottom: 1px solid #eee; font-size: 10pt; }
-  td.q-label { width: 55%; color: #333; line-height: 1.4; }
-  td.q-answer { width: 45%; font-weight: 600; color: #1a2e6e; line-height: 1.4; }
-  tr.unanswered td { color: #bbb; font-style: italic; }
-  .comment-block { margin-top: 18px; border: 1px solid #dde3f0; border-radius: 6px; padding: 12px 14px; }
-  .comment-label { font-size: 7.5pt; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 6px; }
-  .comment-text { font-size: 10pt; color: #333; line-height: 1.6; white-space: pre-wrap; }
-  .footer { margin-top: 24px; border-top: 1px solid #ddd; padding-top: 10px; font-size: 7.5pt; color: #aaa; display: flex; justify-content: space-between; }
-  .print-btn { display: inline-block; margin-bottom: 18px; padding: 8px 20px; background: #1a2e6e; color: #fff; border: none; border-radius: 5px; font-size: 10pt; cursor: pointer; font-family: inherit; }
-  @media print { .no-print { display: none !important; } body { padding: 1cm 1.5cm; } }
-</style>
-</head>
-<body>
-<button class="print-btn no-print" onclick="window.print()">🖨 ${printLabel}</button>
-<div class="doc-header">
-  <h1>Agentic SDLC Diagnostic</h1>
-  <div class="subtitle">${previewLabel} &mdash; ${dateStr}</div>
-</div>
-<div class="meta-block">
-  <div class="meta-item"><span class="meta-label">${t.surveyDate}</span><span class="meta-value">${meta.surveyDate || '\u2014'}</span></div>
-  <div class="meta-item"><span class="meta-label">${t.teamName}</span><span class="meta-value">${meta.teamName || '\u2014'}</span></div>
-  <div class="meta-item"><span class="meta-label">${t.respondent}</span><span class="meta-value">${meta.respondent || '\u2014'}</span></div>
-  <div class="meta-item"><span class="meta-label">${t.role}</span><span class="meta-value">${answers.q1_role || '\u2014'}</span></div>
-  <div class="meta-item"><span class="meta-label">${t.branch}</span><span class="meta-value">${branchTitle}</span></div>
-  <div class="meta-item"><span class="meta-label">${t.questionsAnswered}</span><span class="meta-value">${rows.filter(r => r.answer !== '\u2014').length} / ${rows.length}</span></div>
-</div>
-${tableHtml}
-${comment ? `<div class="comment-block"><div class="comment-label">${t.finalSection}</div><div class="comment-text">${comment}</div></div>` : ''}
-<div class="footer">
-  <span>Agentic SDLC Diagnostic</span>
-  <span>${new Date().toISOString()}</span>
-</div>
-</body>
-</html>`;
-
-  const win = window.open('', '_blank', 'width=920,height=750,scrollbars=yes');
-  if (!win) { alert('Please allow pop-ups to use the print preview.'); return; }
-  win.document.write(html);
-  win.document.close();
+  if (!response.ok) throw new Error(`Azure HTTP ${response.status}`);
 };
-
 
 function App() {
   const [lang, setLang] = useState('en');
@@ -1018,6 +955,7 @@ function App() {
 
     try {
       setStatus('submitting');
+      // 1) Existing primary destination (Google Sheet or custom endpoint)
       if (endpoint.trim()) {
         const targetEndpoint = endpoint.trim();
         if (isGoogleAppsScriptUrl(targetEndpoint)) {
@@ -1029,6 +967,29 @@ function App() {
       } else {
         console.info(t.noEndpoint, payload);
       }
+
+      // 2) Additional Azure destination (best-effort, never blocks successful primary submission)
+      const runtimeConfig = getRuntimeConfig();
+      if (runtimeConfig.azureSurveySubmitUrl) {
+        const azurePayload = buildAzureSurveyPayload({
+          payload,
+          language: lang,
+          sourceEnv: runtimeConfig.sourceEnv,
+          clientSubmissionId: generateClientSubmissionId(),
+        });
+        try {
+          await submitSurveyToAzure(runtimeConfig.azureSurveySubmitUrl, azurePayload);
+        } catch (azureError) {
+          console.error('[survey][azure-submit-failed]', {
+            message: azureError?.message || String(azureError),
+            endpoint: runtimeConfig.azureSurveySubmitUrl,
+            clientSubmissionId: azurePayload.clientSubmissionId,
+          });
+        }
+      } else {
+        console.info('[survey][azure-submit-skipped] Missing azureSurveySubmitUrl runtime config.');
+      }
+
       localStorage.removeItem(STORAGE_KEY);
       setStatus('success');
     } catch (e) {
@@ -1044,10 +1005,7 @@ function App() {
         <p className="success-main">{t.submittedSuccess}</p>
         <p>{t.submittedSupport}</p>
         <p className="success-aggregated">{t.submittedAggregated}</p>
-        <div className="success-actions">
-          <button type="button" className="print-preview-btn" onClick={() => printAnswers({ flow, answers, meta, lang, branchDef })}>🖨 {t.printPreview}</button>
-          <button type="button" className="secondary-action" onClick={startNewResponse}>{t.submitAnother}</button>
-        </div>
+        <button type="button" className="secondary-action" onClick={startNewResponse}>{t.submitAnother}</button>
       </section>
     );
   }
@@ -1210,7 +1168,6 @@ function App() {
           <button type="button" onClick={() => setIndex((i) => Math.max(0, i - 1))} disabled={index === 0}>{t.previous}</button>
           {!isFinalStep ? <button type="button" onClick={next}>{current?.type === 'transition' ? t.continue : t.next}</button> : (
             <div className="submit-wrap">
-              <button type="button" className="print-preview-btn" onClick={() => printAnswers({ flow, answers, meta, lang, branchDef })}>🖨 {t.printPreview}</button>
               <button type="button" className="submit-response-btn" onClick={submit} disabled={status === 'submitting'}>{status === 'submitting' ? t.submitting : t.submitResponse}</button>
               <small>{t.submitHelper}</small>
             </div>

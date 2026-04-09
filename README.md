@@ -31,6 +31,7 @@ Static React survey with role-based branching and multilingual UI (English, Fren
   - `comment`
   - `submittedAt`
 - Google Sheets-friendly submission path (for Google Apps Script Web App endpoints)
+- Optional secondary Azure Function JSON submission (in addition to existing primary submission)
 
 ## Run locally
 
@@ -39,6 +40,29 @@ python3 -m http.server 8000
 ```
 
 Then open `http://localhost:8000`.
+
+## Runtime configuration (Azure secondary submission)
+
+This static app supports runtime config via:
+
+1) `window.__APP_CONFIG__` (preferred), or  
+2) `<meta>` tags in `index.html`.
+
+Available keys:
+
+- `azureSurveySubmitUrl` (example: `https://<function-app>.azurewebsites.net/api/survey/submit`)
+- `sourceEnv` (`dev`, `prod`, etc.)
+
+In `index.html`:
+
+- `<meta name="azure-survey-submit-url" content="">`
+- `<meta name="app-source-env" content="prod">`
+
+The submit behavior is:
+
+1. Existing primary destination runs first (Google Apps Script or generic endpoint).
+2. Azure submission is attempted in addition (best-effort).
+3. If Azure fails but primary succeeds, submission still completes for the respondent.
 
 ## Save responses to Google Sheets (Apps Script)
 
@@ -178,3 +202,24 @@ Notes:
   - `timestamp`, `societe`, `poste`, `nom`
   - plus survey-native keys (`payload_json`, `core_answers_json`, `branch_answers_json`, `role`, `branch`, etc.)
 - For non-Apps Script endpoints, the app keeps the existing JSON `fetch` POST behavior.
+
+## Azure payload format
+
+When `azureSurveySubmitUrl` is configured, the app posts this JSON shape:
+
+```json
+{
+  "clientSubmissionId": "uuid-generated-in-frontend",
+  "surveyVersion": "2026-04",
+  "clientSubmittedAt": "2026-04-09T10:15:30.123Z",
+  "language": "en",
+  "role": "developer",
+  "branch": "developer",
+  "contractModel": "staff_augmentation",
+  "coreAnswers": { "...": "..." },
+  "branchAnswers": { "...": "..." },
+  "comment": "",
+  "sourceApp": "agentic-sdlc-survey",
+  "sourceEnv": "prod"
+}
+```
