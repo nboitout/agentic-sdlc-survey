@@ -693,6 +693,7 @@ const toSheetSubmissionFields = (payload) => ({
   societe: payload?.metadata?.teamName || '',
   poste: [payload.role, payload.branch].filter(Boolean).join(' / '),
   nom: payload?.metadata?.respondent || '',
+  client_submission_id: payload.clientSubmissionId || '',
 
   // Survey-native keys for the dedicated Agentic SDLC sheet script.
   payload_json: JSON.stringify(payload),
@@ -769,6 +770,7 @@ const submitSurveyToAzure = async (azureUrl, azurePayload) => {
     body: JSON.stringify(azurePayload),
   });
   if (!response.ok) throw new Error(`Azure HTTP ${response.status}`);
+  return { status: response.status };
 };
 
 function App() {
@@ -935,7 +937,9 @@ function App() {
     const branchAnswers = {};
     if (branchDef) branchDef.questions.forEach((q) => branchAnswers[q.id] = answers[q.id] ?? (q.type === 'multi_select' ? [] : null));
 
+    const clientSubmissionId = generateClientSubmissionId();
     const payload = {
+      clientSubmissionId,
       role: answers.q1_role || null,
       contractModel: answers.q2_contract_model || null,
       coreAnswers,
@@ -968,19 +972,23 @@ function App() {
           payload,
           language: lang,
           sourceEnv: runtimeConfig.sourceEnv,
-          clientSubmissionId: generateClientSubmissionId(),
+          clientSubmissionId,
         });
         try {
-          await submitSurveyToAzure(runtimeConfig.azureSurveySubmitUrl, azurePayload);
+          const azureResult = await submitSurveyToAzure(runtimeConfig.azureSurveySubmitUrl, azurePayload);
+          console.info('[Survey][Azure] Submission success', {
+            clientSubmissionId,
+            status: azureResult.status,
+          });
         } catch (azureError) {
-          console.error('[survey][azure-submit-failed]', {
-            message: azureError?.message || String(azureError),
+          console.error('[Survey][Azure] Submission failed', {
+            clientSubmissionId,
+            error: azureError?.message || String(azureError),
             endpoint: runtimeConfig.azureSurveySubmitUrl,
-            clientSubmissionId: azurePayload.clientSubmissionId,
           });
         }
       } else {
-        console.info('[survey][azure-submit-skipped] Missing azureSurveySubmitUrl runtime config.');
+        console.warn('[Survey][Azure] Skipped - no endpoint configured', { clientSubmissionId });
       }
 
       localStorage.removeItem(STORAGE_KEY);
