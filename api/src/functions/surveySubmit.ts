@@ -1,4 +1,5 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from '@azure/functions';
+import { randomUUID } from 'crypto';
 import sql from 'mssql';
 
 type PrimitiveAnswer = string | number | boolean;
@@ -41,7 +42,7 @@ interface FlatAnswer {
 }
 
 interface InsertableAnswerFact {
-  submissionId: number;
+  submissionId: string;
   surveyVersion: string;
   questionId: string;
   questionScope: string;
@@ -223,11 +224,13 @@ const checkDuplicateSubmission = async (tx: sql.Transaction, clientSubmissionId:
   return result.recordset.length > 0;
 };
 
-const insertSubmission = async (tx: sql.Transaction, payload: SurveyPayload): Promise<number> => {
+const insertSubmission = async (tx: sql.Transaction, payload: SurveyPayload): Promise<string> => {
   const clientSubmittedAtUtc = payload.clientSubmittedAt ? new Date(payload.clientSubmittedAt) : new Date();
+  const submissionId = randomUUID();
 
-  const result = await tx
+  await tx
     .request()
+    .input('submissionId', sql.UniqueIdentifier, submissionId)
     .input('clientSubmissionId', sql.VarChar(100), payload.clientSubmissionId)
     .input('surveyVersion', sql.VarChar(20), payload.surveyVersion)
     .input('clientSubmittedAtUtc', sql.DateTime2, clientSubmittedAtUtc)
@@ -238,9 +241,10 @@ const insertSubmission = async (tx: sql.Transaction, payload: SurveyPayload): Pr
     .input('commentText', sql.NVarChar(sql.MAX), payload.comment || null)
     .input('sourceApp', sql.VarChar(100), payload.sourceApp || null)
     .input('sourceEnv', sql.VarChar(30), payload.sourceEnv || null)
-    .query<{ submission_id: number }>(`
+    .query(`
       INSERT INTO dbo.survey_submission
       (
+        submission_id,
         client_submission_id,
         survey_version,
         client_submitted_at_utc,
@@ -253,9 +257,9 @@ const insertSubmission = async (tx: sql.Transaction, payload: SurveyPayload): Pr
         source_app,
         source_env
       )
-      OUTPUT INSERTED.submission_id
       VALUES
       (
+        @submissionId,
         @clientSubmissionId,
         @surveyVersion,
         @clientSubmittedAtUtc,
@@ -270,13 +274,13 @@ const insertSubmission = async (tx: sql.Transaction, payload: SurveyPayload): Pr
       )
     `);
 
-  return result.recordset[0].submission_id;
+  return submissionId;
 };
 
-const insertRawPayload = async (tx: sql.Transaction, submissionId: number, payload: SurveyPayload): Promise<void> => {
+const insertRawPayload = async (tx: sql.Transaction, submissionId: string, payload: SurveyPayload): Promise<void> => {
   await tx
     .request()
-    .input('submissionId', sql.Int, submissionId)
+    .input('submissionId', sql.UniqueIdentifier, submissionId)
     .input('clientSubmissionId', sql.VarChar(100), payload.clientSubmissionId)
     .input('surveyVersion', sql.VarChar(20), payload.surveyVersion)
     .input('payloadJson', sql.NVarChar(sql.MAX), JSON.stringify(payload))
@@ -299,7 +303,7 @@ const insertRawPayload = async (tx: sql.Transaction, submissionId: number, paylo
 };
 
 const buildAnswerFacts = (
-  submissionId: number,
+  submissionId: string,
   payload: SurveyPayload,
   answers: FlatAnswer[],
   questionsById: Map<string, QuestionRow>,
@@ -345,7 +349,7 @@ const insertAnswerFacts = async (tx: sql.Transaction, facts: InsertableAnswerFac
   for (const fact of facts) {
     await tx
       .request()
-      .input('submissionId', sql.Int, fact.submissionId)
+      .input('submissionId', sql.UniqueIdentifier, fact.submissionId)
       .input('surveyVersion', sql.VarChar(20), fact.surveyVersion)
       .input('questionId', sql.VarChar(200), fact.questionId)
       .input('questionScope', sql.VarChar(50), fact.questionScope)
