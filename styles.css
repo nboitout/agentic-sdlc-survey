@@ -72,3 +72,30 @@ button[disabled] { opacity: .5; cursor: not-allowed; }
 .success-panel button { margin-top: 8px; }
 .draft-panel p { color: var(--muted); margin-top: 0; }
 .draft-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* ── Print preview button ── */
+.print-preview-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 10px 16px;
+  border: 1.5px solid var(--accent);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.print-preview-btn:hover { background: var(--accent); color: #fff; }
+
+/* ── Success screen: print + new response side by side ── */
+.success-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 12px;
+}
+.success-actions button { margin-top: 0; }
