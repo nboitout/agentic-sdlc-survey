@@ -66,9 +66,7 @@ The submit behavior is:
 
 ## Save responses to Google Sheets (Apps Script)
 
-This survey can post directly to a Google Apps Script Web App URL (for example `https://script.google.com/macros/s/.../exec`) using a dual strategy:
-- hidden `form` POST to a hidden iframe (primary, CORS-safe),
-- plus an `application/x-www-form-urlencoded` `fetch` with `mode: "no-cors"` (secondary compatibility beacon).
+This survey posts directly to a Google Apps Script Web App URL (for example `https://script.google.com/macros/s/.../exec`) using a hidden `form` POST to a hidden iframe (CORS-safe, no preflight).
 
 ### 1) Create a Google Sheet
 
@@ -196,7 +194,7 @@ function getHeaders() {
 Paste that URL in the survey’s **Submission endpoint** field and submit.
 
 Notes:
-- For Apps Script URLs, the app sends URL-encoded form fields (readable from `e.parameter`).
+- For Apps Script URLs, the app sends form fields (readable from `e.parameter`) via hidden form POST.
 - Apps Script URL detection supports both `script.google.com` and `script.googleusercontent.com` Web App links.
 - It also sends compatibility keys for legacy scripts with fixed headers:
   - `timestamp`, `societe`, `poste`, `nom`
