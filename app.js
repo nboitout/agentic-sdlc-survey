@@ -663,7 +663,10 @@ function enrichLabels() {
 enrichLabels();
 
 const isAnswered = (q, v) => !q.required || q.type === 'free_text' || (q.type === 'multi_select' ? Array.isArray(v) && v.length > 0 : Boolean(v));
-const isGoogleAppsScriptUrl = (url) => /https:\/\/script\.google(?:usercontent)?\.com\/.*\/macros\/s\//.test(url);
+// Matches both common Apps Script Web App hosts and URL shapes:
+// - https://script.google.com/macros/s/.../exec
+// - https://script.googleusercontent.com/.../macros/s/.../exec
+const isGoogleAppsScriptUrl = (url) => /https:\/\/script\.google(?:usercontent)?\.com\/(?:.*\/)?macros\/s\//.test(url);
 const SURVEY_VERSION = '2026-04';
 const SOURCE_APP = 'agentic-sdlc-survey';
 
