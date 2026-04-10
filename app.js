@@ -669,6 +669,14 @@ const isAnswered = (q, v) => !q.required || q.type === 'free_text' || (q.type ==
 const isGoogleAppsScriptUrl = (url) => /https:\/\/script\.google(?:usercontent)?\.com\/(?:.*\/)?macros\/s\//.test(url);
 const SURVEY_VERSION = '2026-04';
 const SOURCE_APP = 'agentic-sdlc-survey';
+const PLACEHOLDER_AZURE_KEY_PATTERNS = ['REPLACE_WITH_CURRENT_FUNCTION_KEY', 'REPLACE_WITH_KEY', '<REAL_FUNCTION_KEY>'];
+
+const sanitizeAzureSubmitUrl = (rawUrl) => {
+  const url = (rawUrl || '').trim();
+  if (!url) return '';
+  if (PLACEHOLDER_AZURE_KEY_PATTERNS.some((token) => url.includes(token))) return '';
+  return url;
+};
 
 const getRuntimeConfig = () => {
   const appConfig = (typeof window !== 'undefined' && window.__APP_CONFIG__) || {};
@@ -676,8 +684,13 @@ const getRuntimeConfig = () => {
     ? (document.querySelector(`meta[name=\"${name}\"]`)?.content || '').trim()
     : '');
   const inferredEnv = (typeof window !== 'undefined' && ['localhost', '127.0.0.1'].includes(window.location.hostname)) ? 'dev' : 'prod';
+  const rawAzureSurveySubmitUrl = appConfig.azureSurveySubmitUrl || metaContent('azure-survey-submit-url') || '';
+  const azureSurveySubmitUrl = sanitizeAzureSubmitUrl(rawAzureSurveySubmitUrl);
+  if (rawAzureSurveySubmitUrl && !azureSurveySubmitUrl) {
+    console.warn('[Survey][Azure] Invalid runtime URL (placeholder detected), skipping Azure submission until a real function key is configured.');
+  }
   return {
-    azureSurveySubmitUrl: appConfig.azureSurveySubmitUrl || metaContent('azure-survey-submit-url') || '',
+    azureSurveySubmitUrl,
     sourceEnv: appConfig.sourceEnv || metaContent('app-source-env') || inferredEnv,
   };
 };

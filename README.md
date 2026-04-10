@@ -60,7 +60,7 @@ In `index.html`:
 
 Current production endpoint pattern (Function key required):
 
-`https://func-agentic-sdlc-survey-prod-dseuf4gdhne8fgcy.francecentral-01.azurewebsites.net/api/survey/submit?code=REPLACE_WITH_CURRENT_FUNCTION_KEY`
+`https://func-agentic-sdlc-survey-prod-dseuf4gdhne8fgcy.francecentral-01.azurewebsites.net/api/survey/submit?code=<REAL_FUNCTION_KEY>`
 
 The submit behavior is:
 
@@ -73,7 +73,7 @@ The submit behavior is:
 Set the runtime key `azureSurveySubmitUrl` (no hardcoding in app logic):
 
 ```html
-<meta name="azure-survey-submit-url" content="https://<your-function-app>.azurewebsites.net/api/survey/submit" />
+<meta name="azure-survey-submit-url" content="https://<your-function-app>.azurewebsites.net/api/survey/submit?code=<REAL_FUNCTION_KEY>" />
 <meta name="app-source-env" content="prod" />
 ```
 
@@ -82,13 +82,14 @@ or set `window.__APP_CONFIG__` before `app.js` loads:
 ```html
 <script>
   window.__APP_CONFIG__ = {
-    azureSurveySubmitUrl: 'https://<your-function-app>.azurewebsites.net/api/survey/submit',
+    azureSurveySubmitUrl: 'https://<your-function-app>.azurewebsites.net/api/survey/submit?code=<REAL_FUNCTION_KEY>',
     sourceEnv: 'prod',
   };
 </script>
 ```
 
 If `azureSurveySubmitUrl` is empty/missing, Azure submission is skipped and the primary Google Sheet path continues unchanged.
+If the URL still contains placeholder text (for example `REPLACE_WITH_CURRENT_FUNCTION_KEY`), the app now treats it as invalid config and skips Azure submission with a warning log.
 
 ### Rotating the Azure Function key
 
