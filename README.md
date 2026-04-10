@@ -58,6 +58,10 @@ In `index.html`:
 - `<meta name="azure-survey-submit-url" content="">`
 - `<meta name="app-source-env" content="prod">`
 
+Current production endpoint pattern (Function key required):
+
+`https://func-agentic-sdlc-survey-prod-dseuf4gdhne8fgcy.francecentral-01.azurewebsites.net/api/survey/submit?code=REPLACE_WITH_CURRENT_FUNCTION_KEY`
+
 The submit behavior is:
 
 1. Existing primary destination runs first (Google Apps Script or generic endpoint).
@@ -85,6 +89,21 @@ or set `window.__APP_CONFIG__` before `app.js` loads:
 ```
 
 If `azureSurveySubmitUrl` is empty/missing, Azure submission is skipped and the primary Google Sheet path continues unchanged.
+
+### Rotating the Azure Function key
+
+If the Azure Function key is rotated, update only the runtime config value for `azureSurveySubmitUrl` (meta tag content or `window.__APP_CONFIG__` override). No app logic changes are required.
+
+### Production verification checklist (runtime config injection)
+
+The Azure URL must exist in the **deployed HTML**, not just local source.
+
+1. Open the deployed page, then inspect **View Source** or DevTools Elements and verify one of:
+   - `<meta name="azure-survey-submit-url" content="https://func-agentic-sdlc-survey-prod-dseuf4gdhne8fgcy.francecentral-01.azurewebsites.net/api/survey/submit?code=...">`
+   - `window.__APP_CONFIG__.azureSurveySubmitUrl = "https://func-agentic-sdlc-survey-prod-dseuf4gdhne8fgcy.francecentral-01.azurewebsites.net/api/survey/submit?code=..."`
+2. Open browser console and confirm startup log:
+   - `[Survey][Config] { azureSurveySubmitUrl: "...", sourceEnv: "prod" }`
+3. Submit a survey and confirm a request appears in Network tab to `/api/survey/submit?...`.
 
 ## Save responses to Google Sheets (Apps Script)
 

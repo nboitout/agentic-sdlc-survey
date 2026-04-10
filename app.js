@@ -682,6 +682,12 @@ const getRuntimeConfig = () => {
   };
 };
 
+const startupRuntimeConfig = getRuntimeConfig();
+console.log('[Survey][Config]', {
+  azureSurveySubmitUrl: startupRuntimeConfig.azureSurveySubmitUrl,
+  sourceEnv: startupRuntimeConfig.sourceEnv,
+});
+
 const generateClientSubmissionId = () => {
   if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID();
   return `sub_${Date.now()}_${Math.random().toString(16).slice(2)}`;
