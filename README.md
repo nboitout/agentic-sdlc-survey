@@ -64,6 +64,28 @@ The submit behavior is:
 2. Azure submission is attempted in addition (best-effort).
 3. If Azure fails but primary succeeds, submission still completes for the respondent.
 
+### Enabling Azure in deployed environments (GitHub Pages / static hosting)
+
+Set the runtime key `azureSurveySubmitUrl` (no hardcoding in app logic):
+
+```html
+<meta name="azure-survey-submit-url" content="https://<your-function-app>.azurewebsites.net/api/survey/submit" />
+<meta name="app-source-env" content="prod" />
+```
+
+or set `window.__APP_CONFIG__` before `app.js` loads:
+
+```html
+<script>
+  window.__APP_CONFIG__ = {
+    azureSurveySubmitUrl: 'https://<your-function-app>.azurewebsites.net/api/survey/submit',
+    sourceEnv: 'prod',
+  };
+</script>
+```
+
+If `azureSurveySubmitUrl` is empty/missing, Azure submission is skipped and the primary Google Sheet path continues unchanged.
+
 ## Save responses to Google Sheets (Apps Script)
 
 This survey posts directly to a Google Apps Script Web App URL (for example `https://script.google.com/macros/s/.../exec`) using a hidden `form` POST to a hidden iframe (CORS-safe, no preflight).
