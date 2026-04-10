@@ -75,14 +75,22 @@ const getEnv = (name: string): string => {
   return value;
 };
 
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': 'https://nboitout.github.io',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
 const ok = (body: unknown): HttpResponseInit => ({
   status: 200,
   jsonBody: body,
+  headers: CORS_HEADERS,
 });
 
 const badRequest = (code: string, message: string, extra?: Record<string, unknown>): HttpResponseInit => ({
   status: 400,
   jsonBody: { status: 'validation_error', code, message, ...extra },
+  headers: CORS_HEADERS,
 });
 
 const parseSurveyPayload = async (request: HttpRequest): Promise<SurveyPayload> => {
@@ -400,10 +408,15 @@ const insertAnswerFacts = async (tx: sql.Transaction, facts: InsertableAnswerFac
 export async function surveySubmit(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
   context.log('surveySubmit invoked');
 
+  if (request.method === 'OPTIONS') {
+    return { status: 204, headers: CORS_HEADERS };
+  }
+
   if (request.method !== 'POST') {
     return {
       status: 405,
       jsonBody: { status: 'error', message: 'Method not allowed' },
+      headers: CORS_HEADERS,
     };
   }
 
@@ -474,6 +487,7 @@ export async function surveySubmit(request: HttpRequest, context: InvocationCont
         status: 'internal_error',
         message: 'Failed to persist survey submission',
       },
+      headers: CORS_HEADERS,
     };
   } finally {
     if (pool) {
@@ -487,7 +501,7 @@ export async function surveySubmit(request: HttpRequest, context: InvocationCont
 }
 
 app.http('surveySubmit', {
-  methods: ['POST'],
+  methods: ['POST', 'OPTIONS'],
   route: 'survey/submit',
   authLevel: 'function',
   handler: surveySubmit,
