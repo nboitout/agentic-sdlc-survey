@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="azure-survey-submit-url" content="https://func-agentic-sdlc-survey-prod-dseuf4gdhne8fgcy.francecentral-01.azurewebsites.net/api/survey/submit?code=v-ADY7BbJ4GhS3-irGKnYpDoecAoAmuYNpCkFI3LkG8PAzFuTIX6TQ==" />
+  <meta name="azure-survey-submit-url" content="" />
   <meta name="app-source-env" content="prod" />
   <title>Agentic SDLC Diagnostic</title>
   <link rel="stylesheet" href="styles.css" />
@@ -13,12 +13,10 @@
 </head>
 <body>
   <script>
-    // Optional runtime overrides (deployment-specific)
-    // window.__APP_CONFIG__ = {
-    //   azureSurveySubmitUrl: 'https://func-agentic-sdlc-survey-prod-dseuf4gdhne8fgcy.francecentral-01.azurewebsites.net/api/survey/submit?code=<REAL_FUNCTION_KEY>',
-    //   sourceEnv: 'prod',
-    // };
-    window.__APP_CONFIG__ = window.__APP_CONFIG__ || {};
+  window.__APP_CONFIG__ = {
+    azureSurveySubmitUrl: "https://func-agentic-sdlc-survey-prod-dseuf4gdhne8fgcy.francecentral-01.azurewebsites.net/api/survey/submit?code=v-ADY7BbJ4GhS3-irGKnYpDoecAoAmuYNpCkFI3LkG8PAzFuTIX6TQ==",
+    sourceEnv: "prod"
+  };
   </script>
   <main class="container">
     <div id="root"></div>
