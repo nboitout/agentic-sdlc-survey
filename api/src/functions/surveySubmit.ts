@@ -16,6 +16,8 @@ interface SurveyPayload {
   coreAnswers: Record<string, AnswerValue>;
   branchAnswers?: Record<string, AnswerValue>;
   comment?: string;
+  contactName?: string;
+  contactEmail?: string;
   sourceApp?: string;
   sourceEnv?: string;
 }
@@ -247,6 +249,8 @@ const insertSubmission = async (tx: sql.Transaction, payload: SurveyPayload): Pr
     .input('branchCode', sql.VarChar(100), payload.branch)
     .input('contractModelCode', sql.VarChar(100), payload.contractModel || null)
     .input('commentText', sql.NVarChar(sql.MAX), payload.comment || null)
+    .input('contactName', sql.NVarChar(200), payload.contactName || null)
+    .input('contactEmail', sql.NVarChar(300), payload.contactEmail || null)
     .input('sourceApp', sql.VarChar(100), payload.sourceApp || null)
     .input('sourceEnv', sql.VarChar(30), payload.sourceEnv || null)
     .query(`
@@ -262,6 +266,8 @@ const insertSubmission = async (tx: sql.Transaction, payload: SurveyPayload): Pr
         branch_code,
         contract_model_code,
         comment_text,
+        contact_name,
+        contact_email,
         source_app,
         source_env
       )
@@ -277,6 +283,8 @@ const insertSubmission = async (tx: sql.Transaction, payload: SurveyPayload): Pr
         @branchCode,
         @contractModelCode,
         @commentText,
+        @contactName,
+        @contactEmail,
         @sourceApp,
         @sourceEnv
       )
