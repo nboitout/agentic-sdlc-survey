@@ -69,6 +69,68 @@ button[disabled] { opacity: .5; cursor: not-allowed; }
 .success-panel { text-align: center; }
 .success-main { font-weight: 700; color: #0f172a; }
 .success-aggregated { color: #475569; }
+
+
+/* ── Advanced user callout ─────────────────────────────────────────── */
+.advanced-callout {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 100%);
+  border: 1.5px solid #93c5fd;
+  border-radius: 12px;
+}
+
+.advanced-callout-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #1e40af;
+  margin: 0 0 0.5rem 0;
+}
+
+.advanced-callout-body {
+  font-size: 0.875rem;
+  color: #374151;
+  line-height: 1.6;
+  margin: 0 0 1.25rem 0;
+}
+
+.advanced-callout-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+@media (max-width: 600px) {
+  .advanced-callout-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.advanced-callout-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.advanced-callout-label input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #93c5fd;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  background: #fff;
+  color: #111827;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.advanced-callout-label input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
 .success-panel button { margin-top: 8px; }
 .draft-panel p { color: var(--muted); margin-top: 0; }
 .draft-actions { display: flex; gap: 10px; flex-wrap: wrap; }
