@@ -73,6 +73,10 @@ const uiText = {
     submittedSupport: 'Thank you for taking the time to complete this survey. Your input will help us better understand how AI is used across the organization and where we can improve tools, support, and practices.',
     submittedAggregated: 'Your responses will be analyzed in aggregated form.',
     submitAnother: 'Submit another response',
+    advancedCalloutTitle: 'You seem to be among our most advanced AI users',
+    advancedCalloutBody: 'Your answers suggest you\'re using AI in ways that go beyond the norm — running autonomous workflows, relying on it daily, and seeing real productivity gains. We\'d love to connect with you, whether to share practices, co-build internal tools, or explore side projects. If you\'re open to it, leave your name and email below.',
+    advancedCalloutName: 'Your name',
+    advancedCalloutEmail: 'Your email',
   },
   fr: {
     title: 'Diagnostic SDLC Agentique',
@@ -141,6 +145,10 @@ const uiText = {
     submittedSupport: 'Merci d’avoir pris le temps de compléter ce questionnaire. Votre contribution nous aide à mieux comprendre comment l’IA est utilisée dans l’organisation et où améliorer les outils, le support et les pratiques.',
     submittedAggregated: 'Vos réponses seront analysées de manière agrégée.',
     submitAnother: 'Soumettre une autre réponse',
+    advancedCalloutTitle: 'Vous semblez faire partie de nos utilisateurs IA les plus avancés',
+    advancedCalloutBody: 'Vos réponses suggèrent que vous utilisez l\'IA de manière avancée — workflows autonomes, usage quotidien intensif, gains de productivité réels. Nous aimerions échanger avec vous, que ce soit pour partager des pratiques, co-construire des outils internes ou explorer des projets annexes. Si vous y êtes ouvert, laissez votre nom et votre email ci-dessous.',
+    advancedCalloutName: 'Votre nom',
+    advancedCalloutEmail: 'Votre email',
   },
   ro: {
     title: 'Diagnostic SDLC Agentic',
@@ -209,6 +217,10 @@ const uiText = {
     submittedSupport: 'Îți mulțumim că ți-ai făcut timp să completezi acest chestionar. Contribuția ta ne ajută să înțelegem mai bine cum este utilizată IA în organizație și unde putem îmbunătăți instrumentele, suportul și practicile.',
     submittedAggregated: 'Răspunsurile vor fi analizate în formă agregată.',
     submitAnother: 'Trimite un alt răspuns',
+    advancedCalloutTitle: 'Păreți să fiți printre cei mai avansați utilizatori AI din organizație',
+    advancedCalloutBody: 'Răspunsurile tale sugerează că folosești IA în moduri care depășesc norma — fluxuri autonome, utilizare zilnică intensă, câștiguri reale de productivitate. Am dori să luăm legătura cu tine, fie pentru a împărtăși practici, a co-construi instrumente interne sau a explora proiecte secundare. Dacă ești deschis, lasă-ți numele și emailul mai jos.',
+    advancedCalloutName: 'Numele tău',
+    advancedCalloutEmail: 'Emailul tău',
   },
   pt: {
     title: 'Diagnóstico SDLC Agêntico',
@@ -277,6 +289,10 @@ const uiText = {
     submittedSupport: 'Obrigado por dedicar seu tempo para concluir esta pesquisa. Sua contribuição nos ajudará a entender melhor como a IA é usada na organização e onde podemos melhorar ferramentas, suporte e práticas.',
     submittedAggregated: 'As respostas serão analisadas de forma agregada.',
     submitAnother: 'Enviar outra resposta',
+    advancedCalloutTitle: 'Você parece estar entre os usuários de IA mais avançados da organização',
+    advancedCalloutBody: 'Suas respostas sugerem que você usa IA de formas que vão além do comum — fluxos autônomos, uso diário intenso, ganhos reais de produtividade. Gostaríamos de nos conectar com você, seja para compartilhar práticas, co-construir ferramentas internas ou explorar projetos paralelos. Se você estiver aberto a isso, deixe seu nome e email abaixo.',
+    advancedCalloutName: 'Seu nome',
+    advancedCalloutEmail: 'Seu email',
   }
 };
 
@@ -663,6 +679,14 @@ function enrichLabels() {
 enrichLabels();
 
 const isAnswered = (q, v) => !q.required || q.type === 'free_text' || (q.type === 'multi_select' ? Array.isArray(v) && v.length > 0 : Boolean(v));
+
+const isAdvancedUser = (answers) => {
+  let signals = 0;
+  if (answers.q2_ai_usage === 'many_times_per_day') signals++;
+  if (answers.q7_autonomy === 'runs_workflows_end_to_end' || answers.q7_autonomy === 'executes_tasks_with_supervision') signals++;
+  if (answers.q4_productivity === 'rely_on_ai_for_workload') signals++;
+  return signals >= 2;
+};
 // Matches both common Apps Script Web App hosts and URL shapes:
 // - https://script.google.com/macros/s/.../exec
 // - https://script.googleusercontent.com/.../macros/s/.../exec
@@ -726,6 +750,8 @@ const toSheetSubmissionFields = (payload) => ({
   comment: payload.comment || '',
   core_answers_json: JSON.stringify(payload.coreAnswers || {}),
   branch_answers_json: JSON.stringify(payload.branchAnswers || {}),
+  contact_name: payload.contactName || '',
+  contact_email: payload.contactEmail || '',
 });
 
 const postToGoogleAppsScript = (url, payload) => new Promise((resolve, reject) => {
@@ -778,6 +804,8 @@ const buildAzureSurveyPayload = ({ payload, language, sourceEnv, clientSubmissio
   coreAnswers: payload.coreAnswers,
   branchAnswers: payload.branchAnswers,
   comment: payload.comment || '',
+  contactName: payload.contactName || null,
+  contactEmail: payload.contactEmail || null,
   sourceApp: SOURCE_APP,
   sourceEnv,
 });
@@ -801,6 +829,8 @@ function App() {
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [endpoint, setEndpoint] = useState('');
   const [meta, setMeta] = useState(DEFAULT_META());
+  const [contactName, setContactName] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
   const [hasHydrated, setHasHydrated] = useState(false);
   const [resumeCandidate, setResumeCandidate] = useState(null);
   const [needsDraftDecision, setNeedsDraftDecision] = useState(false);
@@ -845,6 +875,8 @@ function App() {
     setTooltipOpen(false);
     setEndpoint('');
     setMeta(DEFAULT_META());
+    setContactName('');
+    setContactEmail('');
     setNeedsDraftDecision(false);
     setResumeCandidate(null);
     localStorage.removeItem(STORAGE_KEY);
@@ -965,6 +997,8 @@ function App() {
       branch: branchKey,
       branchAnswers,
       comment: answers.comment1 || '',
+      contactName: contactName.trim() || null,
+      contactEmail: contactEmail.trim() || null,
       metadata: { surveyDate: meta.surveyDate, teamName: meta.teamName, respondent: meta.respondent },
       submittedAt: new Date().toISOString(),
     };
@@ -1117,6 +1151,22 @@ function App() {
                   {localize(current.label, lang)}
                   <textarea className="comment-box" rows={4} placeholder={localize(current.placeholder, lang)} value={answers[current.id] || ''} onChange={(e) => setAnswers((a) => ({ ...a, [current.id]: e.target.value }))} />
                 </label>
+                {isAdvancedUser(answers) && (
+                  <div className="advanced-callout">
+                    <p className="advanced-callout-title">⭐ {t.advancedCalloutTitle}</p>
+                    <p className="advanced-callout-body">{t.advancedCalloutBody}</p>
+                    <div className="advanced-callout-fields">
+                      <label className="advanced-callout-label">
+                        {t.advancedCalloutName}
+                        <input type="text" placeholder={t.optional} value={contactName} onChange={(e) => setContactName(e.target.value)} />
+                      </label>
+                      <label className="advanced-callout-label">
+                        {t.advancedCalloutEmail}
+                        <input type="email" placeholder={t.optional} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} />
+                      </label>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <>
