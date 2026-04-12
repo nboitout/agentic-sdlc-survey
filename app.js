@@ -355,18 +355,18 @@ const surveyConfig = {
       ),
       options: [
       { value: 'staff_augmentation', label: L('Staff augmentation (you work as part of the client’s team)', 'Régie / assistance technique (intégré dans l’équipe client)', 'Staff augmentation (lucrezi în echipa clientului)', 'Staff augmentation (você trabalha na equipe do cliente)') },
-      { value: 'team_delivery', label: L('Team delivery (your company provides a team to deliver a scope)', 'Équipe dédiée (delivery en équipe)', 'Livrare în echipă', 'Entrega em equipe') },
+      { value: 'team_delivery', label: L('Team delivery (HN-services provides a team to deliver a scope)', 'Équipe dédiée (delivery en équipe)', 'Livrare în echipă', 'Entrega em equipe') },
       { value: 'fixed_price', label: L('Fixed-price project', 'Forfait (projet avec périmètre et engagement de résultat)', 'Proiect cu preț fix', 'Projeto de preço fixo') },
       { value: 'managed_services', label: L('Managed services (run / maintain systems)', 'Services managés (run / maintenance)', 'Servicii gestionate', 'Serviços gerenciados') },
       { value: 'not_sure', label: L('Not sure', 'Je ne sais pas', 'Nu sunt sigur', 'Não sei') },
     ] },
-    { id: 'q2_ai_usage', type: 'single_choice', required: true, label: L('How often do you use AI in your work?', 'À quelle fréquence utilisez-vous l’IA dans votre travail ?', 'Cât de des folosești IA în activitatea ta?', 'Com que frequência você usa IA no seu trabalho?'), options: [
+    { id: 'q2_ai_usage', type: 'single_choice', required: true, label: L('How often do you use AI in your work, across any part of your job?', 'À quelle fréquence utilisez-vous l’IA dans votre travail ?', 'Cât de des folosești IA în activitatea ta?', 'Com que frequência você usa IA no seu trabalho?'), options: [
       { value: 'no_use', label: L('I do not use AI', 'Je n’utilise pas l’IA') },
       { value: 'few_times_per_week', label: L('I use it a few times per week', 'Je l’utilise quelques fois par semaine', 'O folosesc de câteva ori pe săptămână', 'Utilizo algumas vezes por semana') },
       { value: 'every_day', label: L('I use it every day', 'Je l’utilise tous les jours', 'O folosesc în fiecare zi', 'Utilizo todos os dias') },
       { value: 'many_times_per_day', label: L('I use it many times a day', 'Je l’utilise plusieurs fois par jour', 'O folosesc de mai multe ori pe zi', 'Utilizo várias vezes por dia') },
     ] },
-    { id: 'q3_general_tools', type: 'multi_select', required: true, label: L('Which general-purpose AI tools do you currently use in your work?', 'Quels outils d’IA généralistes utilisez-vous actuellement dans votre travail ?', 'Ce instrumente de IA cu uz general folosești în prezent în activitatea ta?', 'Quais ferramentas de IA de uso geral você utiliza atualmente no seu trabalho?'), options: [
+    { id: 'q3_general_tools', type: 'multi_select', required: true, label: L('Which general-purpose AI tools do you currently use as part of your work?', 'Quels outils d’IA généralistes utilisez-vous actuellement dans votre travail ?', 'Ce instrumente de IA cu uz general folosești în prezent în activitatea ta?', 'Quais ferramentas de IA de uso geral você utiliza atualmente no seu trabalho?'), options: [
       { value: 'chatgpt', label: L('ChatGPT', 'ChatGPT') },
       { value: 'claude', label: L('Claude', 'Claude') },
       { value: 'microsoft_copilot', label: L('Microsoft Copilot', 'Microsoft Copilot') },
@@ -381,13 +381,13 @@ const surveyConfig = {
       { value: 'no_impact', label: L('No impact', 'Aucun impact') },
       { value: 'moderate_improvement', label: L('Moderate improvement', 'Amélioration modérée', 'Îmbunătățire moderată', 'Melhoria moderada') },
       { value: 'significant_improvement', label: L('Significant improvement', 'Amélioration significative', 'Îmbunătățire semnificativă', 'Melhoria significativa') },
-      { value: 'rely_on_ai_for_workload', label: L('I would struggle to handle my workload without AI', 'J’aurais du mal à gérer ma charge de travail sans l’IA', 'Mi-ar fi greu să îmi gestionez volumul de muncă fără IA', 'Eu teria dificuldade para lidar com minha carga de trabalho sem IA') },
+      { value: 'rely_on_ai_for_workload', label: L('AI is essential to how I work', 'J’aurais du mal à gérer ma charge de travail sans l’IA', 'Mi-ar fi greu să îmi gestionez volumul de muncă fără IA', 'Eu teria dificuldade para lidar com minha carga de trabalho sem IA') },
     ] },
     { id: 'q5_quality', type: 'single_choice', required: true, label: L('How much does AI improve the quality of your work output?', 'Dans quelle mesure l’IA améliore-t-elle la qualité de ce que vous produisez ?', 'În ce măsură îți îmbunătățește IA calitatea rezultatelor muncii tale?', 'Em que medida a IA melhora a qualidade do que você produz?'), options: [
       { value: 'no_impact', label: L('No impact', 'Aucun impact') },
       { value: 'moderate_improvement', label: L('Moderate improvement', 'Amélioration modérée', 'Îmbunătățire moderată', 'Melhoria moderada') },
       { value: 'significant_improvement', label: L('Significant improvement', 'Amélioration significative', 'Îmbunătățire semnificativă', 'Melhoria significativa') },
-      { value: 'higher_quality_with_ai', label: L('AI helps me produce work I would struggle to reach otherwise', 'L’IA m’aide à produire un niveau de qualité que j’aurais du mal à atteindre autrement', 'IA mă ajută să obțin un nivel de calitate pe care mi-ar fi greu să îl ating altfel', 'A IA me ajuda a produzir um nível de qualidade que eu teria dificuldade de alcançar de outra forma') },
+      { value: 'higher_quality_with_ai', label: L('AI is essential to achieving the quality level I expect', 'L’IA m’aide à produire un niveau de qualité que j’aurais du mal à atteindre autrement', 'IA mă ajută să obțin un nivel de calitate pe care mi-ar fi greu să îl ating altfel', 'A IA me ajuda a produzir um nível de qualidade que eu teria dificuldade de alcançar de outra forma') },
     ] },
     { id: 'q6_team_usage', type: 'single_choice', required: true, label: L('How is AI currently used within your team?', 'Comment l’IA est-elle actuellement utilisée au sein de votre équipe ?', 'Cum este utilizată în prezent IA în cadrul echipei tale?', 'Como a IA é atualmente utilizada dentro da sua equipe?'), options: [
       { value: 'individual_only', label: L('Individual use only', 'Usage individuel uniquement', 'Utilizare individuală doar', 'Uso individual apenas') },
@@ -399,12 +399,12 @@ const surveyConfig = {
       { value: 'suggests_only', label: L('AI provides suggestions only', 'L’IA fournit uniquement des suggestions', 'IA oferă doar sugestii', 'A IA fornece apenas sugestões') },
       { value: 'generates_outputs', label: L('AI generates content, code, or other outputs', 'L’IA génère du contenu, du code ou d’autres livrables', 'IA generează conținut, cod sau alte rezultate', 'A IA gera conteúdo, código ou outros resultados') },
       { value: 'executes_tasks_with_supervision', label: L('AI executes tasks with human supervision', 'L’IA exécute des tâches avec supervision humaine', 'IA execută sarcini cu supraveghere umană', 'A IA executa tarefas com supervisão humana') },
-      { value: 'runs_workflows_end_to_end', label: L('AI runs workflows end-to-end', 'L’IA exécute des workflows de bout en bout', 'IA rulează fluxuri de lucru cap-coadă', 'A IA executa fluxos de trabalho de ponta a ponta') },
+      { value: 'runs_workflows_end_to_end', label: L('AI runs workflows end-to-end with minimal human intervention', 'L’IA exécute des workflows de bout en bout', 'IA rulează fluxuri de lucru cap-coadă', 'A IA executa fluxos de trabalho de ponta a ponta') },
     ] },
-    { id: 'q8_async', type: 'single_choice', required: true, label: L('Can AI continue working on some tasks without your constant involvement?', 'L’IA peut-elle continuer à travailler sur certaines tâches sans votre implication constante ?', 'Poate IA să continue să lucreze la anumite sarcini fără implicarea ta constantă?', 'A IA consegue continuar trabalhando em algumas tarefas sem o seu envolvimento constante?'), options: [
+    { id: 'q8_async', type: 'single_choice', required: true, label: L('Can AI continue working on some tasks without your ongoing involvement?', 'L’IA peut-elle continuer à travailler sur certaines tâches sans votre implication constante ?', 'Poate IA să continue să lucreze la anumite sarcini fără implicarea ta constantă?', 'A IA consegue continuar trabalhando em algumas tarefas sem o seu envolvimento constante?'), options: [
       { value: 'continuous_involvement_required', label: L('No, I need to stay involved throughout', 'Non, je dois rester impliqué du début à la fin', 'Nu, trebuie să rămân implicat pe tot parcursul', 'Não, preciso permanecer envolvido o tempo todo') },
-      { value: 'partial_handoff', label: L('Partly, I can hand off some tasks and come back later', 'Partiellement, je peux lui confier certaines tâches et y revenir plus tard', 'Parțial, pot delega unele sarcini și să revin mai târziu', 'Parcialmente, posso delegar algumas tarefas e voltar depois') },
-      { value: 'independent_tasks', label: L('Yes, some tasks can run independently', 'Oui, certaines tâches peuvent s’exécuter de manière autonome', 'Da, unele sarcini pot rula independent', 'Sim, algumas tarefas podem ser executadas de forma independente') },
+      { value: 'partial_handoff', label: L('Partly, AI can handle parts of a task before needing my input again', 'Partiellement, je peux lui confier certaines tâches et y revenir plus tard', 'Parțial, pot delega unele sarcini și să revin mai târziu', 'Parcialmente, posso delegar algumas tarefas e voltar depois') },
+      { value: 'independent_tasks', label: L('Yes, for some tasks AI can continue until completion without me', 'Oui, certaines tâches peuvent s’exécuter de manière autonome', 'Da, unele sarcini pot rula independent', 'Sim, algumas tarefas podem ser executadas de forma independente') },
     ] },
     { id: 'q9_measurement', type: 'single_choice', required: true, label: L('How do you currently measure the impact of AI in your work?', 'Comment mesurez-vous actuellement l’impact de l’IA dans votre travail ?', 'Cum măsori în prezent impactul IA în activitatea ta?', 'Como você mede atualmente o impacto da IA no seu trabalho?'), options: [
       { value: 'no_measurement', label: L('It is not measured', 'Il n’est pas mesuré', 'Nu este măsurat', 'Não é medido') },
