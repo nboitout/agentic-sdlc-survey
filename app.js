@@ -804,6 +804,8 @@ const buildAzureSurveyPayload = ({ payload, language, sourceEnv, clientSubmissio
   coreAnswers: payload.coreAnswers,
   branchAnswers: payload.branchAnswers,
   comment: payload.comment || '',
+  teamName: payload.metadata?.teamName || null,
+  respondent: payload.metadata?.respondent || null,
   contactName: payload.contactName || null,
   contactEmail: payload.contactEmail || null,
   sourceApp: SOURCE_APP,
