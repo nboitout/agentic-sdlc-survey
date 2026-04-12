@@ -16,6 +16,8 @@ interface SurveyPayload {
   coreAnswers: Record<string, AnswerValue>;
   branchAnswers?: Record<string, AnswerValue>;
   comment?: string;
+  teamName?: string;
+  respondent?: string;
   contactName?: string;
   contactEmail?: string;
   sourceApp?: string;
@@ -248,6 +250,8 @@ const insertSubmission = async (tx: sql.Transaction, payload: SurveyPayload): Pr
     .input('roleCode', sql.VarChar(100), payload.role)
     .input('branchCode', sql.VarChar(100), payload.branch)
     .input('contractModelCode', sql.VarChar(100), payload.contractModel || null)
+    .input('teamName', sql.NVarChar(200), payload.teamName || null)
+    .input('respondentName', sql.NVarChar(200), payload.respondent || null)
     .input('commentText', sql.NVarChar(sql.MAX), payload.comment || null)
     .input('contactName', sql.NVarChar(200), payload.contactName || null)
     .input('contactEmail', sql.NVarChar(300), payload.contactEmail || null)
@@ -265,6 +269,8 @@ const insertSubmission = async (tx: sql.Transaction, payload: SurveyPayload): Pr
         role_code,
         branch_code,
         contract_model_code,
+        team_name,
+        respondent_id,
         comment_text,
         contact_name,
         contact_email,
@@ -282,6 +288,8 @@ const insertSubmission = async (tx: sql.Transaction, payload: SurveyPayload): Pr
         @roleCode,
         @branchCode,
         @contractModelCode,
+        @teamName,
+        @respondentName,
         @commentText,
         @contactName,
         @contactEmail,
