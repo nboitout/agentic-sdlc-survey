@@ -8,6 +8,15 @@
   --accent-soft: #dbeafe;
 }
 * { box-sizing: border-box; }
+.interview-mode { flex-direction: row; align-items: center; margin: 18px 0; }
+.interview-mode input { width: auto; }
+.interviewer-only { margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px; }
+.guidance-text { white-space: pre-wrap; line-height: 1.6; margin: 12px 0; }
+.score-field { margin: 16px 0; }
+.score-field select { width: 100%; min-width: 0; font: inherit; padding: 10px; }
+.review-question { text-align: left; margin: 4px 0; }
+summary { cursor: pointer; font-weight: 600; }
+@media (max-width: 520px) { .actions { flex-wrap: wrap; } .actions button { flex: 1 1 140px; } }
 body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, Segoe UI, Roboto, Arial, sans-serif; }
 .container { max-width: 920px; margin: 0 auto; padding: 24px 16px 40px; }
 .panel { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 14px; }

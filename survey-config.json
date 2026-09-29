@@ -1,2534 +1,456 @@
 {
-  "coreQuestions": [
+  "version": "lead-qa-ai-2026-09",
+  "title": "Lead QA - AI Experience Interview Questionnaire",
+  "language": "en",
+  "role": "Lead QA / QA Automation Lead",
+  "parts": [
+    "Fast MCQ Baseline",
+    "Evidence-Based Free-Form Questions",
+    "Forward-Looking Question"
+  ],
+  "questions": [
     {
-      "id": "q1_role",
+      "id": "part1_q1",
+      "part": 1,
+      "number": 1,
+      "title": "How often have you personally used generative AI for professional software or QA work during the last 6 months?",
       "type": "single_choice",
-      "required": true,
-      "label": {
-        "en": "What best describes your primary role in software delivery today?",
-        "ro": "Care dintre următoarele descrie cel mai bine rolul tău?"
-      },
-      "helperText": {
-        "en": "Select the option that represents where you spend most of your time.",
-        "ro": "Alege opțiunea care reflectă majoritatea timpului tău."
-      },
-      "microcopy": {
-        "en": "Click the ⓘ for guidance",
-        "ro": "Apasă pe ⓘ pentru ghidaj"
-      },
-      "tooltipTitle": {
-        "en": "Why are we asking this?",
-        "ro": "De ce punem această întrebare?"
-      },
-      "tooltipBody": {
-        "en": "Your answer helps tailor the questionnaire to your role so that you only see the most relevant questions. It also helps us compare AI adoption patterns across different functions in the software delivery lifecycle.",
-        "ro": "Răspunsul tău ne ajută să adaptăm chestionarul la rolul tău, astfel încât să vezi doar întrebările cele mai relevante. De asemenea, ne ajută să comparăm modul în care IA este adoptată în diferite funcții din ciclul de livrare software."
-      },
+      "prompt": "",
       "options": [
         {
-          "value": "developer",
-          "label": {
-            "en": "Engineering / Development",
-            "ro": "Dezvoltator"
-          },
-          "description": {
-            "en": "Examples: software engineer, backend/frontend developer, mobile developer, data engineer, DevOps, SRE, platform engineer, cloud / infrastructure, system / network / database, security engineer, application security, DevSecOps",
-            "ro": "Exemple: developer, inginer software, backend/frontend developer, mobile developer, data engineer, DevOps, SRE, platform engineer, cloud / infrastructură, sistem / rețea / baze de date, inginer de securitate, securitate aplicații, DevSecOps"
-          }
+          "value": "option_1",
+          "label": "Never"
         },
         {
-          "value": "qa_testing_quality",
-          "label": {
-            "en": "QA / Testing / Quality",
-            "ro": "QA / Testare / Calitate"
-          },
-          "description": {
-            "en": "Examples: QA engineer, tester, validation engineer, test automation, quality engineering",
-            "ro": "Exemple: QA engineer, tester, inginer validare, automatizare teste, quality engineering"
-          }
+          "value": "option_2",
+          "label": "Monthly"
         },
         {
-          "value": "project_product_business_analysis_operations",
-          "label": {
-            "en": "Project / Product / Business Analysis / Operations",
-            "ro": "Proiect / Produs / Analiză Business / Operațiuni"
-          },
-          "description": {
-            "en": "Examples: project manager, product owner, business analyst\ndata analyst, BI / analytics, operations / support, production monitoring, security governance, risk, compliance, audit",
-            "ro": "Exemple: project manager, product owner, business analyst\ndata analyst, BI / analytics, operațiuni / suport, monitorizare producție, guvernanță de securitate, risc, conformitate, audit"
-          }
+          "value": "option_3",
+          "label": "Weekly"
+        },
+        {
+          "value": "option_4",
+          "label": "Daily"
+        },
+        {
+          "value": "option_5",
+          "label": "Many times per day"
         }
-      ]
+      ],
+      "guidance": ""
     },
     {
-      "id": "q2_contract_model",
-      "type": "single_choice",
-      "required": true,
-      "label": {
-        "en": "What best describes your current engagement model with your client?",
-        "ro": "Care descrie cel mai bine modelul de colaborare actual cu clientul tău?"
-      },
-      "helperText": {
-        "en": "If unsure, select the option that best reflects how your work is organized or billed.",
-        "ro": "Dacă nu ești sigur, alege opțiunea care reflectă cel mai bine organizarea sau facturarea muncii tale."
-      },
-      "options": [
-        {
-          "value": "staff_augmentation",
-          "label": {
-            "en": "Staff augmentation (you work as part of the client’s team)",
-            "ro": "Staff augmentation (lucrezi în echipa clientului)"
-          }
-        },
-        {
-          "value": "team_delivery",
-          "label": {
-            "en": "Team delivery (your company provides a team to deliver a scope)",
-            "ro": "Livrare în echipă"
-          }
-        },
-        {
-          "value": "fixed_price",
-          "label": {
-            "en": "Fixed-price project",
-            "ro": "Proiect cu preț fix"
-          }
-        },
-        {
-          "value": "managed_services",
-          "label": {
-            "en": "Managed services (run / maintain systems)",
-            "ro": "Servicii gestionate"
-          }
-        },
-        {
-          "value": "not_sure",
-          "label": {
-            "en": "Not sure",
-            "ro": "Nu sunt sigur"
-          }
-        }
-      ]
-    },
-    {
-      "id": "q2_ai_usage",
-      "type": "single_choice",
-      "required": true,
-      "label": {
-        "en": "How often do you use AI in your work?",
-        "ro": "Cât de des folosești IA în activitatea ta?"
-      },
-      "options": [
-        {
-          "value": "no_use",
-          "label": {
-            "en": "I do not use AI",
-            "ro": "Nu folosesc IA"
-          }
-        },
-        {
-          "value": "few_times_per_week",
-          "label": {
-            "en": "I use it a few times per week",
-            "ro": "O folosesc de câteva ori pe săptămână"
-          }
-        },
-        {
-          "value": "every_day",
-          "label": {
-            "en": "I use it every day",
-            "ro": "O folosesc în fiecare zi"
-          }
-        },
-        {
-          "value": "many_times_per_day",
-          "label": {
-            "en": "I use it many times a day",
-            "ro": "O folosesc de mai multe ori pe zi"
-          }
-        }
-      ]
-    },
-    {
-      "id": "q3_general_tools",
+      "id": "part1_q2",
+      "part": 1,
+      "number": 2,
+      "title": "Which AI tools have you personally used on real engineering work?",
       "type": "multi_select",
-      "required": true,
-      "label": {
-        "en": "Which general-purpose AI tools do you currently use in your work?",
-        "ro": "Ce instrumente de IA cu uz general folosești în prezent în activitatea ta?"
-      },
+      "prompt": "",
       "options": [
         {
-          "value": "chatgpt",
-          "label": {
-            "en": "ChatGPT",
-            "ro": "ChatGPT"
-          }
+          "value": "option_1",
+          "label": "ChatGPT"
         },
         {
-          "value": "claude",
-          "label": {
-            "en": "Claude",
-            "ro": "Claude"
-          }
+          "value": "option_2",
+          "label": "GitHub Copilot"
         },
         {
-          "value": "microsoft_copilot",
-          "label": {
-            "en": "Microsoft Copilot",
-            "ro": "Microsoft Copilot"
-          }
+          "value": "option_3",
+          "label": "Claude"
         },
         {
-          "value": "gemini",
-          "label": {
-            "en": "Gemini",
-            "ro": "Gemini"
-          }
+          "value": "option_4",
+          "label": "Claude Code"
         },
         {
-          "value": "perplexity",
-          "label": {
-            "en": "Perplexity",
-            "ro": "Perplexity"
-          }
+          "value": "option_5",
+          "label": "OpenAI Codex"
         },
         {
-          "value": "le_chat_mistral",
-          "label": {
-            "en": "Le Chat (Mistral)",
-            "ro": "Le Chat (Mistral)"
-          }
+          "value": "option_6",
+          "label": "Cursor"
         },
         {
-          "value": "client_internal_ai_tools",
-          "label": {
-            "en": "Client-provided internal AI tools",
-            "ro": "Instrumente interne de IA furnizate de client"
-          }
+          "value": "option_7",
+          "label": "Gemini"
         },
         {
-          "value": "other_general_ai_tools",
-          "label": {
-            "en": "Other general-purpose AI tools",
-            "ro": "Alte instrumente de IA cu uz general"
-          }
+          "value": "option_8",
+          "label": "QA-specific AI tools"
         },
         {
-          "value": "no_general_ai_tools",
-          "label": {
-            "en": "I do not use general-purpose AI tools",
-            "ro": "Nu folosesc instrumente de IA cu uz general"
-          }
+          "value": "option_9",
+          "label": "Client-provided internal AI tools"
+        },
+        {
+          "value": "other",
+          "label": "Other"
+        },
+        {
+          "value": "none",
+          "label": "None"
         }
-      ]
+      ],
+      "guidance": ""
     },
     {
-      "id": "q4_productivity",
+      "id": "part1_q3",
+      "part": 1,
+      "number": 3,
+      "title": "What is the most advanced way you have personally used AI?",
       "type": "single_choice",
-      "required": true,
-      "label": {
-        "en": "How much does AI improve your productivity?",
-        "ro": "În ce măsură îți îmbunătățește IA productivitatea?"
-      },
+      "prompt": "",
       "options": [
         {
-          "value": "no_impact",
-          "label": {
-            "en": "No impact",
-            "ro": "Fără impact"
-          }
+          "value": "option_1",
+          "label": "Ask questions or request explanations"
         },
         {
-          "value": "moderate_improvement",
-          "label": {
-            "en": "Moderate improvement",
-            "ro": "Îmbunătățire moderată"
-          }
+          "value": "option_2",
+          "label": "Generate or modify code"
         },
         {
-          "value": "significant_improvement",
-          "label": {
-            "en": "Significant improvement",
-            "ro": "Îmbunătățire semnificativă"
-          }
+          "value": "option_3",
+          "label": "Work with repository-level context"
         },
         {
-          "value": "rely_on_ai_for_workload",
-          "label": {
-            "en": "I would struggle to handle my workload without AI",
-            "ro": "Mi-ar fi greu să îmi gestionez volumul de muncă fără IA"
-          }
+          "value": "option_4",
+          "label": "AI edits multiple files and I review the changes"
+        },
+        {
+          "value": "option_5",
+          "label": "AI runs commands or tests and iterates under supervision"
+        },
+        {
+          "value": "option_6",
+          "label": "An automated workflow or agent executes tasks with minimal intervention"
         }
-      ]
+      ],
+      "guidance": ""
     },
     {
-      "id": "q5_quality",
-      "type": "single_choice",
-      "required": true,
-      "label": {
-        "en": "How much does AI improve the quality of your work output?",
-        "ro": "În ce măsură îți îmbunătățește IA calitatea rezultatelor muncii tale?"
-      },
-      "options": [
-        {
-          "value": "no_impact",
-          "label": {
-            "en": "No impact",
-            "ro": "Fără impact"
-          }
-        },
-        {
-          "value": "moderate_improvement",
-          "label": {
-            "en": "Moderate improvement",
-            "ro": "Îmbunătățire moderată"
-          }
-        },
-        {
-          "value": "significant_improvement",
-          "label": {
-            "en": "Significant improvement",
-            "ro": "Îmbunătățire semnificativă"
-          }
-        },
-        {
-          "value": "higher_quality_with_ai",
-          "label": {
-            "en": "AI helps me produce work I would struggle to reach otherwise",
-            "ro": "IA mă ajută să obțin un nivel de calitate pe care mi-ar fi greu să îl ating altfel"
-          }
-        }
-      ]
-    },
-    {
-      "id": "q6_team_usage",
-      "type": "single_choice",
-      "required": true,
-      "label": {
-        "en": "How is AI currently used within your team?",
-        "ro": "Cum este utilizată în prezent IA în cadrul echipei tale?"
-      },
-      "options": [
-        {
-          "value": "individual_only",
-          "label": {
-            "en": "Individual use only",
-            "ro": "Utilizare individuală doar"
-          }
-        },
-        {
-          "value": "informal_sharing",
-          "label": {
-            "en": "Team members share practices informally",
-            "ro": "Membrii echipei își împărtășesc practicile în mod informal"
-          }
-        },
-        {
-          "value": "some_team_practices",
-          "label": {
-            "en": "Some team practices or guidelines are defined",
-            "ro": "Există anumite practici sau reguli de echipă definite"
-          }
-        },
-        {
-          "value": "workflow_integrated",
-          "label": {
-            "en": "AI is integrated into team workflows",
-            "ro": "IA este integrată în fluxurile de lucru ale echipei"
-          }
-        }
-      ]
-    },
-    {
-      "id": "q7_autonomy",
-      "type": "single_choice",
-      "required": true,
-      "label": {
-        "en": "What is the highest level of autonomy you currently use with AI in your work?",
-        "ro": "Care este cel mai ridicat nivel de autonomie pe care îl folosești în prezent cu IA în activitatea ta?"
-      },
-      "options": [
-        {
-          "value": "suggests_only",
-          "label": {
-            "en": "AI provides suggestions only",
-            "ro": "IA oferă doar sugestii"
-          }
-        },
-        {
-          "value": "generates_outputs",
-          "label": {
-            "en": "AI generates content, code, or other outputs",
-            "ro": "IA generează conținut, cod sau alte rezultate"
-          }
-        },
-        {
-          "value": "executes_tasks_with_supervision",
-          "label": {
-            "en": "AI executes tasks with human supervision",
-            "ro": "IA execută sarcini cu supraveghere umană"
-          }
-        },
-        {
-          "value": "runs_workflows_end_to_end",
-          "label": {
-            "en": "AI runs workflows end-to-end",
-            "ro": "IA rulează fluxuri de lucru cap-coadă"
-          }
-        }
-      ]
-    },
-    {
-      "id": "q8_async",
-      "type": "single_choice",
-      "required": true,
-      "label": {
-        "en": "Can AI continue working on some tasks without your constant involvement?",
-        "ro": "Poate IA să continue să lucreze la anumite sarcini fără implicarea ta constantă?"
-      },
-      "options": [
-        {
-          "value": "continuous_involvement_required",
-          "label": {
-            "en": "No, I need to stay involved throughout",
-            "ro": "Nu, trebuie să rămân implicat pe tot parcursul"
-          }
-        },
-        {
-          "value": "partial_handoff",
-          "label": {
-            "en": "Partly, I can hand off some tasks and come back later",
-            "ro": "Parțial, pot delega unele sarcini și să revin mai târziu"
-          }
-        },
-        {
-          "value": "independent_tasks",
-          "label": {
-            "en": "Yes, some tasks can run independently",
-            "ro": "Da, unele sarcini pot rula independent"
-          }
-        }
-      ]
-    },
-    {
-      "id": "q9_measurement",
-      "type": "single_choice",
-      "required": true,
-      "label": {
-        "en": "How do you currently measure the impact of AI in your work?",
-        "ro": "Cum măsori în prezent impactul IA în activitatea ta?"
-      },
-      "options": [
-        {
-          "value": "no_measurement",
-          "label": {
-            "en": "It is not measured",
-            "ro": "Nu este măsurat"
-          }
-        },
-        {
-          "value": "informal_tracking",
-          "label": {
-            "en": "It is tracked informally",
-            "ro": "Este urmărit informal"
-          }
-        },
-        {
-          "value": "defined_metrics",
-          "label": {
-            "en": "It is measured with defined metrics",
-            "ro": "Este măsurat prin indicatori definiți"
-          }
-        }
-      ]
-    },
-    {
-      "id": "q10_sdlc_usage",
+      "id": "part1_q4",
+      "part": 1,
+      "number": 4,
+      "title": "Where have you used AI specifically in QA?",
       "type": "multi_select",
-      "required": true,
-      "label": {
-        "en": "In which parts of the software delivery lifecycle is AI currently used in your team or immediate work environment?",
-        "ro": "În ce părți ale ciclului de livrare software este utilizată în prezent IA în echipa ta sau în mediul tău imediat de lucru?"
-      },
+      "prompt": "",
       "options": [
         {
-          "value": "requirements_business_analysis",
-          "label": {
-            "en": "Requirements / Business Analysis",
-            "ro": "Cerințe / Analiză de business"
-          }
+          "value": "option_1",
+          "label": "Requirements → test scenarios"
         },
         {
-          "value": "planning_coordination",
-          "label": {
-            "en": "Planning / Coordination",
-            "ro": "Planificare / Coordonare"
-          }
+          "value": "option_2",
+          "label": "Test strategy / test design"
         },
         {
-          "value": "coding_implementation",
-          "label": {
-            "en": "Coding / Implementation",
-            "ro": "Dezvoltare / Implementare"
-          }
+          "value": "option_3",
+          "label": "Generate automation code"
         },
         {
-          "value": "code_review",
-          "label": {
-            "en": "Code Review",
-            "ro": "Revizuire de cod"
-          }
+          "value": "option_4",
+          "label": "Maintain or refactor automated tests"
         },
         {
-          "value": "testing_validation",
-          "label": {
-            "en": "Testing / Validation",
-            "ro": "Testare / Validare"
-          }
+          "value": "option_5",
+          "label": "Flaky-test diagnosis"
         },
         {
-          "value": "debugging_troubleshooting",
-          "label": {
-            "en": "Debugging / Troubleshooting",
-            "ro": "Depanare / Rezolvare probleme"
-          }
+          "value": "option_6",
+          "label": "CI/CD failure analysis"
         },
         {
-          "value": "cicd_automation",
-          "label": {
-            "en": "CI/CD / Automation",
-            "ro": "CI/CD / Automatizare"
-          }
+          "value": "option_7",
+          "label": "Coverage and edge-case discovery"
         },
         {
-          "value": "deployment_release",
-          "label": {
-            "en": "Deployment / Release",
-            "ro": "Deployment / Lansare"
-          }
+          "value": "option_8",
+          "label": "Test-data generation"
         },
         {
-          "value": "production_operations",
-          "label": {
-            "en": "Production / Operations",
-            "ro": "Producție / Operațiuni"
-          }
+          "value": "option_9",
+          "label": "Performance testing"
         },
         {
-          "value": "documentation_knowledge_sharing",
-          "label": {
-            "en": "Documentation / Knowledge Sharing",
-            "ro": "Documentație / Partajare de cunoștințe"
-          }
+          "value": "option_10",
+          "label": "Release / quality reporting"
+        },
+        {
+          "value": "other",
+          "label": "Other"
+        },
+        {
+          "value": "none",
+          "label": "None"
         }
-      ]
+      ],
+      "guidance": ""
     },
     {
-      "id": "q11_learning_path",
-      "type": "multi_select",
-      "required": true,
-      "label": {
-        "en": "How have you learned to use AI tools in your work so far?",
-        "ro": "Cum ai învățat până acum să folosești instrumentele IA în activitatea ta?"
-      },
-      "options": [
-        {
-          "value": "no_learning_effort",
-          "label": {
-            "en": "I have not invested time in learning AI tools",
-            "ro": "Nu am investit timp pentru a învăța să folosesc instrumente IA"
-          }
-        },
-        {
-          "value": "personal_projects",
-          "label": {
-            "en": "I learned mainly by using AI on personal projects",
-            "ro": "Am învățat în principal folosind IA în proiecte personale"
-          }
-        },
-        {
-          "value": "self_directed_learning",
-          "label": {
-            "en": "I learned through tutorials, videos, or documentation",
-            "ro": "Am învățat prin tutoriale, videoclipuri sau documentație"
-          }
-        },
-        {
-          "value": "structured_training",
-          "label": {
-            "en": "I followed structured training such as courses or internal programs",
-            "ro": "Am urmat formare structurată, cum ar fi cursuri sau programe interne"
-          }
-        }
-      ]
-    },
-    {
-      "id": "q12_experimentation_level",
+      "id": "part1_q5",
+      "part": 1,
+      "number": 5,
+      "title": "Has AI ever been allowed to execute tests or commands rather than simply produce text or code for you?",
       "type": "single_choice",
-      "required": true,
-      "label": {
-        "en": "How far do you currently go in experimenting with AI in your work?",
-        "ro": "Cât de departe mergi în prezent cu experimentarea IA în activitatea ta?"
-      },
+      "prompt": "",
       "options": [
         {
-          "value": "standard_usage",
-          "label": {
-            "en": "I mostly use standard features",
-            "ro": "Folosesc în principal funcțiile standard"
-          }
+          "value": "option_1",
+          "label": "Never"
         },
         {
-          "value": "occasional_experimentation",
-          "label": {
-            "en": "I occasionally try new ways of working with AI",
-            "ro": "Încerc ocazional noi moduri de lucru cu IA"
-          }
+          "value": "option_2",
+          "label": "Experiment only"
         },
         {
-          "value": "regular_workflow_refinement",
-          "label": {
-            "en": "I regularly test and refine my prompts or workflows",
-            "ro": "Testez și îmbunătățesc regulat prompturile sau fluxurile de lucru"
-          }
+          "value": "option_3",
+          "label": "Occasionally on real tasks"
         },
         {
-          "value": "advanced_automation",
-          "label": {
-            "en": "I build or use advanced setups such as automation, agents, or reusable workflows",
-            "ro": "Construiesc sau folosesc configurații avansate precum automatizări, agenți sau fluxuri reutilizabile"
-          }
+          "value": "option_4",
+          "label": "Regularly"
         }
+      ],
+      "guidance": ""
+    },
+    {
+      "id": "part1_q6",
+      "part": 1,
+      "number": 6,
+      "title": "Have you used AI in a generate → run → inspect → fix → rerun loop?",
+      "type": "single_choice",
+      "prompt": "",
+      "options": [
+        {
+          "value": "option_1",
+          "label": "Never"
+        },
+        {
+          "value": "option_2",
+          "label": "Experimented with it"
+        },
+        {
+          "value": "option_3",
+          "label": "Used it on real tasks"
+        },
+        {
+          "value": "option_4",
+          "label": "It is part of my regular working practice"
+        }
+      ],
+      "guidance": ""
+    },
+    {
+      "id": "part1_q7",
+      "part": 1,
+      "number": 7,
+      "title": "Have you defined team practices for AI-generated engineering artefacts?",
+      "type": "single_choice",
+      "prompt": "",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "option_2",
+          "label": "Informal practices"
+        },
+        {
+          "value": "option_3",
+          "label": "Documented guidelines"
+        },
+        {
+          "value": "option_4",
+          "label": "Integrated into SDLC and review processes"
+        }
+      ],
+      "guidance": ""
+    },
+    {
+      "id": "part1_q8",
+      "part": 1,
+      "number": 8,
+      "title": "Do you measure the impact of AI on engineering or QA?",
+      "type": "single_choice",
+      "prompt": "",
+      "options": [
+        {
+          "value": "option_1",
+          "label": "No"
+        },
+        {
+          "value": "option_2",
+          "label": "Anecdotally"
+        },
+        {
+          "value": "option_3",
+          "label": "Some metrics"
+        },
+        {
+          "value": "option_4",
+          "label": "Systematic metrics"
+        }
+      ],
+      "guidance": ""
+    },
+    {
+      "id": "part2_q1",
+      "part": 2,
+      "number": 1,
+      "title": "What sits behind the AI claim on your CV?",
+      "type": "free_text",
+      "prompt": "Your CV lists **AI / LLMs / AI Automation / AI Modeling** among your areas of expertise. Can you give me the strongest concrete example behind that statement?",
+      "options": [],
+      "guidance": "> Your CV lists **AI / LLMs / AI Automation / AI Modeling** among your areas of expertise. Can you give me the strongest concrete example behind that statement?\n\n### Follow-up prompts\n\n- What was the problem?\n- Which AI tool or model did you use?\n- What did you personally do?\n- What did the AI actually do?\n- What artefacts did it produce or modify?\n- Was the work experimental or used in a real delivery context?\n- What was the measurable outcome?\n- What did the AI get wrong?\n\n### What to look for\n\nA strong answer should quickly become concrete: repository, tooling, workflow, prompts/instructions, context provided to the model, generated artefacts, execution, review, limitations, and outcomes."
+    },
+    {
+      "id": "part2_q2",
+      "part": 2,
+      "number": 2,
+      "title": "Walk me through your most recent real AI-assisted QA task.",
+      "type": "free_text",
+      "prompt": "Take the last QA task where you used AI. Walk me through it from beginning to end.",
+      "options": [],
+      "guidance": "> Take the last QA task where you used AI. Walk me through it from beginning to end.\n\n### Ask for this sequence\n\n**Input → AI interaction → generated artefact → execution → verification → corrections → final result**\n\n### Follow-up\n\n> Where did the AI get something wrong, and how did you detect it?\n\n### What to look for\n\nReal usage normally produces specific examples of failures, corrections, poor assumptions, or limitations."
+    },
+    {
+      "id": "part2_q3",
+      "part": 2,
+      "number": 3,
+      "title": "Requirements → test design",
+      "type": "free_text",
+      "prompt": "Imagine you receive a user story with fairly weak acceptance criteria. How would you use AI to turn that into a useful test strategy?",
+      "options": [],
+      "guidance": "> Imagine you receive a user story with fairly weak acceptance criteria. How would you use AI to turn that into a useful test strategy?\n\n### Follow-up prompts\n\n- How would you identify missing information?\n- How would you find negative scenarios and edge cases?\n- How would you account for state transitions or dependencies?\n- How would you identify non-functional requirements?\n- How would you keep traceability between requirements and tests?\n- How would you validate AI-generated test ideas?\n\n### Key follow-up\n\n> How do you know the model has not simply produced ten plausible-looking but mediocre test cases?\n\n### What to look for\n\nThe candidate should show QA judgment, not merely prompting ability."
+    },
+    {
+      "id": "part2_q4",
+      "part": 2,
+      "number": 4,
+      "title": "Playwright / CI failure scenario",
+      "type": "free_text",
+      "prompt": "You inherit a Playwright suite with 800 tests. After a frontend refactoring, 60 tests fail intermittently in CI. You have Claude Code, Codex, or Copilot available. How would you use AI to investigate and resolve the problem?",
+      "options": [],
+      "guidance": "> You inherit a Playwright suite with 800 tests. After a frontend refactoring, 60 tests fail intermittently in CI. You have Claude Code, Codex, or Copilot available. How would you use AI to investigate and resolve the problem?\n\n### Follow-up prompts\n\n- What information would you give the AI?\n- Would you expose the entire repository or only selected context?\n- How would you distinguish product defects from automation defects?\n- How would you investigate selectors, timing, network calls, shared state, and environment issues?\n- Would you let AI modify tests?\n- Would you allow AI to run tests?\n- How would you review the resulting changes?\n\n### Key agentic question\n\n> What would you allow the AI to do autonomously, and where would you stop it?\n\n### What to look for\n\nStrong answers should include bounded scope, failure clustering, logs/traces, selective execution, iterative testing, diff review, and clear limits on autonomy."
+    },
+    {
+      "id": "part2_q5",
+      "part": 2,
+      "number": 5,
+      "title": "Design a bounded agentic QA loop",
+      "type": "free_text",
+      "prompt": "Suppose I ask you to build an AI agent that receives a bug fix, adds the appropriate automated test, runs the suite, fixes its test if necessary, and stops when it is green. How would you design the loop?",
+      "options": [],
+      "guidance": "> Suppose I ask you to build an AI agent that receives a bug fix, adds the appropriate automated test, runs the suite, fixes its test if necessary, and stops when it is green. How would you design the loop?\n\n### Follow-up prompts\n\n- What inputs would the agent receive?\n- What commands could it execute?\n- What files could it modify?\n- What would the stopping conditions be?\n- How many iterations would you allow?\n- What should trigger escalation to a human?\n- How would you prevent the agent from weakening an assertion just to make the test pass?\n- What should it be prohibited from changing?\n- What logs or evidence would you retain?\n\n### What to look for\n\nThe important concepts are:\n\n- bounded permissions,\n- explicit acceptance criteria,\n- protected interfaces or files,\n- deterministic test commands,\n- iteration limits,\n- evidence collection,\n- escalation rules,\n- review of generated diffs."
+    },
+    {
+      "id": "part2_q6",
+      "part": 2,
+      "number": 6,
+      "title": "Risks of AI-generated tests",
+      "type": "free_text",
+      "prompt": "What problems have you encountered — or would you expect — with AI-generated automated tests?",
+      "options": [],
+      "guidance": "> What problems have you encountered — or would you expect — with AI-generated automated tests?\n\n### Potential areas to explore\n\n- Hallucinated APIs or selectors\n- Weak assertions\n- Tests that merely reproduce implementation details\n- Happy-path bias\n- Duplicate or low-value coverage\n- Brittle selectors\n- Excessive mocking\n- Fabricated test data\n- Security or privacy issues\n- Tests that pass for the wrong reason\n- Maintenance burden\n- False confidence from syntactically correct code\n\n### Key follow-up\n\n> How would you put AI-generated test code through a quality gate?\n\n### What to look for\n\nFor a Lead QA, engineering controls and validation matter more than prompt sophistication."
+    },
+    {
+      "id": "part2_q7",
+      "part": 2,
+      "number": 7,
+      "title": "Leading AI adoption in a QA organization",
+      "type": "free_text",
+      "prompt": "You join a QA organization of 15 engineers. Five use AI heavily, five occasionally, and five do not use it. What would you implement during your first three months?",
+      "options": [],
+      "guidance": "> You join a QA organization of 15 engineers. Five use AI heavily, five occasionally, and five do not use it. What would you implement during your first three months?\n\n### Follow-up prompts\n\n- How would you establish a baseline?\n- Which use cases would you prioritize first?\n- How would you choose tools?\n- What guardrails would you introduce?\n- How would you share successful practices?\n- Would you create reusable prompts, workflows, agents, or templates?\n- How would you treat client data and source-code confidentiality?\n- How would you deal with engineers who are skeptical?\n- How would you scale successful experiments?\n\n### What to look for\n\nA strong answer should move beyond simply purchasing licenses or organizing training.\n\nA useful progression may look like:\n\n**baseline → experiments → high-value use cases → shared practices → guardrails → reusable workflows → metrics → scaling**"
+    },
+    {
+      "id": "part2_q8",
+      "part": 2,
+      "number": 8,
+      "title": "Measuring impact",
+      "type": "free_text",
+      "prompt": "How would you demonstrate to me after three months that AI has actually improved the QA organization?",
+      "options": [],
+      "guidance": "> How would you demonstrate to me after three months that AI has actually improved the QA organization?\n\n### Possible outcome areas\n\n- Cycle time\n- Automation throughput\n- Lead time from requirement to executable tests\n- Test-maintenance effort\n- Flaky-test resolution time\n- CI failure diagnosis time\n- Coverage of important risk areas\n- Escaped defects\n- Review effort\n- Release confidence\n- Cost per automated test or workflow\n- Engineer adoption\n- Rework caused by poor AI output\n\n### Key follow-up\n\n> Which metrics would you avoid because they measure AI activity rather than engineering value?\n\n### What to look for\n\nThe candidate should distinguish metrics such as **number of prompts** or **AI-generated lines of code** from actual engineering outcomes."
+    },
+    {
+      "id": "part3_q9",
+      "part": 3,
+      "number": 9,
+      "title": "How does QA change in the age of coding agents?",
+      "type": "free_text",
+      "prompt": "What has changed in software testing because of coding agents — not just generative AI — and what do you think a QA Lead needs to do differently over the next two years?",
+      "options": [],
+      "guidance": "> What has changed in software testing because of coding agents — not just generative AI — and what do you think a QA Lead needs to do differently over the next two years?\n\n### Areas worth exploring\n\n- AI increasingly generates production code as well as tests\n- Specifications become more important\n- Stronger acceptance criteria and invariants\n- Independent verification of AI-produced artefacts\n- Evaluation of generated code and tests\n- Risk-based testing\n- Automated test generation and maintenance\n- Agent permissions and guardrails\n- Observability and traceability\n- Human review at critical decision points\n- QA as an engineering discipline rather than a final testing phase\n\n### What to look for\n\nThe key distinction is whether the candidate still thinks mainly in terms of:\n\n**Human writes application → QA writes tests → AI helps write some test code**\n\nor is moving toward:\n\n**AI increasingly produces application and test artefacts → QA focuses more heavily on specifications, invariants, evaluation, risk, observability, and independent verification**"
+    }
+  ],
+  "scoring": [
+    {
+      "title": "Hands-on AI use",
+      "levels": [
+        "None",
+        "Occasional experimentation",
+        "Regular assistant use",
+        "Advanced repository-level use",
+        "Deep daily engineering use"
+      ]
+    },
+    {
+      "title": "AI in QA",
+      "levels": [
+        "None",
+        "Ad hoc experimentation",
+        "Generates tests/code",
+        "Used across several QA activities",
+        "Integrated across QA workflow"
+      ]
+    },
+    {
+      "title": "Agentic experience",
+      "levels": [
+        "None",
+        "Has heard of it",
+        "Understands the concept",
+        "Has experimented with execution loops",
+        "Uses bounded autonomous/iterative execution on real work"
+      ]
+    },
+    {
+      "title": "Engineering judgment",
+      "levels": [
+        "Trusts generated output",
+        "Limited validation",
+        "Reviews output",
+        "Uses clear validation and guardrails",
+        "Strong failure awareness, controls, escalation, and independent verification"
+      ]
+    },
+    {
+      "title": "Lead capability",
+      "levels": [
+        "Individual use only",
+        "Informal sharing",
+        "Can introduce team practices",
+        "Can define adoption framework and metrics",
+        "Can systematically transform a QA organization"
       ]
     }
   ],
-  "branches": {
-    "developer": {
-      "title": {
-        "en": "Developer Questions",
-        "ro": "Developer Questions"
-      },
-      "questions": [
-        {
-          "id": "d1",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How do you use AI for coding?",
-            "ro": "How do you use AI for coding?"
-          },
-          "options": [
-            {
-              "value": "not_used",
-              "label": {
-                "en": "Not used",
-                "ro": "Not used"
-              }
-            },
-            {
-              "value": "snippets_only",
-              "label": {
-                "en": "Snippets only",
-                "ro": "Snippets only"
-              }
-            },
-            {
-              "value": "functions_modules",
-              "label": {
-                "en": "Full functions or modules",
-                "ro": "Full functions or modules"
-              }
-            },
-            {
-              "value": "end_to_end_implementation",
-              "label": {
-                "en": "End-to-end implementation",
-                "ro": "End-to-end implementation"
-              }
-            }
-          ]
-        },
-        {
-          "id": "d2",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often does AI help you understand unfamiliar code?",
-            "ro": "How often does AI help you understand unfamiliar code?"
-          },
-          "options": [
-            {
-              "value": "never",
-              "label": {
-                "en": "Never",
-                "ro": "Never"
-              }
-            },
-            {
-              "value": "occasionally",
-              "label": {
-                "en": "Occasionally",
-                "ro": "Occasionally"
-              }
-            },
-            {
-              "value": "frequently",
-              "label": {
-                "en": "Frequently",
-                "ro": "Frequently"
-              }
-            },
-            {
-              "value": "systematically",
-              "label": {
-                "en": "Systematically",
-                "ro": "Systematically"
-              }
-            }
-          ]
-        },
-        {
-          "id": "d3",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How does AI support refactoring in your work?",
-            "ro": "How does AI support refactoring in your work?"
-          },
-          "options": [
-            {
-              "value": "not_used",
-              "label": {
-                "en": "Not used",
-                "ro": "Not used"
-              }
-            },
-            {
-              "value": "minor_edits",
-              "label": {
-                "en": "Minor edits",
-                "ro": "Minor edits"
-              }
-            },
-            {
-              "value": "significant_refactoring",
-              "label": {
-                "en": "Significant refactoring",
-                "ro": "Significant refactoring"
-              }
-            },
-            {
-              "value": "automated_refactoring_workflows",
-              "label": {
-                "en": "Automated refactoring workflows",
-                "ro": "Automated refactoring workflows"
-              }
-            }
-          ]
-        },
-        {
-          "id": "d4",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often do you use AI in code review?",
-            "ro": "How often do you use AI in code review?"
-          },
-          "options": [
-            {
-              "value": "not_used",
-              "label": {
-                "en": "Not used",
-                "ro": "Not used"
-              }
-            },
-            {
-              "value": "occasionally",
-              "label": {
-                "en": "Occasionally",
-                "ro": "Occasionally"
-              }
-            },
-            {
-              "value": "frequently",
-              "label": {
-                "en": "Frequently",
-                "ro": "Frequently"
-              }
-            },
-            {
-              "value": "systematic_pr_review",
-              "label": {
-                "en": "Systematic part of PR review",
-                "ro": "Systematic part of PR review"
-              }
-            }
-          ]
-        },
-        {
-          "id": "d5",
-          "type": "multi_select",
-          "required": true,
-          "label": {
-            "en": "What do you use AI for in code review?",
-            "ro": "What do you use AI for in code review?"
-          },
-          "options": [
-            {
-              "value": "detect_bugs",
-              "label": {
-                "en": "Detect bugs",
-                "ro": "Detect bugs"
-              }
-            },
-            {
-              "value": "suggest_improvements",
-              "label": {
-                "en": "Suggest improvements",
-                "ro": "Suggest improvements"
-              }
-            },
-            {
-              "value": "enforce_standards",
-              "label": {
-                "en": "Enforce standards",
-                "ro": "Enforce standards"
-              }
-            },
-            {
-              "value": "summarize_prs",
-              "label": {
-                "en": "Summarize PRs",
-                "ro": "Summarize PRs"
-              }
-            }
-          ]
-        },
-        {
-          "id": "d6",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often do you use AI to generate tests?",
-            "ro": "How often do you use AI to generate tests?"
-          },
-          "options": [
-            {
-              "value": "not_used",
-              "label": {
-                "en": "Not used",
-                "ro": "Not used"
-              }
-            },
-            {
-              "value": "occasionally",
-              "label": {
-                "en": "Occasionally",
-                "ro": "Occasionally"
-              }
-            },
-            {
-              "value": "frequently",
-              "label": {
-                "en": "Frequently",
-                "ro": "Frequently"
-              }
-            },
-            {
-              "value": "systematically",
-              "label": {
-                "en": "Systematically",
-                "ro": "Systematically"
-              }
-            }
-          ]
-        },
-        {
-          "id": "d7",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often does AI help you debug issues?",
-            "ro": "How often does AI help you debug issues?"
-          },
-          "options": [
-            {
-              "value": "not_used",
-              "label": {
-                "en": "Not used",
-                "ro": "Not used"
-              }
-            },
-            {
-              "value": "occasionally",
-              "label": {
-                "en": "Occasionally",
-                "ro": "Occasionally"
-              }
-            },
-            {
-              "value": "frequently",
-              "label": {
-                "en": "Frequently",
-                "ro": "Frequently"
-              }
-            },
-            {
-              "value": "first_reflex",
-              "label": {
-                "en": "It is my first reflex",
-                "ro": "It is my first reflex"
-              }
-            }
-          ]
-        },
-        {
-          "id": "d8",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How does AI help with CI/CD failures?",
-            "ro": "How does AI help with CI/CD failures?"
-          },
-          "options": [
-            {
-              "value": "not_used",
-              "label": {
-                "en": "Not used",
-                "ro": "Not used"
-              }
-            },
-            {
-              "value": "suggests_fixes",
-              "label": {
-                "en": "It suggests fixes",
-                "ro": "It suggests fixes"
-              }
-            },
-            {
-              "value": "frequently_used",
-              "label": {
-                "en": "Frequently used for diagnosis or resolution",
-                "ro": "Frequently used for diagnosis or resolution"
-              }
-            },
-            {
-              "value": "automatically_resolves",
-              "label": {
-                "en": "Automatically resolves some issues",
-                "ro": "Automatically resolves some issues"
-              }
-            }
-          ]
-        },
-        {
-          "id": "d9",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How are agents used in your development workflow?",
-            "ro": "How are agents used in your development workflow?"
-          },
-          "options": [
-            {
-              "value": "none",
-              "label": {
-                "en": "None",
-                "ro": "None"
-              }
-            },
-            {
-              "value": "experimental",
-              "label": {
-                "en": "Experimental only",
-                "ro": "Experimental only"
-              }
-            },
-            {
-              "value": "some_workflows",
-              "label": {
-                "en": "Used in some workflows",
-                "ro": "Used in some workflows"
-              }
-            },
-            {
-              "value": "core_workflow",
-              "label": {
-                "en": "Core part of the workflow",
-                "ro": "Core part of the workflow"
-              }
-            }
-          ]
-        },
-        {
-          "id": "d10",
-          "type": "multi_select",
-          "required": true,
-          "label": {
-            "en": "What can agents do in your development workflow?",
-            "ro": "What can agents do in your development workflow?"
-          },
-          "options": [
-            {
-              "value": "open_prs",
-              "label": {
-                "en": "Open PRs",
-                "ro": "Open PRs"
-              }
-            },
-            {
-              "value": "fix_bugs",
-              "label": {
-                "en": "Fix bugs",
-                "ro": "Fix bugs"
-              }
-            },
-            {
-              "value": "refactor_code",
-              "label": {
-                "en": "Refactor code",
-                "ro": "Refactor code"
-              }
-            },
-            {
-              "value": "update_dependencies",
-              "label": {
-                "en": "Update dependencies",
-                "ro": "Update dependencies"
-              }
-            },
-            {
-              "value": "maintain_documentation",
-              "label": {
-                "en": "Maintain documentation",
-                "ro": "Maintain documentation"
-              }
-            }
-          ]
-        },
-        {
-          "id": "d11",
-          "type": "multi_select",
-          "required": true,
-          "label": {
-            "en": "Which AI coding tools or developer assistants do you currently use?",
-            "ro": "Ce instrumente de codare cu IA sau asistenți pentru dezvoltatori folosești în prezent?"
-          },
-          "helperText": {
-            "en": "Please select the tools or products you use directly in your development workflow, not the underlying AI models.",
-            "ro": "Te rugăm să selectezi instrumentele sau produsele pe care le folosești direct în fluxul tău de dezvoltare, nu modelele IA care stau la bază."
-          },
-          "options": [
-            {
-              "value": "github_copilot_ide",
-              "label": {
-                "en": "GitHub Copilot (IDE)",
-                "ro": "GitHub Copilot (IDE)"
-              }
-            },
-            {
-              "value": "github_coding_agent_cloud",
-              "label": {
-                "en": "GitHub Coding Agent (Cloud Agent)",
-                "ro": "GitHub Coding Agent (Cloud Agent)"
-              }
-            },
-            {
-              "value": "github_code_review",
-              "label": {
-                "en": "GitHub Code Review",
-                "ro": "GitHub Code Review"
-              }
-            },
-            {
-              "value": "claude_code",
-              "label": {
-                "en": "Claude Code",
-                "ro": "Claude Code"
-              }
-            },
-            {
-              "value": "openai_codex",
-              "label": {
-                "en": "OpenAI Codex",
-                "ro": "OpenAI Codex"
-              }
-            },
-            {
-              "value": "cursor",
-              "label": {
-                "en": "Cursor",
-                "ro": "Cursor"
-              }
-            },
-            {
-              "value": "google_antigravity",
-              "label": {
-                "en": "Google Antigravity",
-                "ro": "Google Antigravity"
-              }
-            },
-            {
-              "value": "amazon_q_developer",
-              "label": {
-                "en": "Amazon Q Developer",
-                "ro": "Amazon Q Developer"
-              }
-            },
-            {
-              "value": "ibm_watsonx_code_assistant_z",
-              "label": {
-                "en": "IBM watsonx Code Assistant for Z",
-                "ro": "IBM watsonx Code Assistant for Z"
-              }
-            },
-            {
-              "value": "replit_ai",
-              "label": {
-                "en": "Replit AI",
-                "ro": "Replit AI"
-              }
-            },
-            {
-              "value": "v0_vercel",
-              "label": {
-                "en": "v0 by Vercel",
-                "ro": "v0 by Vercel"
-              }
-            },
-            {
-              "value": "jetbrains_ai_assistant",
-              "label": {
-                "en": "JetBrains AI Assistant",
-                "ro": "JetBrains AI Assistant"
-              }
-            },
-            {
-              "value": "tabnine",
-              "label": {
-                "en": "Tabnine",
-                "ro": "Tabnine"
-              }
-            },
-            {
-              "value": "mistral_code",
-              "label": {
-                "en": "Mistral Code",
-                "ro": "Mistral Code"
-              }
-            },
-            {
-              "value": "other_developer_ai_tools",
-              "label": {
-                "en": "Other developer AI tools",
-                "ro": "Alte instrumente IA pentru dezvoltare"
-              }
-            },
-            {
-              "value": "no_coding_agents",
-              "label": {
-                "en": "I don’t use coding agents",
-                "ro": "Nu folosesc agenți de codare"
-              }
-            }
-          ]
-        },
-        {
-          "id": "d12",
-          "type": "multi_select",
-          "required": true,
-          "label": {
-            "en": "How are these AI coding tools adopted in your environment?",
-            "ro": "Cum sunt adoptate aceste instrumente de codare cu IA în mediul tău?"
-          },
-          "options": [
-            {
-              "value": "personally_chosen",
-              "label": {
-                "en": "Some are chosen individually",
-                "ro": "Unele sunt alese individual"
-              }
-            },
-            {
-              "value": "informal_team_use",
-              "label": {
-                "en": "Some are used informally within the team",
-                "ro": "Unele sunt folosite informal în cadrul echipei"
-              }
-            },
-            {
-              "value": "team_or_project_standard",
-              "label": {
-                "en": "Some are standardized at team or project level",
-                "ro": "Unele sunt standardizate la nivel de echipă sau proiect"
-              }
-            },
-            {
-              "value": "client_mandated",
-              "label": {
-                "en": "Some are mandated by the client",
-                "ro": "Unele sunt impuse de client"
-              }
-            },
-            {
-              "value": "company_standard",
-              "label": {
-                "en": "Some are standardized at company level",
-                "ro": "Unele sunt standardizate la nivelul companiei"
-              }
-            },
-            {
-              "value": "trial_experimental",
-              "label": {
-                "en": "Some are still in trial or experimental use",
-                "ro": "Unele sunt încă în fază de test sau utilizare experimentală"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    "qa_testing_quality": {
-      "title": {
-        "en": "QA Automation / Testing / Release Quality Questions",
-        "ro": "Întrebări QA Automation / Testare / Calitatea release-ului"
-      },
-      "questions": [
-        {
-          "id": "branch2_toolbox",
-          "type": "multi_select",
-          "required": true,
-          "label": {
-            "en": "Which QA automation and testing tools are part of your current day-to-day toolbox?",
-            "ro": "Ce instrumente de automatizare QA și testare fac parte din setul vostru de instrumente folosit zi de zi?"
-          },
-          "helperText": {
-            "en": "Select all that apply",
-            "ro": "Selectați toate variantele care se aplică"
-          },
-          "options": [
-            {
-              "value": "playwright",
-              "label": {
-                "en": "Playwright",
-                "ro": "Playwright"
-              }
-            },
-            {
-              "value": "cypress",
-              "label": {
-                "en": "Cypress",
-                "ro": "Cypress"
-              }
-            },
-            {
-              "value": "selenium_webdriver",
-              "label": {
-                "en": "Selenium WebDriver",
-                "ro": "Selenium WebDriver"
-              }
-            },
-            {
-              "value": "appium",
-              "label": {
-                "en": "Appium",
-                "ro": "Appium"
-              }
-            },
-            {
-              "value": "postman",
-              "label": {
-                "en": "Postman",
-                "ro": "Postman"
-              }
-            },
-            {
-              "value": "rest_assured",
-              "label": {
-                "en": "REST Assured",
-                "ro": "REST Assured"
-              }
-            },
-            {
-              "value": "soapui",
-              "label": {
-                "en": "SoapUI",
-                "ro": "SoapUI"
-              }
-            },
-            {
-              "value": "junit",
-              "label": {
-                "en": "JUnit",
-                "ro": "JUnit"
-              }
-            },
-            {
-              "value": "testng",
-              "label": {
-                "en": "TestNG",
-                "ro": "TestNG"
-              }
-            },
-            {
-              "value": "pytest",
-              "label": {
-                "en": "PyTest",
-                "ro": "PyTest"
-              }
-            },
-            {
-              "value": "mocha",
-              "label": {
-                "en": "Mocha",
-                "ro": "Mocha"
-              }
-            },
-            {
-              "value": "jest",
-              "label": {
-                "en": "Jest",
-                "ro": "Jest"
-              }
-            },
-            {
-              "value": "cucumber",
-              "label": {
-                "en": "Cucumber",
-                "ro": "Cucumber"
-              }
-            },
-            {
-              "value": "jenkins",
-              "label": {
-                "en": "Jenkins",
-                "ro": "Jenkins"
-              }
-            },
-            {
-              "value": "github_actions",
-              "label": {
-                "en": "GitHub Actions",
-                "ro": "GitHub Actions"
-              }
-            },
-            {
-              "value": "gitlab_ci",
-              "label": {
-                "en": "GitLab CI",
-                "ro": "GitLab CI"
-              }
-            },
-            {
-              "value": "circleci",
-              "label": {
-                "en": "CircleCI",
-                "ro": "CircleCI"
-              }
-            },
-            {
-              "value": "docker",
-              "label": {
-                "en": "Docker",
-                "ro": "Docker"
-              }
-            },
-            {
-              "value": "browserstack",
-              "label": {
-                "en": "BrowserStack",
-                "ro": "BrowserStack"
-              }
-            },
-            {
-              "value": "sauce_labs",
-              "label": {
-                "en": "Sauce Labs",
-                "ro": "Sauce Labs"
-              }
-            },
-            {
-              "value": "aws_device_farm",
-              "label": {
-                "en": "AWS Device Farm",
-                "ro": "AWS Device Farm"
-              }
-            },
-            {
-              "value": "applitools",
-              "label": {
-                "en": "Applitools",
-                "ro": "Applitools"
-              }
-            },
-            {
-              "value": "percy",
-              "label": {
-                "en": "Percy",
-                "ro": "Percy"
-              }
-            },
-            {
-              "value": "backstopjs",
-              "label": {
-                "en": "BackstopJS",
-                "ro": "BackstopJS"
-              }
-            },
-            {
-              "value": "jmeter",
-              "label": {
-                "en": "JMeter",
-                "ro": "JMeter"
-              }
-            },
-            {
-              "value": "k6",
-              "label": {
-                "en": "k6",
-                "ro": "k6"
-              }
-            },
-            {
-              "value": "gatling",
-              "label": {
-                "en": "Gatling",
-                "ro": "Gatling"
-              }
-            },
-            {
-              "value": "tricentis_neoload",
-              "label": {
-                "en": "Tricentis NeoLoad",
-                "ro": "Tricentis NeoLoad"
-              }
-            },
-            {
-              "value": "katalon",
-              "label": {
-                "en": "Katalon",
-                "ro": "Katalon"
-              }
-            },
-            {
-              "value": "testsigma",
-              "label": {
-                "en": "Testsigma",
-                "ro": "Testsigma"
-              }
-            },
-            {
-              "value": "accelq",
-              "label": {
-                "en": "ACCELQ",
-                "ro": "ACCELQ"
-              }
-            },
-            {
-              "value": "mabl",
-              "label": {
-                "en": "mabl",
-                "ro": "mabl"
-              }
-            },
-            {
-              "value": "tricentis_tosca",
-              "label": {
-                "en": "Tricentis Tosca",
-                "ro": "Tricentis Tosca"
-              }
-            },
-            {
-              "value": "uipath_test_suite_cloud",
-              "label": {
-                "en": "UiPath Test Suite / Test Cloud",
-                "ro": "UiPath Test Suite / Test Cloud"
-              }
-            },
-            {
-              "value": "other_qa_automation_testing_tools",
-              "label": {
-                "en": "Other QA automation / testing tools",
-                "ro": "Alte instrumente de automatizare QA / testare"
-              }
-            },
-            {
-              "value": "do_not_work_directly_with_tools",
-              "label": {
-                "en": "I do not work directly with these tools",
-                "ro": "Nu lucrez direct cu aceste instrumente"
-              }
-            }
-          ]
-        },
-        {
-          "id": "branch2_ai_tools",
-          "type": "multi_select",
-          "required": true,
-          "label": {
-            "en": "Which AI-enabled tools or platforms do you currently use in your QA automation workflow?",
-            "ro": "Ce instrumente sau platforme cu capabilități AI folosiți în prezent în fluxul vostru de automatizare QA?"
-          },
-          "helperText": {
-            "en": "Select all that apply",
-            "ro": "Selectați toate variantele care se aplică"
-          },
-          "options": [
-            {
-              "value": "github_copilot",
-              "label": {
-                "en": "GitHub Copilot",
-                "ro": "GitHub Copilot"
-              }
-            },
-            {
-              "value": "github_copilot_workspace_coding_agent",
-              "label": {
-                "en": "GitHub Copilot Workspace / Coding Agent",
-                "ro": "GitHub Copilot Workspace / Coding Agent"
-              }
-            },
-            {
-              "value": "claude_claude_code",
-              "label": {
-                "en": "Claude / Claude Code",
-                "ro": "Claude / Claude Code"
-              }
-            },
-            {
-              "value": "openai_chatgpt_codex",
-              "label": {
-                "en": "OpenAI / ChatGPT / Codex",
-                "ro": "OpenAI / ChatGPT / Codex"
-              }
-            },
-            {
-              "value": "cursor",
-              "label": {
-                "en": "Cursor",
-                "ro": "Cursor"
-              }
-            },
-            {
-              "value": "katalon_ai_features",
-              "label": {
-                "en": "Katalon AI features",
-                "ro": "Funcționalități AI Katalon"
-              }
-            },
-            {
-              "value": "testsigma_ai_features",
-              "label": {
-                "en": "Testsigma AI features",
-                "ro": "Funcționalități AI Testsigma"
-              }
-            },
-            {
-              "value": "accelq_ai_features",
-              "label": {
-                "en": "ACCELQ AI features",
-                "ro": "Funcționalități AI ACCELQ"
-              }
-            },
-            {
-              "value": "mabl_ai_features",
-              "label": {
-                "en": "mabl AI features",
-                "ro": "Funcționalități AI mabl"
-              }
-            },
-            {
-              "value": "tricentis_tosca_ai_capabilities",
-              "label": {
-                "en": "Tricentis Tosca AI capabilities",
-                "ro": "Capabilități AI Tricentis Tosca"
-              }
-            },
-            {
-              "value": "uipath_ai_autopilot_testing",
-              "label": {
-                "en": "UiPath AI / Autopilot for testing",
-                "ro": "UiPath AI / Autopilot for testing"
-              }
-            },
-            {
-              "value": "applitools_visual_ai",
-              "label": {
-                "en": "Applitools Visual AI",
-                "ro": "Applitools Visual AI"
-              }
-            },
-            {
-              "value": "kaneai_testmu_ai",
-              "label": {
-                "en": "KaneAI / TestMu AI",
-                "ro": "KaneAI / TestMu AI"
-              }
-            },
-            {
-              "value": "browserstack_ai_features",
-              "label": {
-                "en": "BrowserStack AI features",
-                "ro": "Funcționalități AI BrowserStack"
-              }
-            },
-            {
-              "value": "other_ai_tools_for_qa_automation",
-              "label": {
-                "en": "Other AI tools used for QA automation",
-                "ro": "Alte instrumente AI folosite pentru automatizare QA"
-              }
-            },
-            {
-              "value": "do_not_use_ai_tools_in_qa_workflow",
-              "label": {
-                "en": "I do not currently use AI tools in my QA workflow",
-                "ro": "În prezent nu folosesc instrumente AI în fluxul meu QA"
-              }
-            }
-          ]
-        },
-        {
-          "id": "branch2_ai_usage_modes",
-          "type": "multi_select",
-          "required": true,
-          "maxSelections": 3,
-          "label": {
-            "en": "How are these AI tools most commonly used in your QA automation workflow today?",
-            "ro": "Cum sunt folosite cel mai des aceste instrumente AI astăzi în fluxul vostru de automatizare QA?"
-          },
-          "helperText": {
-            "en": "Select up to 3",
-            "ro": "Selectați maximum 3 variante"
-          },
-          "options": [
-            {
-              "value": "requirements_to_test_scenarios",
-              "label": {
-                "en": "Turn requirements or acceptance criteria into test scenarios",
-                "ro": "Transformarea cerințelor sau criteriilor de acceptare în scenarii de test"
-              }
-            },
-            {
-              "value": "generate_test_code",
-              "label": {
-                "en": "Generate test code",
-                "ro": "Generarea de cod de test"
-              }
-            },
-            {
-              "value": "update_or_maintain_tests",
-              "label": {
-                "en": "Update or maintain existing automated tests",
-                "ro": "Actualizarea sau mentenanța testelor automate existente"
-              }
-            },
-            {
-              "value": "diagnose_flaky_tests",
-              "label": {
-                "en": "Diagnose flaky tests",
-                "ro": "Diagnosticarea testelor instabile (flaky)"
-              }
-            },
-            {
-              "value": "analyze_cicd_test_failures",
-              "label": {
-                "en": "Analyze CI/CD test failures",
-                "ro": "Analiza eșecurilor de teste din CI/CD"
-              }
-            },
-            {
-              "value": "identify_coverage_gaps_or_edge_cases",
-              "label": {
-                "en": "Identify missing coverage or edge cases",
-                "ro": "Identificarea lipsurilor de acoperire sau a cazurilor limită"
-              }
-            },
-            {
-              "value": "summarize_test_results_or_quality_reports",
-              "label": {
-                "en": "Summarize test results or quality reports",
-                "ro": "Rezumarea rezultatelor testelor sau a rapoartelor de calitate"
-              }
-            },
-            {
-              "value": "support_release_readiness_or_quality_gates",
-              "label": {
-                "en": "Support release readiness or quality gate decisions",
-                "ro": "Sprijin pentru deciziile de release readiness sau quality gates"
-              }
-            },
-            {
-              "value": "bounded_generate_test_fix_rerun_loops",
-              "label": {
-                "en": "Run bounded generate-test-fix-rerun loops",
-                "ro": "Rularea unor bucle controlate de tip generează-testează-corectează-rulează din nou"
-              }
-            },
-            {
-              "value": "experimentation_only",
-              "label": {
-                "en": "Experimentation only, not part of the real workflow",
-                "ro": "Doar experimentare, fără integrare în fluxul real de lucru"
-              }
-            },
-            {
-              "value": "do_not_use_ai_in_qa_automation",
-              "label": {
-                "en": "I do not currently use AI in QA automation",
-                "ro": "În prezent nu folosesc AI în automatizarea QA"
-              }
-            }
-          ]
-        },
-        {
-          "id": "branch2_req_to_tests_frequency",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "When working from requirements, user stories, or acceptance criteria, how often do you use AI to turn them into executable test scenarios or test cases?",
-            "ro": "Când porniți de la cerințe, user stories sau criterii de acceptare, cât de des folosiți AI pentru a le transforma în scenarii de test executabile sau cazuri de test?"
-          },
-          "options": [
-            {
-              "value": "never",
-              "label": {
-                "en": "Never",
-                "ro": "Niciodată"
-              }
-            },
-            {
-              "value": "rarely",
-              "label": {
-                "en": "Rarely",
-                "ro": "Rar"
-              }
-            },
-            {
-              "value": "sometimes",
-              "label": {
-                "en": "Sometimes",
-                "ro": "Uneori"
-              }
-            },
-            {
-              "value": "often",
-              "label": {
-                "en": "Often",
-                "ro": "Des"
-              }
-            },
-            {
-              "value": "almost_always",
-              "label": {
-                "en": "Almost always",
-                "ro": "Aproape întotdeauna"
-              }
-            }
-          ]
-        },
-        {
-          "id": "branch2_test_generation_frequency",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "When adding or expanding automated coverage, how often do you use AI to generate or draft test code (UI, API, or integration tests)?",
-            "ro": "Când adăugați sau extindeți acoperirea automată, cât de des folosiți AI pentru a genera sau redacta cod de test (UI, API sau teste de integrare)?"
-          },
-          "options": [
-            {
-              "value": "never",
-              "label": {
-                "en": "Never",
-                "ro": "Niciodată"
-              }
-            },
-            {
-              "value": "rarely",
-              "label": {
-                "en": "Rarely",
-                "ro": "Rar"
-              }
-            },
-            {
-              "value": "sometimes",
-              "label": {
-                "en": "Sometimes",
-                "ro": "Uneori"
-              }
-            },
-            {
-              "value": "often",
-              "label": {
-                "en": "Often",
-                "ro": "Des"
-              }
-            },
-            {
-              "value": "almost_always",
-              "label": {
-                "en": "Almost always",
-                "ro": "Aproape întotdeauna"
-              }
-            }
-          ]
-        },
-        {
-          "id": "branch2_test_maintenance_frequency",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often do you use AI to maintain existing automated tests (for example: updating selectors, adjusting assertions, adapting to UI/API changes, or refactoring brittle tests)?",
-            "ro": "Cât de des folosiți AI pentru mentenanța testelor automate existente (de exemplu: actualizarea selectorilor, ajustarea aserțiunilor, adaptarea la schimbări UI/API sau refactorizarea testelor fragile)?"
-          },
-          "options": [
-            {
-              "value": "never",
-              "label": {
-                "en": "Never",
-                "ro": "Niciodată"
-              }
-            },
-            {
-              "value": "rarely",
-              "label": {
-                "en": "Rarely",
-                "ro": "Rar"
-              }
-            },
-            {
-              "value": "sometimes",
-              "label": {
-                "en": "Sometimes",
-                "ro": "Uneori"
-              }
-            },
-            {
-              "value": "often",
-              "label": {
-                "en": "Often",
-                "ro": "Des"
-              }
-            },
-            {
-              "value": "almost_always",
-              "label": {
-                "en": "Almost always",
-                "ro": "Aproape întotdeauna"
-              }
-            }
-          ]
-        },
-        {
-          "id": "branch2_flaky_diagnosis_frequency",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "When a test becomes flaky or unstable, how often do you use AI to help diagnose the cause and propose a fix?",
-            "ro": "Când un test devine instabil (flaky), cât de des folosiți AI pentru a ajuta la diagnosticarea cauzei și la propunerea unei remedieri?"
-          },
-          "options": [
-            {
-              "value": "never",
-              "label": {
-                "en": "Never",
-                "ro": "Niciodată"
-              }
-            },
-            {
-              "value": "rarely",
-              "label": {
-                "en": "Rarely",
-                "ro": "Rar"
-              }
-            },
-            {
-              "value": "sometimes",
-              "label": {
-                "en": "Sometimes",
-                "ro": "Uneori"
-              }
-            },
-            {
-              "value": "often",
-              "label": {
-                "en": "Often",
-                "ro": "Des"
-              }
-            },
-            {
-              "value": "almost_always",
-              "label": {
-                "en": "Almost always",
-                "ro": "Aproape întotdeauna"
-              }
-            }
-          ]
-        },
-        {
-          "id": "branch2_coverage_gaps_frequency",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often do you use AI to identify missing coverage, edge cases, or risk areas that are not yet covered by your automated test suites?",
-            "ro": "Cât de des folosiți AI pentru a identifica lipsuri de acoperire, cazuri limită sau zone de risc care nu sunt încă acoperite de suitele voastre de teste automate?"
-          },
-          "options": [
-            {
-              "value": "never",
-              "label": {
-                "en": "Never",
-                "ro": "Niciodată"
-              }
-            },
-            {
-              "value": "rarely",
-              "label": {
-                "en": "Rarely",
-                "ro": "Rar"
-              }
-            },
-            {
-              "value": "sometimes",
-              "label": {
-                "en": "Sometimes",
-                "ro": "Uneori"
-              }
-            },
-            {
-              "value": "often",
-              "label": {
-                "en": "Often",
-                "ro": "Des"
-              }
-            },
-            {
-              "value": "almost_always",
-              "label": {
-                "en": "Almost always",
-                "ro": "Aproape întotdeauna"
-              }
-            }
-          ]
-        },
-        {
-          "id": "branch2_agentic_loop_frequency",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often do you use AI in an iterative loop for bounded QA tasks (for example: generate or update a test, run it, inspect failures, revise, and rerun until green or escalation)?",
-            "ro": "Cât de des folosiți AI într-o buclă iterativă pentru sarcini QA bine delimitate (de exemplu: generați sau actualizați un test, îl rulați, inspectați eșecurile, revizuiți și rulați din nou până ajunge verde sau este nevoie de escaladare)?"
-          },
-          "options": [
-            {
-              "value": "never",
-              "label": {
-                "en": "Never",
-                "ro": "Niciodată"
-              }
-            },
-            {
-              "value": "rarely",
-              "label": {
-                "en": "Rarely",
-                "ro": "Rar"
-              }
-            },
-            {
-              "value": "sometimes",
-              "label": {
-                "en": "Sometimes",
-                "ro": "Uneori"
-              }
-            },
-            {
-              "value": "often",
-              "label": {
-                "en": "Often",
-                "ro": "Des"
-              }
-            },
-            {
-              "value": "almost_always",
-              "label": {
-                "en": "Almost always",
-                "ro": "Aproape întotdeauna"
-              }
-            }
-          ]
-        },
-        {
-          "id": "branch2_release_readiness_frequency",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "When preparing a release or evaluating quality gates, how often do you use AI to summarize test outcomes, highlight regressions or risks, and support readiness decisions?",
-            "ro": "Atunci când pregătiți un release sau evaluați quality gates, cât de des folosiți AI pentru a rezuma rezultatele testelor, a evidenția regresiile sau riscurile și a sprijini deciziile de readiness?"
-          },
-          "options": [
-            {
-              "value": "never",
-              "label": {
-                "en": "Never",
-                "ro": "Niciodată"
-              }
-            },
-            {
-              "value": "rarely",
-              "label": {
-                "en": "Rarely",
-                "ro": "Rar"
-              }
-            },
-            {
-              "value": "sometimes",
-              "label": {
-                "en": "Sometimes",
-                "ro": "Uneori"
-              }
-            },
-            {
-              "value": "often",
-              "label": {
-                "en": "Often",
-                "ro": "Des"
-              }
-            },
-            {
-              "value": "almost_always",
-              "label": {
-                "en": "Almost always",
-                "ro": "Aproape întotdeauna"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    "project_product_business_analysis_operations": {
-      "title": {
-        "en": "Project / Product / Business Analysis / Operations Questions",
-        "ro": "Project / Product / Business Analysis / Operations Questions"
-      },
-      "questions": [
-        {
-          "id": "ppo1",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often do you use AI to help with requirements or user stories?",
-            "ro": "How often do you use AI to help with requirements or user stories?"
-          },
-          "options": [
-            {
-              "value": "not_used",
-              "label": {
-                "en": "Not used",
-                "ro": "Not used"
-              }
-            },
-            {
-              "value": "occasionally",
-              "label": {
-                "en": "Occasionally",
-                "ro": "Occasionally"
-              }
-            },
-            {
-              "value": "frequently",
-              "label": {
-                "en": "Frequently",
-                "ro": "Frequently"
-              }
-            },
-            {
-              "value": "systematically",
-              "label": {
-                "en": "Systematically",
-                "ro": "Systematically"
-              }
-            }
-          ]
-        },
-        {
-          "id": "ppo2",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often does AI support planning or task breakdown?",
-            "ro": "How often does AI support planning or task breakdown?"
-          },
-          "options": [
-            {
-              "value": "not_used",
-              "label": {
-                "en": "Not used",
-                "ro": "Not used"
-              }
-            },
-            {
-              "value": "occasionally",
-              "label": {
-                "en": "Occasionally",
-                "ro": "Occasionally"
-              }
-            },
-            {
-              "value": "frequently",
-              "label": {
-                "en": "Frequently",
-                "ro": "Frequently"
-              }
-            },
-            {
-              "value": "systematically",
-              "label": {
-                "en": "Systematically",
-                "ro": "Systematically"
-              }
-            }
-          ]
-        },
-        {
-          "id": "ppo3",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often does AI help summarize team activity?",
-            "ro": "How often does AI help summarize team activity?"
-          },
-          "options": [
-            {
-              "value": "not_used",
-              "label": {
-                "en": "Not used",
-                "ro": "Not used"
-              }
-            },
-            {
-              "value": "occasionally",
-              "label": {
-                "en": "Occasionally",
-                "ro": "Occasionally"
-              }
-            },
-            {
-              "value": "frequently",
-              "label": {
-                "en": "Frequently",
-                "ro": "Frequently"
-              }
-            },
-            {
-              "value": "systematically",
-              "label": {
-                "en": "Systematically",
-                "ro": "Systematically"
-              }
-            }
-          ]
-        },
-        {
-          "id": "ppo4",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often does AI help generate reports or status updates?",
-            "ro": "How often does AI help generate reports or status updates?"
-          },
-          "options": [
-            {
-              "value": "not_used",
-              "label": {
-                "en": "Not used",
-                "ro": "Not used"
-              }
-            },
-            {
-              "value": "occasionally",
-              "label": {
-                "en": "Occasionally",
-                "ro": "Occasionally"
-              }
-            },
-            {
-              "value": "frequently",
-              "label": {
-                "en": "Frequently",
-                "ro": "Frequently"
-              }
-            },
-            {
-              "value": "systematically",
-              "label": {
-                "en": "Systematically",
-                "ro": "Systematically"
-              }
-            }
-          ]
-        },
-        {
-          "id": "ppo5",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often does AI help identify risks or delays?",
-            "ro": "How often does AI help identify risks or delays?"
-          },
-          "options": [
-            {
-              "value": "not_used",
-              "label": {
-                "en": "Not used",
-                "ro": "Not used"
-              }
-            },
-            {
-              "value": "occasionally",
-              "label": {
-                "en": "Occasionally",
-                "ro": "Occasionally"
-              }
-            },
-            {
-              "value": "frequently",
-              "label": {
-                "en": "Frequently",
-                "ro": "Frequently"
-              }
-            },
-            {
-              "value": "systematically",
-              "label": {
-                "en": "Systematically",
-                "ro": "Systematically"
-              }
-            }
-          ]
-        },
-        {
-          "id": "ppo6",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often does AI help prioritize work or backlog items?",
-            "ro": "How often does AI help prioritize work or backlog items?"
-          },
-          "options": [
-            {
-              "value": "not_used",
-              "label": {
-                "en": "Not used",
-                "ro": "Not used"
-              }
-            },
-            {
-              "value": "occasionally",
-              "label": {
-                "en": "Occasionally",
-                "ro": "Occasionally"
-              }
-            },
-            {
-              "value": "frequently",
-              "label": {
-                "en": "Frequently",
-                "ro": "Frequently"
-              }
-            },
-            {
-              "value": "systematically",
-              "label": {
-                "en": "Systematically",
-                "ro": "Systematically"
-              }
-            }
-          ]
-        },
-        {
-          "id": "ppo7",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often does AI help maintain project or technical documentation?",
-            "ro": "How often does AI help maintain project or technical documentation?"
-          },
-          "options": [
-            {
-              "value": "not_used",
-              "label": {
-                "en": "Not used",
-                "ro": "Not used"
-              }
-            },
-            {
-              "value": "occasionally",
-              "label": {
-                "en": "Occasionally",
-                "ro": "Occasionally"
-              }
-            },
-            {
-              "value": "frequently",
-              "label": {
-                "en": "Frequently",
-                "ro": "Frequently"
-              }
-            },
-            {
-              "value": "systematically",
-              "label": {
-                "en": "Systematically",
-                "ro": "Systematically"
-              }
-            }
-          ]
-        },
-        {
-          "id": "ppo8",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often does AI help analyze incidents or production issues?",
-            "ro": "How often does AI help analyze incidents or production issues?"
-          },
-          "options": [
-            {
-              "value": "not_used",
-              "label": {
-                "en": "Not used",
-                "ro": "Not used"
-              }
-            },
-            {
-              "value": "occasionally",
-              "label": {
-                "en": "Occasionally",
-                "ro": "Occasionally"
-              }
-            },
-            {
-              "value": "frequently",
-              "label": {
-                "en": "Frequently",
-                "ro": "Frequently"
-              }
-            },
-            {
-              "value": "systematically",
-              "label": {
-                "en": "Systematically",
-                "ro": "Systematically"
-              }
-            }
-          ]
-        },
-        {
-          "id": "ppo9",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How often does AI help interpret logs, metrics, or alerts?",
-            "ro": "How often does AI help interpret logs, metrics, or alerts?"
-          },
-          "options": [
-            {
-              "value": "not_used",
-              "label": {
-                "en": "Not used",
-                "ro": "Not used"
-              }
-            },
-            {
-              "value": "occasionally",
-              "label": {
-                "en": "Occasionally",
-                "ro": "Occasionally"
-              }
-            },
-            {
-              "value": "frequently",
-              "label": {
-                "en": "Frequently",
-                "ro": "Frequently"
-              }
-            },
-            {
-              "value": "systematically",
-              "label": {
-                "en": "Systematically",
-                "ro": "Systematically"
-              }
-            }
-          ]
-        },
-        {
-          "id": "ppo10",
-          "type": "multi_select",
-          "required": true,
-          "label": {
-            "en": "How is AI used in your project / product / operations workflow?",
-            "ro": "How is AI used in your project / product / operations workflow?"
-          },
-          "options": [
-            {
-              "value": "automate_reporting",
-              "label": {
-                "en": "Automate reporting",
-                "ro": "Automate reporting"
-              }
-            },
-            {
-              "value": "suggest_actions",
-              "label": {
-                "en": "Suggest actions",
-                "ro": "Suggest actions"
-              }
-            },
-            {
-              "value": "assist_incident_response",
-              "label": {
-                "en": "Assist incident response",
-                "ro": "Assist incident response"
-              }
-            },
-            {
-              "value": "improve_workflows",
-              "label": {
-                "en": "Improve workflows",
-                "ro": "Improve workflows"
-              }
-            }
-          ]
-        },
-        {
-          "id": "ppo11",
-          "type": "multi_select",
-          "required": true,
-          "label": {
-            "en": "Which project / product / operations AI solutions do you currently use?",
-            "ro": "Which project / product / operations AI solutions do you currently use?"
-          },
-          "options": [
-            {
-              "value": "jira_rovo",
-              "label": {
-                "en": "Jira + Rovo",
-                "ro": "Jira + Rovo"
-              }
-            },
-            {
-              "value": "jira_service_management_ai",
-              "label": {
-                "en": "Jira Service Management AI / Rovo",
-                "ro": "Jira Service Management AI / Rovo"
-              }
-            },
-            {
-              "value": "servicenow_now_assist",
-              "label": {
-                "en": "ServiceNow Now Assist",
-                "ro": "ServiceNow Now Assist"
-              }
-            },
-            {
-              "value": "servicenow_ai_agents",
-              "label": {
-                "en": "ServiceNow AI Agents",
-                "ro": "ServiceNow AI Agents"
-              }
-            },
-            {
-              "value": "asana_ai",
-              "label": {
-                "en": "Asana AI",
-                "ro": "Asana AI"
-              }
-            },
-            {
-              "value": "microsoft_copilot_m365",
-              "label": {
-                "en": "Microsoft Copilot for Microsoft 365",
-                "ro": "Microsoft Copilot for Microsoft 365"
-              }
-            },
-            {
-              "value": "other_project_ops_ai_tools",
-              "label": {
-                "en": "Other project / ops AI tools",
-                "ro": "Other project / ops AI tools"
-              }
-            },
-            {
-              "value": "no_specific_project_ops_tool",
-              "label": {
-                "en": "No specific project / ops AI tool",
-                "ro": "No specific project / ops AI tool"
-              }
-            }
-          ]
-        },
-        {
-          "id": "ppo12",
-          "type": "single_choice",
-          "required": true,
-          "label": {
-            "en": "How are these project / product / operations AI tools provided in your environment?",
-            "ro": "How are these project / product / operations AI tools provided in your environment?"
-          },
-          "options": [
-            {
-              "value": "personally_chosen",
-              "label": {
-                "en": "Personally chosen / informal",
-                "ro": "Personally chosen / informal"
-              }
-            },
-            {
-              "value": "team_standard",
-              "label": {
-                "en": "Team-standard tool",
-                "ro": "Team-standard tool"
-              }
-            },
-            {
-              "value": "client_mandated",
-              "label": {
-                "en": "Client-mandated tool",
-                "ro": "Client-mandated tool"
-              }
-            },
-            {
-              "value": "enterprise_standard",
-              "label": {
-                "en": "Enterprise-standard tool",
-                "ro": "Enterprise-standard tool"
-              }
-            },
-            {
-              "value": "trial_experimental",
-              "label": {
-                "en": "Trial / experimental only",
-                "ro": "Trial / experimental only"
-              }
-            }
-          ]
-        }
-      ]
-    }
-  },
-  "finalOptionalComment": {
-    "id": "comment1",
-    "type": "free_text",
-    "required": false,
-    "label": {
-      "en": "Any additional comments or tools to mention? (optional)",
-      "ro": "Comentarii suplimentare sau instrumente de menționat? (opțional)"
-    },
-    "placeholder": {
-      "en": "Share anything else you think is useful",
-      "ro": "Împărtășește orice alt lucru pe care îl consideri util"
-    }
-  }
+  "summaries": [
+    "Strongest evidence of real AI experience",
+    "Main gaps or concerns",
+    "Evidence of agentic engineering experience",
+    "Evidence of QA leadership in an AI-enabled environment",
+    "Overall notes"
+  ],
+  "interpretations": [
+    "0-5: Traditional QA leader with little AI exposure",
+    "6-10: AI-aware QA engineer / lead",
+    "11-15: Strong AI-assisted QA practitioner",
+    "16-20: AI-native / agentic QA lead"
+  ]
 }
