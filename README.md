@@ -1,11 +1,11 @@
-# Agentic SDLC Diagnostic (Branching Survey, EN/FR/RO/PT)
+# Digiterre / Ascendion | Agentic SDLC Diagnostic (EN/RO)
 
-Static React survey with role-based branching and multilingual UI (English, French, Romanian, Portuguese).
+Digiterre / Ascendion survey with role-based branching and a bilingual UI (English and Romanian).
 
 ## Structure
 
-- 11 shared core required questions
-- 12 role-specific required questions from one selected branch:
+- 13 shared core required questions
+- 10 QA or 12 other role-specific required questions from one selected branch:
   - Developer
   - QA / Testing / Quality
   - Project / Product / Business Analysis / Operations
@@ -13,7 +13,7 @@ Static React survey with role-based branching and multilingual UI (English, Fren
 
 ## Key features
 
-- 4-language selector (`EN | FR | RO | PT`) at top-right
+- 2-language selector (`EN | RO`) at top-right; saved French or Portuguese drafts reopen in English
 - Role-selection question includes clearer examples, helper text, and multilingual tooltip (hover/click desktop, tap mobile)
 - Instant language switch for labels/questions/options without resetting answers
 - Stable answer values (language-independent keys)
